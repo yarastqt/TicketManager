@@ -1,0 +1,37 @@
+.elevator
+    position: fixed
+    right: 20px
+    bottom: 30px
+    width: 56px
+    height: 56px
+    background-color: $color-blue
+    cursor: pointer
+    box-shadow: 0 4px 10px -2px rgba($color-base, .5)
+    border-radius: 50%
+    z-index: 100
+    opacity: 0
+    transition: 200ms ease-in-out
+    transform: translate3d(0, 100%, 0)
+    visibility: hidden
+    pointer-events: none
+
+    &_visible
+        opacity: 1
+        visibility: visible
+        transform: translate3d(0, 0, 0)
+        pointer-events: all
+
+    &:before
+        content: ''
+        background-image: url('data:image/svg+xml;utf8,<svg fill="#fff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>')
+        width: 24px
+        height: 24px
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        margin: auto
+
+    &:focus, &:hover
+        background-color: $color-blue-hovered

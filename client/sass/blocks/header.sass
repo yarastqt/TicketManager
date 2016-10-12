@@ -1,0 +1,130 @@
+.header
+    position: fixed
+    left: 0
+    right: 0
+    top: 0
+    z-index: 200
+    height: 60px
+    background-color: #fff
+    border-bottom: 1px solid $color-gray
+
+    &__in
+        position: relative
+        min-width: 320px
+        padding: 0 20px
+        height: 100%
+        display: flex
+        justify-content: space-between
+        align-items: center
+
+    &__menu-toggle
+        width: 46px
+        height: 46px
+        display: flex
+        align-items: center
+        justify-content: center
+        cursor: pointer
+        opacity: .5
+        transition: 200ms ease-in-out
+
+        &:hover
+            opacity: 1
+
+    &__logo
+        background-image: url(/assets/i/logo.svg)
+        background-size: 100%
+        background-repeat: no-repeat
+        width: 140px
+        height: 48px
+        position: absolute
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        margin: auto
+
+    &__user
+        position: relative
+        display: flex
+        align-items: center
+        padding: 2px 2px 2px 24px
+        border-radius: 23px
+        cursor: pointer
+        user-select: none
+        transition: 200ms ease-in-out
+
+        &_active, &:hover
+            background-color: rgba($color-gray, .25)
+
+        &_active
+            .header__popup
+                opacity: 1
+                visibility: visible
+                transform: translate3d(0, 0, 0)                
+
+    &__user-meta
+        margin-right: 1.4rem
+
+    &__user-name
+        font-size: 1.2rem
+        line-height: 1.8rem
+
+    &__user-role
+        font-size: 1rem
+        line-height: 1.5rem
+        color: rgba($color-base, .75)
+
+    &__user-avatar
+        width: 42px
+        height: 42px
+        border-radius: 50%
+        overflow: hidden
+        position: relative
+
+        .image
+            width: 100%
+            height: 100%
+
+    &__popup
+        cursor: default
+        position: absolute
+        z-index: 100
+        padding: 8px 0
+        background-color: #fff
+        border: 1px solid rgba($color-gray, .5)
+        // border: 1px solid $color-gray
+        border-radius: 2px
+        box-shadow: 0 2px 10px -2px rgba(#000, .2)
+        right: 23px
+        top: 48px
+        min-width: 112px
+        visibility: hidden
+        opacity: 0
+        transition: 200ms ease-in-out
+        transform: translate3d(0, 10px, 0)
+
+        &_visible
+            opacity: 1
+            visibility: visible
+            transform: translate3d(0, 0, 0)
+
+    &__popup-link
+        font-size: 1.2rem
+        text-decoration: none
+        color: $color-base
+        display: block
+        transition: 280ms $transition-function
+        user-select: none
+        line-height: 3.2rem
+        padding: 0 24px
+
+        &:hover
+            // background-color: #fafafa
+            background-color: rgba($color-gray, .25)
+
+    &__popup-separator
+        background-color: rgba($color-gray, .5)
+        // background-color: $color-gray
+        width: 100%
+        height: 1px
+        margin: 7px 0 8px

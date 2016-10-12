@@ -1,0 +1,50 @@
+*
+    -webkit-tap-highlight-color: transparent
+
+*, *:after, *:before
+    margin: 0
+    padding: 0
+    moz-box-sizing: border-box
+    -webkit-box-sizing: border-box
+    box-sizing: border-box
+
+:focus
+    outline: 0
+
+::selection
+    background-color: #0069ff
+    color: #fff
+    text-shadow: none
+
+html, body
+    font: 10px/1.5 'Roboto', Arial, sans-serif
+    // height: 100%
+
+.page
+    color: #4b606b
+    background-color: #fcfcfd
+    text-rendering: optimizeLegibility
+    -webkit-font-smoothing: subpixel-antialiased
+    -moz-font-smoothing: subpixel-antialiased
+    -o-font-smoothing: subpixel-antialiased
+
+.main
+    padding-top: 60px
+    min-width: 320px
+    position: relative
+    // display: flex
+    // flex-direction: column
+    // height: 100vh
+    animation: main 400ms ease-in-out
+
+    &__in
+        padding-top: 20px
+        display: flex
+        justify-content: center
+
+%in
+    max-width: 1280px
+    height: 100%
+    padding: 0 20px
+    position: relative
+    margin: 0 auto

@@ -1,0 +1,4 @@
+.DS_Store
+.gulp
+*.log
+node_modules

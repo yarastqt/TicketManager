@@ -1,0 +1,190 @@
+.table
+    border-radius: 2px
+    border: 1px solid rgba($color-gray, .5)
+
+    &__header, &__row
+        display: flex
+        padding: 12px 14px
+
+    &__header
+        font-size: 1.4rem
+        background-color: #fafafa
+        color: rgba($color-base, .74)
+        border-bottom: 1px solid rgba($color-gray, .5)
+        user-select: none
+        cursor: default
+
+    &__row
+        font-size: 1.4rem
+        background-color: #fff
+        min-height: 55px
+        position: relative
+        transition: 280ms $transition-function
+
+        & + &
+            border-top: 1px solid rgba($color-gray, .5)
+
+        &:before
+            content: ''
+            right: 100%
+            top: 0
+            bottom: 0
+            width: 3px
+            background-color: $color-blue
+            position: absolute
+            transition: 200ms ease-in-out
+            opacity: 0
+            visibility: hidden
+
+        &:hover
+            background-color: #fafafa
+
+            &:before
+                opacity: 1
+                visibility: visible
+
+            .table__row-actions
+                opacity: 1
+                visibility: visible
+                pointer-events: all
+
+    &__row-actions
+        position: absolute
+        width: 92px
+        padding: 0 10px
+        height: 100%
+        right: 24px
+        top: 0
+        display: flex
+        align-items: center
+        justify-content: space-between
+        background-color: #fafafa
+        opacity: 0
+        visibility: hidden
+        transition: 200ms ease-in-out
+        pointer-events: none
+
+    &__row-action
+        cursor: pointer
+        width: 24px
+        height: 24px
+        display: flex
+        align-items: center
+        justify-content: center
+
+    &__row-cell, &__header-cell
+        padding: 0 10px
+        flex: 0 0 auto
+
+    &__row-cell
+        display: flex
+        align-items: center
+
+        .image
+            width: 32px
+            height: 32px
+            margin-right: 1.4rem
+
+    &__header-cell span + .icon
+        margin-left: 6px
+
+    // &__action
+    //     opacity: 0.2
+    //     margin-right: 1.4rem
+    //     transition: 200ms ease-in-out
+    //     position: relative
+    //     z-index: 100
+    //     width: 34px
+    //     height: 34px
+    //     display: flex
+    //     justify-content: center
+    //     align-items: center
+
+    //     &:last-child
+    //         margin-right: 0
+
+    //     &:before
+    //         content: attr(data-tooltip)
+    //         position: absolute
+    //         z-index: 100
+    //         right: 50%
+    //         background-color: rgba($color-black, .9)
+    //         color: #fff
+    //         top: 100%
+    //         border-radius: 2px
+    //         text-align: center
+    //         font-size: 1rem
+    //         // padding: 6px 10px
+    //         padding: 0 8px
+    //         height: 22px
+    //         pointer-events: none
+    //         text-transform: uppercase
+    //         transform: translate3d(50%, 10px, 0)
+    //         transition: 200ms ease-in-out
+    //         opacity: 0
+    //         visibility: hidden
+    //         // margin-top: 14px // guidline
+
+    //     &:hover
+    //         &:before
+    //             opacity: 1
+    //             visibility: visible
+    //             transform: translate3d(50%, 0, 0)
+
+    &__pagination
+        color: rgba($color-base, .74)
+        font-size: 1.2rem
+        height: 56px
+        background-color: #fff
+        display: flex
+        align-items: center
+        justify-content: flex-end
+        padding: 0 24px
+        border-top: 1px solid rgba($color-gray, .5)
+
+    &__pagination-rows
+        display: flex
+        align-items: center
+
+    &__pagination-select
+        margin-left: 25px
+        position: relative
+
+        &:after
+            content: ''
+            width: 24px
+            height: 24px
+            background-image: url(/assets/i/icons/arrow-dropdown.svg)
+            position: absolute
+            right: 0
+            top: 0
+            bottom: 0
+            margin: auto
+            pointer-events: none
+
+    &__pagination-select-control
+        cursor: pointer
+        height: 24px
+        background-color: #fff
+        color: rgba($color-base, .74)
+        border: none
+        appearance: none
+        border-radius: 0
+        font-size: 1.2rem
+        padding-right: 25px
+
+    &__pagination-counter
+        margin-left: 32px
+
+    &__pagination-controls
+        width: 72px
+        display: flex
+        justify-content: space-between
+        margin-left: 32px
+
+    &__pagination-control
+        cursor: pointer
+
+        &_disabled
+            cursor: default
+            opacity: .5

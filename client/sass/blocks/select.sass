@@ -1,0 +1,32 @@
+.select
+    position: relative
+
+    &:before
+        content: ''
+        position: absolute
+        right: 12px
+        top: 0
+        bottom: 0
+        width: 20px
+        height: 20px
+        background-image: url(/assets/i/icons/arrow-down.svg)
+        background-repeat: no-repeat
+        background-size: 100%
+        margin: auto
+
+    &__control
+        appearance: none
+        border-radius: 2px
+        background-color: #fcfcfc
+        border: 1px solid #e0e0e0
+        height: 38px
+        padding: 0 36px 0 12px
+        font: inherit
+        font-size: 1.4rem
+        transition: 200ms ease-in-out
+        color: $color-base
+        width: 100%
+
+        &:focus
+            border-color: $color-blue
+            background-color: #fff

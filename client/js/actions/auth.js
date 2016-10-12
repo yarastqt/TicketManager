@@ -1,0 +1,80 @@
+import jwtDecode from 'jwt-decode';
+
+import types from '../constants';
+import { push } from 'react-router-redux';
+import { http, setToken, getToken, delToken } from '../utils';
+import { showNotification } from '../actions/notifications';
+
+export function login(data, redirectAfterLogin) {
+    return (dispatch) => {
+        dispatch({ type: types.LOGIN_REQUEST });
+        http.post('/auth/login', data)
+            .then((token) => {
+                setToken(token);
+                const user = jwtDecode(token);
+                dispatch(loginSuccess(user));
+                dispatch(push(redirectAfterLogin));
+            })
+            .catch((error) => {
+                error.response.json().then((error) => {
+                    dispatch(showNotification({
+                        message: error.message
+                    }));
+                });
+            });
+    };
+}
+
+export function loadUserProfile() {
+    return (dispatch) => {
+        try {
+            const token = getToken();
+            const user = jwtDecode(token);
+            const now = new Date().getTime() / 1000;
+
+            if (user.exp < now) {
+                dispatch(logOut());
+            } else {
+                dispatch(loginSuccess(user))
+            }
+        } catch (e) {
+            dispatch(logOut());
+        }
+    };
+}
+
+export function register(data) {
+    return (dispatch) => {
+        http.post('/auth/register', data)
+            .then((data) => {
+                console.log('obj');
+                dispatch(showNotification({
+                    message: 'Регистрация прошла успешно. Ожидайте подтверждения администратора'
+                }));
+            })
+            .catch((error) => {
+                error.response.json().then((error) => {
+                    dispatch(showNotification({
+                        message: error.message
+                    }));
+                });
+            });
+    };
+}
+
+export function logOut() {
+    return (dispatch) => {
+        delToken();
+        dispatch({ type: types.LOGOUT_SUCCESS });
+        dispatch(push('/auth/login'));
+    };
+}
+
+function loginSuccess(user) {
+    return {
+        type: types.LOGIN_SUCCES,
+        payload: {
+            user
+        }
+    };
+}

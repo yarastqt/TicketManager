@@ -1,0 +1,30 @@
+.content
+    transition: 200ms ease-in-out
+    transform: translate3d(0, 0, 0)
+    padding-left: 87px
+
+    &_expanded
+        padding-left: 220px
+
+    &__in
+        position: relative
+        min-width: 320px
+        // min-height: 100%
+        min-height: calc(100vh - 98px)
+        padding: 30px 20px
+
+    &__header
+        display: flex
+        justify-content: space-between
+
+    &__heading
+        font-size: 2.4rem
+        margin-bottom: 2.4rem
+
+.footer
+    text-align: center
+    padding-bottom: 20px
+
+    &__developer
+        font-size: 1.2rem
+        color: rgba($color-base, .5)

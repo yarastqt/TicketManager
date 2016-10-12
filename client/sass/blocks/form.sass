@@ -1,0 +1,44 @@
+.form
+    max-width: 600px
+    // margin: 0 auto
+
+    &__group
+        margin-bottom: 14px
+        display: flex
+        justify-content: space-between
+
+        .form__field
+            flex-basis: 48%
+            margin-bottom: 0
+
+    &__field
+        margin-bottom: 14px
+
+        &:last-child
+            margin-bottom: 0
+
+        &_focused
+            .form__field-label
+                color: $color-blue
+
+        &-label
+            // font-size: 1.4rem
+            font-size: 1.2rem
+            display: inline-block
+            margin-bottom: 4px
+
+            // &_focused
+                // color: $c-blue
+
+    &__actions
+        display: flex
+        align-items: center
+        justify-content: flex-end
+        // flex-direction: row-reverse
+
+        .button + .button,
+        .button + .checkbox
+            margin-left: 4%
+
+        &_between
+            justify-content: space-between
