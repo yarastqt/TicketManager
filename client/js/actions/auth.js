@@ -2,7 +2,7 @@ import jwtDecode from 'jwt-decode';
 
 import types from '../constants';
 import { push } from 'react-router-redux';
-import { http, setToken, getToken, delToken } from '../utils';
+import { http } from '../utils';
 import { showNotification } from '../actions/notifications';
 
 export function login(data, redirectAfterLogin) {
@@ -10,8 +10,8 @@ export function login(data, redirectAfterLogin) {
         dispatch({ type: types.LOGIN_REQUEST });
         http.post('/auth/login', data)
             .then((token) => {
-                setToken(token);
                 const user = jwtDecode(token);
+                localStorage.setItem('token', token);
                 dispatch(loginSuccess(user));
                 dispatch(push(redirectAfterLogin));
             })
@@ -31,7 +31,7 @@ export function loadUserProfile() {
 
         if (!session.user) {
             try {
-                const token = getToken();
+                const token = localStorage.getItem('token');
                 const user = jwtDecode(token);
                 const now = new Date().getTime() / 1000;
 
@@ -68,7 +68,7 @@ export function register(data) {
 
 export function logOut() {
     return (dispatch) => {
-        delToken();
+        localStorage.removeItem('token');
         dispatch({ type: types.LOGOUT_SUCCESS });
         dispatch(push('/auth/login'));
     };

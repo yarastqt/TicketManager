@@ -1,4 +1,10 @@
-export default function createReducer(actionHandlersWrapper, initialState) {
+/**
+ * Create reducer util
+ * @param <Function>
+ * @param <Any> initial state
+ * @return <Any> action handler or state
+ */
+export default (actionHandlersWrapper, initialState) => {
     return (state = initialState, action) => {
         const actionHandlers = actionHandlersWrapper(state, action.payload);
 
@@ -8,4 +14,4 @@ export default function createReducer(actionHandlersWrapper, initialState) {
 
         return state;
     };
-}
+};
