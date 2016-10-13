@@ -1,22 +1,20 @@
+import { createReducer } from '../utils';
 import types from '../constants';
 
 /**
  * Notifications reducer
- * @param <Object> state
- * @param <Object> action
+ * @param <Object> initial state
+ * @param <Object> actions
  * @return <Object> new state
  */
-export default (state = [], action) => {
-    switch (action.type) {
-        case types.NOTIFICATION_SHOW:
-            return [ ...state, action.payload ];
+export default createReducer((state, payload) => ({
+    [types.NOTIFICATION_SHOW]() {
+        return [ ...state, payload ];
+    },
 
-        case types.NOTIFICATION_HIDE:
-            return state.filter((notification) => {
-                return notification.id !== action.payload.id;
-            });
-
-        default:
-            return state;
+    [types.NOTIFICATION_HIDE]() {
+        return state.filter((notification) =>
+            notification.id !== payload.id
+        );
     }
-};
+}), []);

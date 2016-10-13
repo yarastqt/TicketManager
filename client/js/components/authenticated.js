@@ -16,7 +16,6 @@ function requireAuthentication(ComposedComponent) {
 
         checkAuthenticated() {
             const { user, authenticated, dispatch, location } = this.props;
-
             if (!user && authenticated) {
                 dispatch(loadUserProfile());
             } else if (!authenticated) {

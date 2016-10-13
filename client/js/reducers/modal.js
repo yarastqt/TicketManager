@@ -1,3 +1,4 @@
+import { createReducer } from '../utils';
 import types from '../constants';
 
 const initialState = {
@@ -8,19 +9,16 @@ const initialState = {
 
 /**
  * Modal reducer
- * @param <Object> state
- * @param <Object> action
+ * @param <Object> initial state
+ * @param <Object> actions
  * @return <Object> new state
  */
-export default (state = initialState, action) => {
-    switch (action.type) {
-        case types.MODAL_SHOW:
-            return { visible: true, view: action.payload.view, props: action.payload.props };
+export default createReducer((state, payload) => ({
+    [types.MODAL_SHOW]() {
+        return { visible: true, view: payload.view, props: payload.props };
+    },
 
-        case types.MODAL_HIDE:
-            return initialState;
-
-        default:
-            return state;
+    [types.MODAL_HIDE]() {
+        return initialState;
     }
-};
+}), initialState);

@@ -1,3 +1,4 @@
+import { createReducer } from '../utils';
 import types from '../constants';
 
 const initialState = {
@@ -7,22 +8,20 @@ const initialState = {
 
 /**
  * Session reducer
- * @param <Object> state
- * @param <Object> action
+ * @param <Object> initial state
+ * @param <Object> actions
  * @return <Object> new state
  */
-export default (state = initialState, action) => {
-    switch (action.type) {
-        case types.LOGIN_REQUEST:
-            return { authenticated: false, user: null };
+export default createReducer((state, payload) => ({
+    [types.LOGIN_REQUEST]() {
+        return { authenticated: false, user: null };
+    },
 
-        case types.LOGIN_SUCCES:
-            return { authenticated: true, user: action.payload.user };
+    [types.LOGIN_SUCCES]() {
+        return { authenticated: true, user: payload.user };
+    },
 
-        case types.LOGOUT_SUCCESS:
-            return { authenticated: false, user: null };
-
-        default:
-            return state;
+    [types.LOGOUT_SUCCESS]() {
+        return { authenticated: false, user: null };
     }
-};
+}), initialState);

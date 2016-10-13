@@ -26,19 +26,23 @@ export function login(data, redirectAfterLogin) {
 }
 
 export function loadUserProfile() {
-    return (dispatch) => {
-        try {
-            const token = getToken();
-            const user = jwtDecode(token);
-            const now = new Date().getTime() / 1000;
+    return (dispatch, getState) => {
+        const { session } = getState();
 
-            if (user.exp < now) {
+        if (!session.user) {
+            try {
+                const token = getToken();
+                const user = jwtDecode(token);
+                const now = new Date().getTime() / 1000;
+
+                if (user.exp < now) {
+                    dispatch(logOut());
+                } else {
+                    dispatch(loginSuccess(user))
+                }
+            } catch (e) {
                 dispatch(logOut());
-            } else {
-                dispatch(loginSuccess(user))
             }
-        } catch (e) {
-            dispatch(logOut());
         }
     };
 }

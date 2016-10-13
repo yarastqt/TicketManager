@@ -1,6 +1,12 @@
 import React from 'react';
 import 'isomorphic-fetch';
 
+import createReducer from './createReducer';
+
+export {
+    createReducer
+};
+
 export const http = {
     apiURL: 'http://localhost:3001/api/v1',
 

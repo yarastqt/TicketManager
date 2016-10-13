@@ -1,3 +1,4 @@
+import { createReducer } from '../utils';
 import types from '../constants';
 
 const initialState = {
@@ -15,51 +16,52 @@ const initialState = {
 
 /**
  * Users reducer
- * @param <Object> state
- * @param <Object> action
+ * @param <Object> initial state
+ * @param <Object> actions
  * @return <Object> new state
  */
-export default (state = initialState, action) => {
-    switch (action.type) {
-        case types.USERS_REQUEST:
-            return { ...state, fetching: true };
+export default createReducer((state, payload) => ({
+    [types.USERS_REQUEST]() {
+        return { ...state, fetching: true };
+    },
 
-        case types.USERS_SUCCESS:
-            return { ...state, list: action.payload, fetching: false };
+    [types.USERS_SUCCESS]() {
+        return { ...state, list: payload, fetching: false };
+    },
 
-        case types.USER_UPDATE_SUCCESS:
-            const list1 = state.list.map((user) => {
-                if (user.id === action.payload.id) {
-                    return Object.assign({}, user, action.payload);
-                }
-
-                return user;
-            });
-
-            return { ...state, list: list1 };
-
-        case types.USER_REMOVE_SUCCESS:
-            const list2 = state.list.filter((user) => {
-                return user.id !== action.payload.id;
-            });
-
-            return { ...state, list: list2 };
-
-        case types.TOGGLE_TABLE_SORT:
-            if (action.payload.tableName === 'users') {
-                if (action.payload.sortKey === state.sort.key) {
-                    return { ...state, sort: { ...state.sort, desc: !state.sort.desc } };
-                }
-
-                return { ...state, sort: { key: action.payload.sortKey, desc: false } };
+    [types.USER_UPDATE_SUCCESS]() {
+        const list = state.list.map((user) => {
+            if (user.id === payload.id) {
+                return Object.assign({}, user, payload);
             }
 
-            return state;
+            return user;
+        });
 
-        case types.CHANGE_TABLE_ROWS:
-            return { ...state, rowsPerPage: action.payload.rowsPerPage };
+        return { ...state, list };
+    },
 
-        default:
-            return state;
+    [types.USER_REMOVE_SUCCESS]() {
+        const list = state.list.filter((user) =>
+            user.id !== payload.id
+        );
+
+        return { ...state, list: list };
+    },
+
+    [types.TOGGLE_TABLE_SORT]() {
+        if (payload.tableName === 'users') {
+            if (payload.sortKey === state.sort.key) {
+                return { ...state, sort: { ...state.sort, desc: !state.sort.desc } };
+            }
+
+            return { ...state, sort: { key: payload.sortKey, desc: false } };
+        }
+
+        return state;
+    },
+
+    [types.CHANGE_TABLE_ROWS]() {
+        return { ...state, rowsPerPage: payload.rowsPerPage };
     }
-};
+}), initialState);

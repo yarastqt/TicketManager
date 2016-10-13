@@ -1,3 +1,4 @@
+import { createReducer } from '../utils';
 import types from '../constants';
 
 const initialState = localStorage.getItem('sidebar')
@@ -6,16 +7,12 @@ const initialState = localStorage.getItem('sidebar')
 
 /**
  * Sidebar reducer
- * @param <Object> state
- * @param <Object> action
+ * @param <Object> initial state
+ * @param <Object> actions
  * @return <Object> new state
  */
-export default (state = initialState, action) => {
-    switch (action.type) {
-        case types.SIDEBAR_TOGGLE:
-            return !state;
-
-        default:
-            return state;
+export default createReducer((state, payload) => ({
+    [types.SIDEBAR_TOGGLE]() {
+        return !state;
     }
-};
+}), initialState);
