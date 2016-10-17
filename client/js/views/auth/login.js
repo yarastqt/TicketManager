@@ -3,18 +3,25 @@ import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 
 import { getFormData } from '../../utils';
-import { Input, Button } from '../../components/common/form';
-import { login } from '../../actions/auth';
+import { Input, Button } from '../../components/ui';
+import { AuthActions } from '../../actions';
+
+const { login } = AuthActions;
 
 class LoginView extends Component {
-    handleSubmit(event) {
+    constructor() {
+        super();
+        this.login = this.login.bind(this);
+    }
+
+    login(event) {
         event.preventDefault();
         const data = getFormData(this.refs.form);
         const redirectAfterLogin =
             this.props.location.state && this.props.location.state.next || '/';
 
         if (data.password && data.email) {
-            this.props.dispatch(login(data, redirectAfterLogin));
+            this.props.login(data, redirectAfterLogin);
         }
     }
 
@@ -23,7 +30,7 @@ class LoginView extends Component {
             <DocumentTitle title="Авторизация">
                 <div className="sign-container__in">
                     <div className="sign-container__title">Авторизация</div>
-                    <form className="form" ref="form" onSubmit={ this.handleSubmit.bind(this) }>
+                    <form className="form" ref="form" onSubmit={ this.login }>
                         <Input type="email" name="email" label="E-Mail" required autofocus />
                         <Input type="password" name="password" label="Пароль" required />
                         <div className="form__actions">
@@ -36,4 +43,7 @@ class LoginView extends Component {
     }
 }
 
-export default connect((state) => ({}))(LoginView);
+export default connect(
+    (state) => ({}),
+    { login }
+)(LoginView);

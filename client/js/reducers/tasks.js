@@ -3,23 +3,9 @@ import types from '../constants';
 
 const initialState = {
     list: [],
-    fetching: true,
-    rowsPerPage: 25,
-    sort: {
-        key: 'id',
-        desc: true
-    },
-    filters: {
-
-    }
+    fetching: true
 };
 
-/**
- * Tasks reducer
- * @param <Object> initial state
- * @param <Object> actions
- * @return <Object> new state
- */
 export default createReducer((state, payload) => ({
     [types.TASKS_REQUEST]() {
         return { ...state, fetching: true };
@@ -51,21 +37,5 @@ export default createReducer((state, payload) => ({
         );
 
         return { ...state, list };
-    },
-
-    [types.TOGGLE_TABLE_SORT]() {
-        if (payload.tableName === 'tasks') {
-            if (payload.sortKey === state.sort.key) {
-                return { ...state, sort: { ...state.sort, desc: !state.sort.desc } };
-            }
-
-            return { ...state, sort: { key: payload.sortKey, desc: false } };
-        }
-
-        return state;
-    },
-
-    [types.CHANGE_TABLE_ROWS]() {
-        return { ...state, rowsPerPage: payload.rowsPerPage };
     }
 }), initialState);

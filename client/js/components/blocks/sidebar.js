@@ -7,7 +7,7 @@ class Sidebar extends Component {
         return this.props.menu.map(({ url, name, icon }, index) => {
             return (
                 <div className="sidebar-menu__item" key={ index }>
-                    <Link to={ url } className="sidebar-menu__link" activeClassName="sidebar-menu__link_active" title={ name } onlyActiveOnIndex>
+                    <Link to={ url } className="sidebar-menu__link" activeClassName="sidebar-menu__link_active" title={ name }>
                         <i className={ `icon icon_${ icon }` }></i>
                         <span className="sidebar-menu__text">{ name }</span>
                     </Link>

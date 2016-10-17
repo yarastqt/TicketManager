@@ -2,16 +2,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { getFormData } from '../../utils';
-import { Input, Select, Textarea, Button } from '../../components/common/form';
-import { addTask } from '../../actions/tasks';
+import { Input, Select, Textarea, Button } from '../../components/ui';
+import { TasksActions } from '../../actions';
+
+const { addTask } = TasksActions;
 
 class TasksNewModal extends Component {
-    handleSubmit(event) {
+    constructor() {
+        super();
+        this.addTask = this.addTask.bind(this);
+    }
+
+    addTask(event) {
         event.preventDefault();
         const data = getFormData(this.refs.form);
 
         if (data.name && data.source && data.taskType) {
-            this.props.dispatch(addTask(data));
+            this.props.addTask(data);
         }
     }
 
@@ -19,7 +26,7 @@ class TasksNewModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Новая заявка</div>
-                <form className="form" ref="form" onSubmit={ this.handleSubmit.bind(this) }>
+                <form className="form" ref="form" onSubmit={ this.addTask }>
                     <Input type="text" name="name" label="Имя (ФИО / Компания)" required autofocus />
                     <div className="form__group">
                         <Input type="date" name="date" label="Дата" />
@@ -46,4 +53,7 @@ class TasksNewModal extends Component {
     }
 }
 
-export default connect(() => ({}))(TasksNewModal);
+export default connect(
+    (state) => ({}),
+    { addTask }
+)(TasksNewModal);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
+import classnames from 'classnames';
 
 class ProgressBar extends Component {
     state = {
@@ -7,26 +7,27 @@ class ProgressBar extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.location.pathname !== nextProps.location.pathname) {
-            this.setState({ active: false });
+        // if (this.props.location.pathname !== nextProps.location.pathname) {
+        //     this.setState({ active: false });
 
-            setTimeout(() => this.setState({ active: true }));
+        //     setTimeout(() => this.setState({ active: true }));
 
-            this.refs.progress.addEventListener('animationend', () => {
-                this.setState({
-                    active: false
-                });
-            });
-        }
+        //     this.refs.progress.addEventListener('animationend', () => {
+        //         this.setState({
+        //             active: false
+        //         });
+        //     });
+        // }
     }
 
     render() {
-        const progressClassName = classNames('progress', {
+        const progressClasses = classnames('progress', {
             'progress_active': this.state.active
+            // 'progress_active': true
         });
 
         return (
-            <div className={ progressClassName } ref="progress">
+            <div className={ progressClasses } ref="progress">
                 <div className="progress__line"></div>
             </div>
         );

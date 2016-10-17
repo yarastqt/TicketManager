@@ -6,12 +6,6 @@ const initialState = {
     user: null
 };
 
-/**
- * Session reducer
- * @param <Object> initial state
- * @param <Object> actions
- * @return <Object> new state
- */
 export default createReducer((state, payload) => ({
     [types.LOGIN_REQUEST]() {
         return { authenticated: false, user: null };

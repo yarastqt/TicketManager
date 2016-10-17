@@ -1,10 +1,20 @@
 import http from './http';
-import createReducer from './createReducer';
+import createReducer from './reducer';
 
 export {
     http,
     createReducer
 };
+
+export function getRange(total, page, rows) {
+    const start = rows * (page - 1) + 1;
+    const end = Math.min(page * rows, total);
+
+    return {
+        start,
+        end
+    };
+}
 
 export const getFormData = (form) => {
     return [].reduce.call(

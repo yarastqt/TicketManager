@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getFormData } from '../../utils';
-import { Input, Select, Textarea, Button } from '../../components/common/form';
-import { updateTask } from '../../actions/tasks';
 import { getTaskById } from '../../selectors/tasks';
+import { getFormData } from '../../utils';
+import { Input, Select, Textarea, Button } from '../../components/ui';
+import { TasksActions } from '../../actions';
+
+const { updateTask } = TasksActions;
 
 class TaskModal extends Component {
-    updateTask(id, event) {
-        event.preventDefault();
+    constructor() {
+        super();
+        this.updateTask = this.updateTask.bin(this);
+    }
 
-        const data = getFormData(this.refs.form);
+    updateTask(id) {
+        return (event) => {
+            event.preventDefault();
+            const data = getFormData(this.refs.form);
 
-        if (data.name && data.source && data.taskType) {
-            this.props.dispatch(updateTask(id, data));
-        }
+            if (data.name && data.source && data.taskType) {
+                this.props.updateTask(id, data);
+            }
+        };
     }
 
     render() {
@@ -24,7 +32,7 @@ class TaskModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Редактировать заявку</div>
-                <form className="form" ref="form" onSubmit={ this.updateTask.bind(this, id) }>
+                <form className="form" ref="form" onSubmit={ this.updateTask(id) }>
                     <Input type="text" name="name" label="Имя (ФИО / Компания)" value={ name } autofocus />
                     <div className="form__group">
                         <Input type="date" name="date" label="Дата" value={ date } />
@@ -57,6 +65,9 @@ class TaskModal extends Component {
     }
 }
 
-export default connect((state, props) => ({
-    task: getTaskById(state.tasks.list, props.taskId)
-}))(TaskModal);
+export default connect(
+    (state, props) => ({
+        task: getTaskById(state.tasks.list, props.taskId)
+    }),
+    { updateTask }
+)(TaskModal);

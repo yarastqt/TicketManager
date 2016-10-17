@@ -1,34 +1,28 @@
 import { push } from 'react-router-redux';
-
 import types from '../constants';
 
-function toggleTableSort(sortKey, tableName) {
+export function changeSort(key, table) {
     return {
-        type: types.TOGGLE_TABLE_SORT,
+        type: types.CHANGE_TABLE_SORT,
         payload: {
-            sortKey,
-            tableName
+            key,
+            table
         }
     };
 }
 
-function changeTableRows(rowsPerPage) {
+export function changeRows(rows, table) {
     return {
         type: types.CHANGE_TABLE_ROWS,
         payload: {
-            rowsPerPage
+            rows,
+            table
         }
     };
 }
 
-function paginateTable(page) {
+export function changePage(page) {
     return (dispatch) => {
         dispatch(push(page));
     };
 }
-
-export {
-    toggleTableSort,
-    changeTableRows,
-    paginateTable
-};

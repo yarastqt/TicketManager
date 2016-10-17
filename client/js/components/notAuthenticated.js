@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
+/**
+ * Wrapper for login component
+ * if user is authorized then redirect to home
+ * @param <Object> component for wrapping
+ * @return <Object> wrapped component
+ */
 function requireNotAuthentication(ComposedComponent) {
     class NotAuthenticatedComponent extends Component {
         componentWillMount() {
@@ -9,7 +15,7 @@ function requireNotAuthentication(ComposedComponent) {
         }
 
         checkAuthenticated() {
-            const { user, authenticated, dispatch } = this.props;
+            const { authenticated, dispatch } = this.props;
 
             if (authenticated) {
                 dispatch(push('/'));
@@ -22,7 +28,6 @@ function requireNotAuthentication(ComposedComponent) {
     }
 
     return connect((state) => ({
-        user: state.session.user,
         authenticated: state.session.authenticated
     }))(NotAuthenticatedComponent);
 }

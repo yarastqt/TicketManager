@@ -3,75 +3,86 @@ import { connect } from 'react-redux';
 
 import { i18n } from '../../utils';
 import Content from '../../components/blocks/content';
-import Loader from '../../components/common/loader';
-import { Table, TableHeader } from '../../components/common/table';
-import { showModal } from '../../actions/modal';
-import { removeUser } from '../../actions/users';
+import Loader from '../../components/blocks/loader';
+import { Table, TableColumn, TableHeader } from '../../components/ui';
+import { UsersActions, ModalActions } from '../../actions';
+
+const { getAllUsers } = UsersActions;
+const { showModal } = ModalActions;
+
+function AvatarCell({ value, width }) {
+    return (
+        <div className="table__row-cell" style={{ width: `${width}%` }}>
+            <img className="image" src={ value } />
+        </div>
+    );
+}
+
+function StatusCell({ value, width }) {
+    return (
+        <div className="table__row-cell" style={{ width: `${width}%` }}>
+            {
+                value
+                    ? <span className="status-failure">Заблокирован</span>
+                    : <span className="status-done">Активен</span>
+            }
+        </div>
+    );
+}
 
 class UsersView extends Component {
-    showUserModal(userId) {
-        this.props.dispatch(showModal('user', { userId }));
+    componentWillMount() {
+        this.props.getAllUsers();
     }
 
-    removeUser(userId) {
-        if (confirm('Вы действительно хотите удалить пользователя?')) {
-            this.props.dispatch(removeUser(userId));
-        }
-    }
+    // showUserModal(userId) {
+    //     this.props.dispatch(showModal('user', { userId }));
+    // }
 
-    renderList(data) {
-        return data.map((user) => {
-            return (
-                <div className="table__row" key={ user.id }>
-                    <div className="table__row-cell" style={ { width: '30%' } }>
-                        <img className="image" src={ user.avatar } />
-                        <span>{ user.username }</span>
-                    </div>
-                    <div className="table__row-cell" style={ { width: '30%' } }>{ user.email }</div>
-                    <div className="table__row-cell" style={ { width: '20%' } }>{ i18n('roles', user.role) }</div>
-                    <div className="table__row-cell" style={ { width: '20%' } }>
-                        {
-                            user.blocked
-                                ? <span className="status-failure">Заблокирован</span>
-                                : <span className="status-done">Активен</span>
-                        }
-                    </div>
-                    <div className="table__row-actions">
-                        <div className="table__row-action" onClick={ this.showUserModal.bind(this, user.id) }>
-                            <i className="icon icon_edit" />
-                        </div>
-                        <div className="table__row-action" onClick={ this.removeUser.bind(this, user.id) }>
-                            <i className="icon icon_delete" />
-                        </div>
-                    </div>
-                </div>
-            );
-        });
-    }
+    // removeUser(userId) {
+    //     if (confirm('Вы действительно хотите удалить пользователя?')) {
+    //         this.props.dispatch(removeUser(userId));
+    //     }
+    // }
+
 
     render() {
-        const { users, location } = this.props;
-        const { list, fetching, sort, rowsPerPage } = users;
+        const { list, fetching } = this.props.users;
 
         return (
             <Content title="Пользователи">
                 <div className="content__header">
                     <div className="content__heading">Пользователи</div>
                 </div>
-                <Loader fetching={ this.props.users.fetching }>
-                    <Table
-                        name="users"
-                        path="/users"
-                        data={ list }
-                        rows={ rowsPerPage }
-                        sort={ sort }
-                        page={ this.props.page }
-                        renderList={ this.renderList.bind(this) }
-                    >
-                        <TableHeader width="30" name="Имя" />
-                        <TableHeader width="30" name="Email" />
-                        <TableHeader id="role" width="20" name="Роль" />
-                        <TableHeader id="blocked" width="20" name="Состояние" />
+                <Loader fetching={ fetching }>
+                    <Table name="users" data={ list } page={ this.props.page }>
+                        <TableColumn
+                            name="avatar"
+                            header={ <TableHeader /> }
+                            width="5"
+                            cell={ <AvatarCell /> }
+                        />
+                        <TableColumn
+                            name="username"
+                            header={ <TableHeader title="Имя" /> }
+                            width="25"
+                        />
+                        <TableColumn
+                            name="email"
+                            header={ <TableHeader title="E-Mail" /> }
+                            width="30"
+                        />
+                        <TableColumn
+                            name="role"
+                            header={ <TableHeader sorted title="Группа" /> }
+                            width="20"
+                        />
+                        <TableColumn
+                            name="blocked"
+                            header={ <TableHeader sorted title="Состояние" /> }
+                            width="20"
+                            cell={ <StatusCell /> }
+                        />
                     </Table>
                 </Loader>
             </Content>
@@ -79,7 +90,10 @@ class UsersView extends Component {
     }
 }
 
-export default connect((state, route) => ({
-    users: state.users,
-    page: parseInt(route.params.pageId) || 1
-}))(UsersView);
+export default connect(
+    (state, route) => ({
+        users: state.users,
+        page: parseInt(route.params.page) || 1
+    }),
+    { getAllUsers, showModal }
+)(UsersView);

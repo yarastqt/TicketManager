@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
+import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
+
+import { getRange } from '../../../utils';
 
 class TablePagination extends Component {
     renderRows() {
-        const { handleRows, rows } = this.props;
+        const { changeRows, rows } = this.props;
 
         return (
             <div className="table__pagination-rows">
                 <span>Записей на странице:</span>
                 <div className="table__pagination-select">
-                    <select className="table__pagination-select-control" defaultValue={ rows } onChange={ handleRows }>
+                    <select className="table__pagination-select-control" defaultValue={ rows } onChange={ changeRows }>
                         <option value="10">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -20,8 +22,8 @@ class TablePagination extends Component {
     }
 
     renderCounter() {
-        const { getRange, total, rows, page } = this.props;
-        const { start, end } = getRange(total, rows, page);
+        const { total, rows, page } = this.props;
+        const { start, end } = getRange(total, page, rows);
 
         return (
             <div className="table__pagination-counter">{ start }-{ end } из { total }</div>
@@ -29,19 +31,21 @@ class TablePagination extends Component {
     }
 
     renderControls() {
-        const { handlePaginate, total, rows, page } = this.props;
+        const { changePage, total, rows, page } = this.props;
         const totalPages = Math.ceil(total / rows);
-        const controlClassName = 'table__pagination-control';
-        const controlClassNameDisabled = 'table__pagination-control_disabled';
-        const prevClassName = classNames(controlClassName, { [controlClassNameDisabled]: page === 1 });
-        const nextClassName = classNames(controlClassName, { [controlClassNameDisabled]: page == totalPages });
+        const prevClasses = classnames('table__pagination-control', {
+            ['table__pagination-control_disabled']: page === 1
+        });
+        const nextClasses = classnames('table__pagination-control', {
+            ['table__pagination-control_disabled']: page == totalPages
+        });
 
         return (
             <div className="table__pagination-controls">
-                <div className={ prevClassName } onClick={ page > 1 && handlePaginate.bind(this, page - 1) }>
+                <div className={ prevClasses } onClick={ page > 1 && changePage(page - 1) }>
                     <i className="icon icon_arrow-left"></i>
                 </div>
-                <div className={ nextClassName } onClick={ page < totalPages && handlePaginate.bind(this, page + 1) }>
+                <div className={ nextClasses } onClick={ page < totalPages && changePage(page + 1) }>
                     <i className="icon icon_arrow-right"></i>
                 </div>
             </div>
@@ -58,5 +62,13 @@ class TablePagination extends Component {
         );
     }
 }
+
+TablePagination.propTypes = {
+    changePage: PropTypes.func.isRequired,
+    changeRows: PropTypes.func.isRequired,
+    page: PropTypes.number.isRequired,
+    rows: PropTypes.number.isRequired,
+    total: PropTypes.number.isRequired
+};
 
 export default TablePagination;

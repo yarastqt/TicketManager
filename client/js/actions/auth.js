@@ -1,5 +1,4 @@
 import jwtDecode from 'jwt-decode';
-
 import types from '../constants';
 import { push } from 'react-router-redux';
 import { http } from '../utils';

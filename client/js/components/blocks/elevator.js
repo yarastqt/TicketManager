@@ -6,12 +6,17 @@ class Elevator extends Component {
         visible: false
     };
 
+    constructor() {
+        super();
+        this.onScroll = this.onScroll.bind(this);
+    }
+
     componentDidMount() {
-        window.addEventListener('scroll', this.onScroll.bind(this), false);
+        window.addEventListener('scroll', this.onScroll, false);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.onScroll.bind(this), false);
+        window.removeEventListener('scroll', this.onScroll, false);
     }
 
     onScroll() {

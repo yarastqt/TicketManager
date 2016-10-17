@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
-// import ProgressBar from '../components/blocks/progressBar';
+import ProgressBar from '../components/blocks/progressBar';
 import Header from '../components/blocks/header';
 import Sidebar from '../components/blocks/sidebar';
 import Modal from '../components/blocks/modal';
@@ -16,6 +16,7 @@ function Dashboard({ sidebar, user, dispatch, children }) {
 
     return (
         <div className="main">
+            <ProgressBar />
             <Header user={ user } dispatch={ dispatch } />
             <Sidebar sidebar={ sidebar } />
             <div className={ contentClasses }>

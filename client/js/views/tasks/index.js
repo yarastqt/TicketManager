@@ -3,15 +3,45 @@ import { connect } from 'react-redux';
 
 import { i18n } from '../../utils';
 import Content from '../../components/blocks/content';
-import Loader from '../../components/common/loader';
-import { Table, TableHeader } from '../../components/common/table';
-import { Button } from '../../components/common/form';
-import { showModal } from '../../actions/modal';
-import { removeTask } from '../../actions/tasks';
+import Loader from '../../components/blocks/loader';
+import { Table, TableColumn, TableHeader, Button } from '../../components/ui';
+import { TasksActions, ModalActions } from '../../actions';
+
+const { getAllTasks, removeTask } = TasksActions;
+const { showModal } = ModalActions;
+
+function StatusCell({ value, width }) {
+    return (
+        <div className="table__row-cell" style={{ width: `${width}%` }}>
+            <span className={ `status-${value}` }>{ i18n('statuses', value) }</span>
+        </div>
+    );
+}
+
+function ManagerCell({ value, width }) {
+    return (
+        <div className="table__row-cell" style={{ width: `${width}%` }}>
+            { value.username }
+        </div>
+    );
+}
 
 class TasksView extends Component {
+    constructor() {
+        super();
+        this.showTaskNewModal = this.showTaskNewModal.bind(this);
+    }
+
+    componentWillMount() {
+        this.props.getAllTasks();
+    }
+
+    showTaskNewModal() {
+        this.props.showModal('taskNew');
+    }
+
     showTaskModal(taskId) {
-        this.props.dispatch(showModal('task', { taskId }));
+        this.props.showModal('task', { taskId });
     }
 
     removeTask(taskId) {
@@ -20,78 +50,66 @@ class TasksView extends Component {
         }
     }
 
-    renderActions(task) {
-        if (this.props.user.role !== 'manager' ||
-            (this.props.user.role === 'manager' &&
-                this.props.user.id === task.createdBy.id)) {
-            return (
-                <div className="table__row-actions">
-                    <div className="table__row-action" onClick={ this.showTaskModal.bind(this, task.id) }>
-                        <i className="icon icon_edit" />
-                    </div>
-                    <div className="table__row-action" onClick={ this.removeTask.bind(this, task.id) }>
-                        <i className="icon icon_delete" />
-                    </div>
-                </div>
-            );
-        }
-    }
-
-    renderList(data) {
-        return data.map((task) => {
-            return (
-                <div className="table__row" key={ task.id }>
-                    <div className="table__row-cell" style={ { width: '8%' } }>{ task.id }</div>
-                    <div className="table__row-cell" style={ { width: '12%' } }>{ task.name }</div>
-                    <div className="table__row-cell" style={ { width: '15%' } }>{ task.date }</div>
-                    <div className="table__row-cell" style={ { width: '10%' } }>{ task.source }</div>
-                    <div className="table__row-cell" style={ { width: '10%' } }>{ task.taskType }</div>
-                    <div className="table__row-cell" style={ { width: '10%' } }>
-                        <span className={ `status-${task.status}` }>{ i18n('statuses', task.status) }</span>
-                    </div>
-                    <div className="table__row-cell" style={ { width: '10%' } }>{ task.createdBy.username }</div>
-                    <div className="table__row-cell" style={ { width: '10%' } }>{ task.serviceType }</div>
-                    <div className="table__row-cell" style={ { width: '15%' } }>{ task.comment }</div>
-                    { this.renderActions(task) }
-                </div>
-            );
-        });
-    }
-
-    showTaskNewModal() {
-        this.props.dispatch(showModal('taskNew'));
-    }
-
     render() {
-        const { list, fetching, sort, rowsPerPage } = this.props.tasks;
+        const { list, fetching } = this.props.tasks;
 
         return (
             <Content title="Заявки">
                 <div className="content__header">
                     <div className="content__heading">Заявки</div>
                     <div className="content__actions">
-                        <Button icon="quick-add" text="Добавить заявку" onClick={ this.showTaskNewModal.bind(this) } />
+                        <Button icon="quick-add" text="Добавить заявку" onClick={ this.showTaskNewModal } />
                     </div>
                 </div>
-                <Loader fetching={ fetching } list={ list }>
-                    <Table
-                        name="tasks"
-                        path="/tasks"
-                        data={ list }
-                        rows={ rowsPerPage }
-                        sort={ sort }
-                        page={ this.props.page }
-                        renderList={ this.renderList.bind(this) }
-                    >
-                        <TableHeader id="id" width="8" name="ID" />
-                        <TableHeader width="12" name="Имя" />
-                        <TableHeader id="date" width="15" name="Дата" />
-                        <TableHeader width="10" name="Источник" />
-                        <TableHeader width="10" name="Тип" />
-                        <TableHeader id="status" width="10" name="Статус" />
-                        <TableHeader width="10" name="Менеджер" />
-                        <TableHeader width="10" name="Вид услуги" />
-                        <TableHeader width="15" name="Комментарий" />
+                <Loader fetching={ fetching }>
+                    <Table name="tasks" data={ list } page={ this.props.page }>
+                        <TableColumn
+                            name="id"
+                            header={ <TableHeader sorted title="ID" /> }
+                            width="8"
+                        />
+                        <TableColumn
+                            name="name"
+                            header={ <TableHeader title="Имя" /> }
+                            width="12"
+                        />
+                        <TableColumn
+                            name="date"
+                            header={ <TableHeader sorted title="Дата" /> }
+                            width="15"
+                        />
+                        <TableColumn
+                            name="source"
+                            header={ <TableHeader sorted title="Источник" /> }
+                            width="10"
+                        />
+                        <TableColumn
+                            name="taskType"
+                            header={ <TableHeader sorted title="Тип" /> }
+                            width="10"
+                        />
+                        <TableColumn
+                            name="status"
+                            header={ <TableHeader sorted title="Статус" /> }
+                            width="10"
+                            cell={ <StatusCell /> }
+                        />
+                        <TableColumn
+                            name="createdBy"
+                            header={ <TableHeader title="Менеджер" /> }
+                            width="10"
+                            cell={ <ManagerCell /> }
+                        />
+                        <TableColumn
+                            name="serviceType"
+                            header={ <TableHeader sorted title="Вид услуги" /> }
+                            width="10"
+                        />
+                        <TableColumn
+                            name="comment"
+                            header={ <TableHeader title="Комментарий" /> }
+                            width="15"
+                        />
                     </Table>
                 </Loader>
             </Content>
@@ -99,8 +117,11 @@ class TasksView extends Component {
     }
 }
 
-export default connect((state, route) => ({
-    user: state.session.user,
-    tasks: state.tasks,
-    page: parseInt(route.params.pageId) || 1
-}))(TasksView);
+export default connect(
+    (state, props) => ({
+        user: state.session.user,
+        tasks: state.tasks,
+        page: parseInt(props.params.page) || 1
+    }),
+    { getAllTasks, removeTask, showModal }
+)(TasksView);

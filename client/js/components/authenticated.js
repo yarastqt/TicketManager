@@ -4,6 +4,12 @@ import { replace } from 'react-router-redux';
 
 import { loadUserProfile } from '../actions/auth';
 
+/**
+ * Wrapper for dashboard component
+ * if user isn't authorized then redirect to login
+ * @param <Object> component for wrapping
+ * @return <Object> wrapped component
+ */
 function requireAuthentication(ComposedComponent) {
     class AuthenticatedComponent extends Component {
         componentWillMount() {
@@ -16,6 +22,7 @@ function requireAuthentication(ComposedComponent) {
 
         checkAuthenticated() {
             const { user, authenticated, dispatch, location } = this.props;
+
             if (!user && authenticated) {
                 dispatch(loadUserProfile());
             } else if (!authenticated) {

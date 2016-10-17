@@ -7,12 +7,6 @@ const initialState = {
     props: null
 };
 
-/**
- * Modal reducer
- * @param <Object> initial state
- * @param <Object> actions
- * @return <Object> new state
- */
 export default createReducer((state, payload) => ({
     [types.MODAL_SHOW]() {
         return { visible: true, view: payload.view, props: payload.props };

@@ -5,49 +5,32 @@
     right: 0
     bottom: 0
     margin: auto
-    width: 40px
-    height: 30px
+    width: 70px
+    height: 70px
     display: flex
     flex-direction: column
     align-items: center
     user-select: none
     cursor: default
 
-    &__circles
+    &__spinner
+        animation: spinner 2s linear infinite
+        transform-origin: center center
+        height: 100%
         width: 100%
-        position: relative
-        height: 10px
-
-    &__circle
-        width: 10px
-        height: 10px
-        background-color: $color-blue
-        border-radius: 50%
         position: absolute
-        animation: loader 600ms linear infinite
+        top: 0
+        bottom: 0
+        left: 0
+        right: 0
+        margin: auto
 
-        &:nth-child(1)
-            left: 0
-            opacity: .1
-            animation-delay: 100ms
-
-        &:nth-child(2)
-            left: 0
-            right: 0
-            margin: auto
-            opacity: .2
-            animation-delay: 200ms
-
-        &:nth-child(3)
-            right: 0
-            opacity: .3
-            animation-delay: 300ms
-
-    &__text
-        text-transform: uppercase
-        white-space: nowrap
-        margin-top: 6px
-        color: rgba($color-base, .7)
+    &__spinner-path
+        stroke-dasharray: 1, 200
+        stroke-dashoffset: 0
+        animation: dash 1.5s ease-in-out infinite
+        stroke-linecap: round
+        stroke: $color-blue
 
 .empty-list
     position: absolute

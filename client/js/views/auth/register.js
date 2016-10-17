@@ -3,17 +3,24 @@ import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 
 import { getFormData } from '../../utils';
-import { Input, Button } from '../../components/common/form';
-import { register } from '../../actions/auth';
+import { Input, Button } from '../../components/ui';
+import { AuthActions } from '../../actions';
+
+const { register } = AuthActions;
 
 class RegisterView extends Component {
-    handleSubmit(event) {
+    constructor() {
+        super();
+        this.register = this.register.bind(this);
+    }
+
+    register(event) {
         event.preventDefault();
         const data = getFormData(this.refs.form);
 
         if (data.username && data.password && data.email) {
             this.refs.form.reset();
-            this.props.dispatch(register(data));
+            this.props.register(data);
         }
     }
 
@@ -22,7 +29,7 @@ class RegisterView extends Component {
             <DocumentTitle title="Регистрация">
                 <div className="sign-container__in">
                     <div className="sign-container__title">Регистрация</div>
-                    <form className="form" ref="form" onSubmit={ this.handleSubmit.bind(this) }>
+                    <form className="form" ref="form" onSubmit={ this.register }>
                         <Input type="text" name="username" label="Имя" required autofocus />
                         <Input type="email" name="email" label="E-Mail" required />
                         <Input type="password" name="password" label="Пароль" required />
@@ -36,4 +43,7 @@ class RegisterView extends Component {
     }
 }
 
-export default connect((state) => ({}))(RegisterView);
+export default connect(
+    (state) => ({}),
+    { register }
+)(RegisterView);

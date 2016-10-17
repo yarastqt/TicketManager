@@ -34,6 +34,7 @@
     "classnames": "^2.2.5",
     "isomorphic-fetch": "^2.2.1",
     "jwt-decode": "^2.1.0",
+    "lodash": "^4.16.4",
     "react": "^15.3.1",
     "react-addons-css-transition-group": "^15.3.2",
     "react-document-title": "^2.0.2",

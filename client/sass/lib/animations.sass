@@ -1,12 +1,10 @@
 @keyframes container
     0%
         opacity: 0
-        visibility: hidden
         transform: translate3d(0, -20px, 0)
 
     100%
         opacity: 1
-        visibility: visible
         transform: translate3d(0, 0, 0)
 
 @keyframes links
@@ -29,13 +27,26 @@
         opacity: 1
         visibility: visible
 
-@keyframes loader
-    100%
-        opacity: 1
-
 @keyframes progress
     0%
         width: 0%
 
     100%
         width: 100%
+
+@keyframes spinner
+    100%
+        transform: rotate(360deg)
+
+@keyframes dash
+    0%
+        stroke-dasharray: 1, 200
+        stroke-dashoffset: 0
+
+    50%
+        stroke-dasharray: 89, 200
+        stroke-dashoffset: -35px
+
+    100%
+        stroke-dasharray: 89, 200
+        stroke-dashoffset: -124px
