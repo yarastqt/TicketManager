@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
 
-import { loadUserProfile } from '../actions/auth';
+import { AuthActions } from '../actions';
 
 /**
  * Wrapper for dashboard component
@@ -24,7 +24,7 @@ function requireAuthentication(ComposedComponent) {
             const { user, authenticated, dispatch, location } = this.props;
 
             if (!user && authenticated) {
-                dispatch(loadUserProfile());
+                dispatch(AuthActions.loadUserProfile());
             } else if (!authenticated) {
                 dispatch(replace({
                     pathname: '/auth/login',
