@@ -1,4 +1,4 @@
-import { orderBy } from 'lodash';
+import orderBy from 'lodash/orderBy';
 import { getRange } from '../utils';
 
 export function sortData(data, { key, desc }) {

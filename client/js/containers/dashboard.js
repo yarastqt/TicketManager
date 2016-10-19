@@ -2,22 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
-import ProgressBar from '../components/blocks/progressBar';
-import Header from '../components/blocks/header';
-import Sidebar from '../components/blocks/sidebar';
-import Modal from '../components/blocks/modal';
-import Elevator from '../components/blocks/elevator';
-import Notification from '../components/blocks/notification';
+import { Header, Sidebar, Modal, Elevator, Notification } from '../components/blocks';
 
-function Dashboard({ sidebar, user, dispatch, children }) {
+function Dashboard({ sidebar, dispatch, children }) {
     const contentClasses = classnames('content', {
         'content_expanded': sidebar
     });
 
     return (
         <div className="main">
-            <ProgressBar />
-            <Header user={ user } dispatch={ dispatch } />
+            <Header />
             <Sidebar sidebar={ sidebar } />
             <div className={ contentClasses }>
                 { children }
@@ -33,6 +27,5 @@ function Dashboard({ sidebar, user, dispatch, children }) {
 }
 
 export default connect((state) => ({
-    sidebar: state.sidebar,
-    user: state.session.user
+    sidebar: state.sidebar
 }))(Dashboard);

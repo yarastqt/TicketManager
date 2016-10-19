@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { i18n } from '../../utils';
-import Content from '../../components/blocks/content';
-import Loader from '../../components/blocks/loader';
+import dict from '../../constants/dict';
+import { Content, Loader } from '../../components/blocks';
 import { Table, TableColumn, TableHeader } from '../../components/ui';
 import { UsersActions, ModalActions } from '../../actions';
 
-const { getAllUsers } = UsersActions;
+const { getAllUsers, removeUser } = UsersActions;
 const { showModal } = ModalActions;
 
 function AvatarCell({ value, width }) {
@@ -30,21 +29,34 @@ function StatusCell({ value, width }) {
     );
 }
 
+function RoleCell({ value, width }) {
+    return (
+        <div className="table__row-cell" style={{ width: `${width}%` }}>
+            { dict.roles[value] }
+        </div>
+    );
+}
+
 class UsersView extends Component {
+    constructor() {
+        super();
+        this.showUserModal = this.showUserModal.bind(this);
+        this.removeUser = this.removeUser.bind(this);
+    }
+
     componentWillMount() {
         this.props.getAllUsers();
     }
 
-    // showUserModal(userId) {
-    //     this.props.dispatch(showModal('user', { userId }));
-    // }
+    showUserModal(userId) {
+        this.props.showModal('user', { userId });
+    }
 
-    // removeUser(userId) {
-    //     if (confirm('Вы действительно хотите удалить пользователя?')) {
-    //         this.props.dispatch(removeUser(userId));
-    //     }
-    // }
-
+    removeUser(userId) {
+        if (confirm('Вы действительно хотите удалить пользователя?')) {
+            this.props.removeUser(userId);
+        }
+    }
 
     render() {
         const { list, fetching } = this.props.users;
@@ -55,7 +67,13 @@ class UsersView extends Component {
                     <div className="content__heading">Пользователи</div>
                 </div>
                 <Loader fetching={ fetching }>
-                    <Table name="users" data={ list } page={ this.props.page }>
+                    <Table
+                        edit={ this.showUserModal }
+                        remove={ this.removeUser }
+                        name="users"
+                        data={ list }
+                        page={ this.props.page }
+                    >
                         <TableColumn
                             name="avatar"
                             header={ <TableHeader /> }
@@ -76,6 +94,7 @@ class UsersView extends Component {
                             name="role"
                             header={ <TableHeader sorted title="Группа" /> }
                             width="20"
+                            cell={ <RoleCell /> }
                         />
                         <TableColumn
                             name="blocked"
@@ -95,5 +114,5 @@ export default connect(
         users: state.users,
         page: parseInt(route.params.page) || 1
     }),
-    { getAllUsers, showModal }
+    { getAllUsers, removeUser, showModal }
 )(UsersView);

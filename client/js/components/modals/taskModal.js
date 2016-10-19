@@ -11,7 +11,7 @@ const { updateTask } = TasksActions;
 class TaskModal extends Component {
     constructor() {
         super();
-        this.updateTask = this.updateTask.bin(this);
+        this.updateTask = this.updateTask.bind(this);
     }
 
     updateTask(id) {

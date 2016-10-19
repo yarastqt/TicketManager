@@ -1,6 +1,5 @@
 import 'isomorphic-fetch';
-
-const apiURL = 'http://localhost:3001/api/v1';
+import { apiURL } from '../constants/api';
 
 function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {

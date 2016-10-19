@@ -20,7 +20,7 @@ class UserModal extends Component {
             const data = getFormData(this.refs.form);
 
             if (data.blocked && data.role) {
-                this.props.dispatch(updateUser(id, data));
+                this.props.updateUser(id, data);
             }
         };
     }

@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 
-import { i18n } from '../../utils';
-import { logOut } from '../../actions/auth';
-import { toggleSidebar } from '../../actions/sidebar';
+import dict from '../../constants/dict';
+import { AuthActions, SidebarActions } from '../../actions';
+
+const { logOut } = AuthActions;
+const { toggleSidebar } = SidebarActions;
 
 class Header extends Component {
     state = {
         userActive: false
     };
-
-    handleToggleMenu() {
-        this.props.dispatch(toggleSidebar());
-    }
 
     handleTogglePopup() {
         this.setState({
@@ -23,26 +22,26 @@ class Header extends Component {
 
     handleLogOut(event) {
         event.preventDefault();
-        this.props.dispatch(logOut());
+        this.props.logOut();
     }
 
     render() {
-        const { user } = this.props;
-        const userClassName = classnames('header__user', {
+        const { user, toggleSidebar } = this.props;
+        const userClasses = classnames('header__user', {
             'header__user_active': this.state.userActive
         });
 
         return (
             <div className="header">
                 <div className="header__in">
-                    <div className="header__menu-toggle" onClick={ this.handleToggleMenu.bind(this) }>
+                    <div className="header__menu-toggle" onClick={ toggleSidebar }>
                         <i className="icon icon_toggle"></i>
                     </div>
                     <div className="header__logo"></div>
-                    <div className={ userClassName } onClick={ this.handleTogglePopup.bind(this) }>
+                    <div className={ userClasses } onClick={ this.handleTogglePopup.bind(this) }>
                         <div className="header__user-meta">
                             <div className="header__user-name">Привет, { user.username }</div>
-                            <div className="header__user-role">{ i18n('roles', user.role) }</div>
+                            <div className="header__user-role">{ dict.roles[user.role] }</div>
                         </div>
                         <div className="header__user-avatar">
                             <img className="image" src={ user.avatar } />
@@ -65,4 +64,9 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default connect(
+    (state) => ({
+        user: state.session.user
+    }),
+    { logOut, toggleSidebar }
+)(Header);

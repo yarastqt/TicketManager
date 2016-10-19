@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { i18n } from '../../utils';
-import Content from '../../components/blocks/content';
-import Loader from '../../components/blocks/loader';
+import dict from '../../constants/dict';
+import { Content, Loader } from '../../components/blocks';
 import { Table, TableColumn, TableHeader, Button } from '../../components/ui';
 import { TasksActions, ModalActions } from '../../actions';
 
@@ -13,7 +12,7 @@ const { showModal } = ModalActions;
 function StatusCell({ value, width }) {
     return (
         <div className="table__row-cell" style={{ width: `${width}%` }}>
-            <span className={ `status-${value}` }>{ i18n('statuses', value) }</span>
+            <span className={ `status-${value}` }>{ dict.statuses[value] }</span>
         </div>
     );
 }
@@ -30,6 +29,8 @@ class TasksView extends Component {
     constructor() {
         super();
         this.showTaskNewModal = this.showTaskNewModal.bind(this);
+        this.showTaskModal = this.showTaskModal.bind(this);
+        this.removeTask = this.removeTask.bind(this);
     }
 
     componentWillMount() {
@@ -46,12 +47,13 @@ class TasksView extends Component {
 
     removeTask(taskId) {
         if (confirm('Вы действительно хотите удалить заявку?')) {
-            this.props.dispatch(removeTask(taskId));
+            this.props.removeTask(taskId);
         }
     }
 
     render() {
-        const { list, fetching } = this.props.tasks;
+        const { page, tasks } = this.props;
+        const { list, fetching } = tasks;
 
         return (
             <Content title="Заявки">
@@ -62,7 +64,13 @@ class TasksView extends Component {
                     </div>
                 </div>
                 <Loader fetching={ fetching }>
-                    <Table name="tasks" data={ list } page={ this.props.page }>
+                    <Table
+                        edit={ this.showTaskModal }
+                        remove={ this.removeTask }
+                        name="tasks"
+                        data={ list }
+                        page={ page }
+                    >
                         <TableColumn
                             name="id"
                             header={ <TableHeader sorted title="ID" /> }

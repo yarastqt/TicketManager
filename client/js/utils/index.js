@@ -16,34 +16,14 @@ export function getRange(total, page, rows) {
     };
 }
 
-export const getFormData = (form) => {
-    return [].reduce.call(
-        form.querySelectorAll('input, textarea, select'),
-        (result, formElement) => {
-            if (formElement.hasAttribute('name')) {
-                result[formElement.name] = formElement.value.trim();
-            }
+export function getFormData(form) {
+    const targers = form.querySelectorAll('input, textarea, select');
 
-            return result;
-        }, {}
-    );
-}
-
-export function i18n(section, key) {
-    const dictionary = {
-        roles: {
-            'newbie': 'Новичок',
-            'manager': 'Менеджер',
-            'senior manager': 'Старшый менеджер',
-            'admin': 'Администратор'
-        },
-        statuses: {
-            pending: 'В процессе',
-            failure: 'Отказ',
-            done: 'Выполнено',
-            canceled: 'Отменено'
+    return [].reduce.call(targers, (result, formElement) => {
+        if (formElement.hasAttribute('name')) {
+            result[formElement.name] = formElement.value.trim();
         }
-    };
 
-    return dictionary[section][key];
+        return result;
+    }, {});
 }

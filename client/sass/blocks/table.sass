@@ -72,38 +72,52 @@
                 opacity: 1
                 visibility: visible
 
-            .table__row-actions
+            .table__row-action
                 opacity: 1
-                visibility: visible
-                pointer-events: all
+                // visibility: visible
+                // pointer-events: all
 
-    &__row-actions
-        position: absolute
-        width: 92px
-        padding: 0 10px
-        height: 100%
-        right: 24px
-        top: 0
+    &__header-action,
+    &__row-action
         display: flex
         align-items: center
-        justify-content: space-between
-        background-color: #fafafa
-        opacity: 0
-        visibility: hidden
-        transition: 200ms ease-in-out
-        pointer-events: none
+        flex: 0 0 24px
+        opacity: .2
+        transition: 200ms $transition-function
 
-    &__row-action
-        cursor: pointer
+    &__row-button
+        background-image: url(/assets/i/icons/more.svg)
         width: 24px
         height: 24px
-        display: flex
-        align-items: center
-        justify-content: center
+        cursor: pointer
+
+    // &__row-actions
+    //     position: absolute
+    //     width: 92px
+    //     padding: 0 10px
+    //     height: 100%
+    //     right: 24px
+    //     top: 0
+    //     display: flex
+    //     align-items: center
+    //     justify-content: space-between
+    //     background-color: #fafafa
+    //     opacity: 0
+    //     visibility: hidden
+    //     transition: 200ms ease-in-out
+    //     pointer-events: none
+
+    // &__row-action
+    //     cursor: pointer
+    //     width: 24px
+    //     height: 24px
+    //     display: flex
+    //     align-items: center
+    //     justify-content: center
 
     &__row-cell, &__header-cell
         padding: 0 10px
-        flex: 0 0 auto
+        flex: 0 1 auto
 
     &__row-cell
         font-size: 1.3rem

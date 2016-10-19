@@ -2,4 +2,3 @@
 .gulp
 *.log
 node_modules
-old

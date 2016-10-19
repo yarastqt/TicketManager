@@ -1,0 +1,27 @@
+.popup
+    min-width: 112px
+    background-color: #fff
+    border-radius: 2px
+    border: 1px solid $color-gray
+    box-shadow: 0 2px 10px -2px rgba(#000, .2)
+    position: absolute
+    z-index: 100
+    transform: translate3d(-100%, 0, 0)
+    padding: 8px 0
+
+    &__button
+        user-select: none
+        cursor: pointer
+        font-size: 1.2rem
+        text-decoration: none
+        color: $color-base
+        display: block
+        transition: 200ms $transition-function
+        user-select: none
+        line-height: 3.2rem
+        padding: 0 24px
+        display: flex
+        align-items: center
+
+        &:hover
+            background-color: rgba($color-gray, .25)

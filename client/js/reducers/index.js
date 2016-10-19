@@ -9,7 +9,7 @@ import table from './table';
 import tasks from './tasks';
 import users from './users';
 
-const rootReducer = combineReducers({
+export default combineReducers({
     routing: routerReducer,
     sidebar,
     session,
@@ -19,5 +19,3 @@ const rootReducer = combineReducers({
     tasks,
     users
 });
-
-export default rootReducer;

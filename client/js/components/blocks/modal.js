@@ -6,7 +6,9 @@ import UserModal from '../modals/userModal';
 import TaskModal from '../modals/taskModal';
 import TaskNewModal from '../modals/taskNewModal';
 
-import { hideModal } from '../../actions/modal';
+import { ModalActions } from '../../actions';
+
+const { hideModal } = ModalActions;
 
 class Modal extends Component {
     constructor() {
@@ -24,7 +26,7 @@ class Modal extends Component {
 
     hideModal(event) {
         event.preventDefault();
-        this.props.dispatch(hideModal());
+        this.props.hideModal();
     }
 
     renderContent() {
@@ -70,6 +72,9 @@ Modal.propTypes = {
     })
 };
 
-export default connect((state) => ({
-    modal: state.modal
-}))(Modal);
+export default connect(
+    (state) => ({
+        modal: state.modal
+    }),
+    { hideModal }
+)(Modal);
