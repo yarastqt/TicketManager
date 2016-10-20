@@ -1,8 +1,9 @@
 import jwtDecode from 'jwt-decode';
-import types from '../constants';
 import { push } from 'react-router-redux';
+
 import { http } from '../utils';
-import { showNotification } from '../actions/notifications';
+import types from '../constants';
+import { showNotification } from './notifications';
 
 export function login(data, redirectAfterLogin) {
     return (dispatch) => {

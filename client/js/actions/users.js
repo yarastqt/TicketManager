@@ -1,5 +1,8 @@
 import types from '../constants';
 
+import { hideModal } from './modal';
+import { showNotification } from './notifications';
+
 export function getAllUsers() {
     return (dispatch, getState) => {
         const { users } = getState();
@@ -19,9 +22,10 @@ export function updateUser(id, data) {
                 method: 'put',
                 body: data
             },
-            notification: {
-                message: 'Профиль пользователя обновлен'
-            }
+            onSuccess: [
+                hideModal(),
+                showNotification({ message: 'Профиль пользователя обновлен' })
+            ]
         }
     };
 }
@@ -34,9 +38,9 @@ export function removeUser(id) {
                 url: `/users/${id}`,
                 method: 'delete'
             },
-            notification: {
-                message: 'Пользователь удален'
-            }
+            onSuccess: [
+                showNotification({ message: 'Пользователь удален' })
+            ]
         }
     };
 }

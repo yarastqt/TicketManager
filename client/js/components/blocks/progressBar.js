@@ -6,20 +6,6 @@ class ProgressBar extends Component {
         active: false
     };
 
-    componentWillReceiveProps(nextProps) {
-        // if (this.props.location.pathname !== nextProps.location.pathname) {
-        //     this.setState({ active: false });
-
-        //     setTimeout(() => this.setState({ active: true }));
-
-        //     this.refs.progress.addEventListener('animationend', () => {
-        //         this.setState({
-        //             active: false
-        //         });
-        //     });
-        // }
-    }
-
     render() {
         const progressClasses = classnames('progress', {
             'progress_active': this.state.active
@@ -33,5 +19,9 @@ class ProgressBar extends Component {
         );
     }
 }
+
+ProgressBar.defaultProps = {
+    tickDelay: 250
+};
 
 export default ProgressBar;

@@ -6,6 +6,7 @@ import UserModal from '../modals/userModal';
 import TaskModal from '../modals/taskModal';
 import TaskNewModal from '../modals/taskNewModal';
 
+import { getScrollWidth } from '../../utils';
 import { ModalActions } from '../../actions';
 
 const { hideModal } = ModalActions;
@@ -19,13 +20,15 @@ class Modal extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.modal.visible) {
             document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = getScrollWidth();
         } else {
             document.body.style.overflow = null;
+            document.body.style.paddingRight = null;
         }
     }
 
     hideModal(event) {
-        event.preventDefault();
+        event && event.preventDefault();
         this.props.hideModal();
     }
 

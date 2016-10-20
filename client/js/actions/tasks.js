@@ -1,5 +1,8 @@
 import types from '../constants';
 
+import { hideModal } from './modal';
+import { showNotification } from './notifications';
+
 export function getAllTasks() {
     return (dispatch, getState) => {
         const { tasks } = getState();
@@ -19,9 +22,10 @@ export function addTask(data) {
                 method: 'post',
                 body: data
             },
-            notification: {
-                message: 'Запись добавлена'
-            }
+            onSuccess: [
+                hideModal(),
+                showNotification({ message: 'Заявка добавлена' })
+            ]
         }
     };   
 }
@@ -35,9 +39,10 @@ export function updateTask(id, data) {
                 method: 'put',
                 body: data
             },
-            notification: {
-                message: 'Заявка обновлена'
-            }
+            onSuccess: [
+                hideModal(),
+                showNotification({ message: 'Заявка обновлена' })
+            ]
         }
     };
 }
@@ -50,9 +55,9 @@ export function removeTask(id) {
                 url: `/tasks/${id}`,
                 method: 'delete'
             },
-            notification: {
-                message: 'Заявка удалена'
-            }
+            onSuccess: [
+                showNotification({ message: 'Заявка удалена' })
+            ]
         }
     };
 }

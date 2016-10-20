@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { getUserById } from '../../selectors/users';
-import { getFormData } from '../../utils';
+import { getFormData, compareUserObject } from '../../utils';
 import { Input, Select, Button } from '../../components/ui';
 import { UsersActions } from '../../actions';
 
@@ -19,7 +19,9 @@ class UserModal extends Component {
             event.preventDefault();
             const data = getFormData(this.refs.form);
 
-            if (data.blocked && data.role) {
+            if (compareUserObject(this.props.user, data)) {
+                this.props.hideModal();
+            } else if (data.blocked && data.role) {
                 this.props.updateUser(id, data);
             }
         };

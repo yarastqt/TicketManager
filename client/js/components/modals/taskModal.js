@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { getTaskById } from '../../selectors/tasks';
-import { getFormData } from '../../utils';
+import { getFormData, compareTaskObject } from '../../utils';
 import { Input, Select, Textarea, Button } from '../../components/ui';
 import { TasksActions } from '../../actions';
 
@@ -19,7 +19,9 @@ class TaskModal extends Component {
             event.preventDefault();
             const data = getFormData(this.refs.form);
 
-            if (data.name && data.source && data.taskType) {
+            if (compareTaskObject(this.props.task, data)) {
+                this.props.hideModal();
+            } else if (data.name && data.source && data.taskType) {
                 this.props.updateTask(id, data);
             }
         };

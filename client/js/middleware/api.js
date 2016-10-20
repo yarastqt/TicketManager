@@ -1,5 +1,7 @@
-import { showNotification } from '../actions/notifications';
+import { NotificationActions } from '../actions';
 import { http } from '../utils';
+
+const { showNotification } = NotificationActions;
 
 export default ({ dispatch }) => {
     return (next) => (action) => {
@@ -8,7 +10,7 @@ export default ({ dispatch }) => {
         }
 
         const { type, $payload } = action;
-        const { request, notification } = $payload;
+        const { request, onSuccess } = $payload;
         const { url, method, body } = request;
 
         dispatch({ type: `${type}_REQUEST` });
@@ -17,8 +19,10 @@ export default ({ dispatch }) => {
             .then((data) => {
                 dispatch({ type: `${type}_SUCCESS`, payload: data });
 
-                if (notification) {
-                    dispatch(showNotification(notification));
+                if (onSuccess && onSuccess.length) {
+                    onSuccess.map((action) => {
+                        dispatch(action);
+                    });
                 }
             })
             .catch((error) => {

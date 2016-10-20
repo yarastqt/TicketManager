@@ -10,14 +10,13 @@ const config = require('./webpack.config');
 
 const app = express();
 const compiler = webpack(config);
-
-app.use(express.static('public/'));
-
-app.use(webpackDevMiddleware(compiler, {
+const webpackOptions = {
     noInfo: true,
     publicPath: config.output.publicPath
-}));
+};
 
+app.use(express.static('public/'));
+app.use(webpackDevMiddleware(compiler, webpackOptions));
 app.use(webpackHotMiddleware(compiler));
 
 app.get('*', (req, res) => {
@@ -25,5 +24,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(8080, () => {
-    console.log('Server start and listen port: %s', 8080);
+    console.log('Server start and listening at http://localhost:%s', 8080);
 });
