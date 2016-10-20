@@ -1,7 +1,29 @@
 import types from '../constants';
 
+import { http } from '../utils';
 import { hideModal } from './modal';
 import { showNotification } from './notifications';
+
+const {
+    TASKS_REQUEST,
+    TASKS_SUCCESS,
+    TASK_ADD_REQUEST,
+    TASK_ADD_SUCCESS,
+    TASK_UPDATE_REQUEST,
+    TASK_UPDATE_SUCCESS,
+    TASK_REMOVE_REQUEST,
+    TASK_REMOVE_SUCCESS
+} = types;
+
+function fetchTasks() {
+    return (dispatch) => {
+        dispatch({ type: TASKS_REQUEST });
+
+        return http.get('/v1/tasks').then(
+            (data) => dispatch({ type: TASKS_SUCCESS, payload: data })
+        );
+    };
+}
 
 export function getAllTasks() {
     return (dispatch, getState) => {
@@ -13,63 +35,61 @@ export function getAllTasks() {
     };
 }
 
+function addTaskSuccess(data) {
+    return (dispatch) => {
+        dispatch({ type: TASK_ADD_SUCCESS, payload: data });
+        dispatch(showNotification({
+            message: 'Заявка добавлена'
+        }));
+        dispatch(hideModal());
+    };
+}
+
 export function addTask(data) {
-    return {
-        type: 'TASK_ADD',
-        $payload: {
-            request: {
-                url: '/tasks',
-                method: 'post',
-                body: data
-            },
-            onSuccess: [
-                hideModal(),
-                showNotification({ message: 'Заявка добавлена' })
-            ]
-        }
-    };   
+    return (dispatch) => {
+        dispatch({ type: TASK_ADD_REQUEST });
+
+        return http.post('/v1/tasks', data).then(
+            (data) => dispatch(addTaskSuccess(data))
+        );
+    };
+}
+
+function updateTaskSuccess(data) {
+    return (dispatch) => {
+        dispatch({ type: TASK_UPDATE_SUCCESS, payload: data });
+        dispatch(showNotification({
+            message: 'Заявка обновлена'
+        }));
+        dispatch(hideModal());
+    };
 }
 
 export function updateTask(id, data) {
-    return {
-        type: 'TASK_UPDATE',
-        $payload: {
-            request: {
-                url: `/tasks/${id}`,
-                method: 'put',
-                body: data
-            },
-            onSuccess: [
-                hideModal(),
-                showNotification({ message: 'Заявка обновлена' })
-            ]
-        }
+    return (dispatch) => {
+        dispatch({ type: TASK_UPDATE_REQUEST });
+
+        return http.put(`/v1/tasks/${id}`, data).then(
+            (data) => dispatch(updateTaskSuccess(data))
+        );
+    };
+}
+
+function removeTaskSuccess(data) {
+    return (dispatch) => {
+        dispatch({ type: TASK_REMOVE_SUCCESS, payload: data });
+        dispatch(showNotification({
+            message: 'Заявка удалена'
+        }));
     };
 }
 
 export function removeTask(id) {
-    return {
-        type: 'TASK_REMOVE',
-        $payload: {
-            request: {
-                url: `/tasks/${id}`,
-                method: 'delete'
-            },
-            onSuccess: [
-                showNotification({ message: 'Заявка удалена' })
-            ]
-        }
-    };
-}
+    return (dispatch) => {
+        dispatch({ type: TASK_REMOVE_REQUEST });
 
-function fetchTasks() {
-    return {
-        type: 'TASKS',
-        $payload: {
-            request: {
-                url: '/tasks',
-                method: 'get'
-            }
-        }
+        return http.delete(`/v1/tasks/${id}`).then(
+            (data) => dispatch(removeTaskSuccess(data))
+        );
     };
 }
