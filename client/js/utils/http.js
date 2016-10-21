@@ -6,7 +6,7 @@ function checkStatus(response) {
         return response;
     } else {
         const error = new Error(response.statusText);
-        error.response = response;
+        error.response = parseJSON(response);
         throw error;
     }
 }
