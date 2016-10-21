@@ -1,4 +1,5 @@
 import * as AuthActions from './auth';
+import * as ProfileActions from './profile';
 import * as TasksActions from './tasks';
 import * as UsersActions from './users';
 import * as ModalActions from './modal';
@@ -8,6 +9,7 @@ import * as NotificationActions from './notifications';
 
 export {
     AuthActions,
+    ProfileActions,
     TasksActions,
     UsersActions,
     ModalActions,

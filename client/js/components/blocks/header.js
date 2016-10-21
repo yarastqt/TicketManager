@@ -20,8 +20,7 @@ class Header extends Component {
         });
     }
 
-    handleLogOut(event) {
-        event.preventDefault();
+    handleLogOut() {
         this.props.logOut();
     }
 
@@ -47,15 +46,15 @@ class Header extends Component {
                             <img className="image" src={ user.avatar } />
                         </div>
                         <div className="header__popup">
-                            <Link to="#" className="header__popup-link">
+                            <Link to="/profile" className="header__popup-link">
                                 <i className="icon icon_person"></i>
                                 <span>Профиль</span>
                             </Link>
                             <div className="header__popup-separator"></div>
-                            <Link to="#" className="header__popup-link" onClick={ this.handleLogOut.bind(this) }>
+                            <div className="header__popup-link" onClick={ this.handleLogOut.bind(this) }>
                                 <i className="icon icon_exit"></i>
                                 <span>Выйти</span>
-                            </Link>
+                            </div>
                         </div>
                     </div>
                 </div>

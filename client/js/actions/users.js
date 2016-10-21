@@ -44,7 +44,7 @@ export function updateUser(id, data) {
     return (dispatch) => {
         dispatch({ type: USER_UPDATE_REQUEST });
 
-        return http.put(`/v1/users/${id}`).then(
+        return http.put(`/v1/users/${id}`, data).then(
             (payload) => dispatch(updateUserSuccess(payload))
         );
     };

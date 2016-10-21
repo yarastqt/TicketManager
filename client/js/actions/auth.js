@@ -9,6 +9,7 @@ const {
     LOGIN_REQUEST,
     LOGIN_SUCCES,
     REGISTER_REQUEST,
+    REGISTER_SUCCESS,
     LOGOUT_SUCCESS
 } = types;
 
@@ -69,14 +70,21 @@ export function loadUserProfile() {
     };
 }
 
+function registerSuccess() {
+    return (dispatch) => {
+        dispatch({ type: REGISTER_SUCCESS });
+        dispatch(showNotification({
+            message: 'Регистрация прошла успешно. Ожидайте подтверждения администратора'
+        }));
+    };
+}
+
 export function register(data) {
     return (dispatch) => {
         dispatch({ type: REGISTER_REQUEST });
 
         return http.post('/v1/auth/register', data).then(
-            (data) => {
-                dispatch(showNotify('Регистрация прошла успешно. Ожидайте подтверждения администратора'));
-            },
+            (data) => dispatch(registerSuccess()),
             (data) => {
                 data.response.then(
                     (error) => dispatch(showNotify(error.message))

@@ -35,8 +35,8 @@ class UserModal extends Component {
             <div className="modal__in">
                 <div className="modal__heading">Редактировать профиль пользователя</div>
                 <form className="form" ref="form" onSubmit={ this.updateUser(id) }>
-                    <Input type="text" name="username" label="Имя" disabled value={ username } />
-                    <Input type="text" name="email" label="E-Mail" disabled value={ email } />
+                    <Input type="text" name="username" label="Имя" value={ username } disabled />
+                    <Input type="text" name="email" label="E-Mail" value={ email } disabled />
                     <Select name="blocked" label="Состояние" value={ blocked }>
                         <option value="false">Активен</option>
                         <option value="true">Заблокирован</option>

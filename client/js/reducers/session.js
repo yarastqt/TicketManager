@@ -11,6 +11,10 @@ export default createReducer((state, payload) => ({
         return { authenticated: false, user: null };
     },
 
+    [types.PROFILE_UPDATE_SUCCESS]() {
+        return { authenticated: true, user: payload.user };
+    },
+
     [types.LOGIN_SUCCES]() {
         return { authenticated: true, user: payload.user };
     },
