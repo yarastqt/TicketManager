@@ -1,4 +1,5 @@
 import isEqual from 'lodash/isEqual';
+
 import http from './http';
 import createReducer from './reducer';
 

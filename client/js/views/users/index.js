@@ -44,7 +44,7 @@ class UsersView extends Component {
         this.removeUser = this.removeUser.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.getAllUsers();
     }
 

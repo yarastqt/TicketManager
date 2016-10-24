@@ -4,7 +4,8 @@ export function showModal(view, props) {
     return {
         type: types.MODAL_SHOW,
         payload: {
-            view, props
+            view,
+            props
         }
     };
 }

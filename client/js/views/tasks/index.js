@@ -33,7 +33,7 @@ class TasksView extends Component {
         this.removeTask = this.removeTask.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.getAllTasks();
     }
 

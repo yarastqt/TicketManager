@@ -2,7 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
-import { Header, Sidebar, Modal, Elevator, Notification } from '../components/blocks';
+import {
+    ProgressBar,
+    Header,
+    Sidebar,
+    Modal,
+    Elevator,
+    Notification
+} from '../components/blocks';
 
 function Dashboard({ sidebar, dispatch, children }) {
     const contentClasses = classnames('content', {
@@ -11,6 +18,7 @@ function Dashboard({ sidebar, dispatch, children }) {
 
     return (
         <div className="main">
+            <ProgressBar />
             <Header />
             <Sidebar sidebar={ sidebar } />
             <div className={ contentClasses }>

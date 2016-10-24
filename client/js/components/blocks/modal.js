@@ -14,7 +14,6 @@ const { hideModal } = ModalActions;
 class Modal extends Component {
     constructor() {
         super();
-        this.hideModal = this.hideModal.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -27,14 +26,9 @@ class Modal extends Component {
         }
     }
 
-    hideModal(event) {
-        event && event.preventDefault();
-        this.props.hideModal();
-    }
-
     renderContent() {
         const { view, props } = this.props.modal;
-        const modalProps = Object.assign({}, props, { hideModal: this.hideModal });
+        const modalProps = Object.assign({}, props, { hideModal: this.props.hideModal });
 
         switch (this.props.modal.view) {
             case 'user':
@@ -61,7 +55,7 @@ class Modal extends Component {
                 <div className="modal__container">
                     { this.renderContent() }
                 </div>
-                <div className="modal__overlay" onClick={ this.hideModal } />
+                <div className="modal__overlay" onClick={ this.props.hideModal } />
             </div>
         );
     }
