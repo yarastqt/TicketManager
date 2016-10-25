@@ -27,16 +27,22 @@ class Table extends Component {
     }
 
     componentWillMount() {
-        this.redirectIfEmpty();
+        this.redirectIfEmpty(this.props);
     }
 
-    componentWillReceiveProps() {
-        this.redirectIfEmpty();
+    componentWillReceiveProps(nextProps) {
+        this.redirectIfEmpty(nextProps);
     }
 
-    redirectIfEmpty() {
-        if (this.props.total > 0 && !this.props.data.length) {
-            this.changePage(1)();
+    redirectIfEmpty(props) {
+        if (props.total > 0 && !props.data.length) {
+            let nexPage = 1;
+
+            if (props.page > 1) {
+                nexPage = props.page - 1;
+            }
+
+            this.changePage(nexPage)();
         }
     }
 
@@ -98,7 +104,7 @@ class Table extends Component {
     }
 
     changeRows(event) {
-        this.props.changeRows(event.target.value, this.props.name);
+        this.props.changeRows(parseInt(event.target.value), this.props.name);
     }
 
     renderCells(data) {
