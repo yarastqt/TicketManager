@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import dict from '../../constants/dict';
 import { Content, Loader } from '../../components/blocks';
 import { Table, TableColumn, TableHeader, Button } from '../../components/ui';
+import TaskTableFilters from './filters';
 import { TasksActions, ModalActions } from '../../actions';
 
 const { getAllTasks, removeTask } = TasksActions;
@@ -63,6 +64,7 @@ class TasksView extends Component {
                         <Button icon="quick-add" text="Добавить заявку" onClick={ this.showTaskNewModal } />
                     </div>
                 </div>
+                <TaskTableFilters />
                 <Loader fetching={ fetching }>
                     <Table
                         edit={ this.showTaskModal }

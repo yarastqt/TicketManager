@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Portal from 'react-portal';
 
-import { sortData, paginate } from '../../../selectors/table';
+import { filterData, sortData, paginate } from '../../../selectors/table';
 import TablePagination from './tablePagination';
 import { TableActions } from '../../../actions';
 
@@ -212,14 +212,15 @@ Table.propTypes = {
 
 function mapStateToProps(state, props) {
     const { name, data, page } = props;
-    const { rows, sort } = state.table[name];
+    const { rows, sort, filters } = state.table[name];
     let processedData = sortData(data, sort);
         processedData = paginate(processedData, page, rows);
+
+    console.log(filterData(data, filters));
 
     return {
         total: props.data.length,
         data: processedData,
-        page,
         rows,
         sort
     };

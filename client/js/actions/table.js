@@ -1,9 +1,15 @@
 import { push } from 'react-router-redux';
 import types from '../constants';
 
+const {
+    CHANGE_TABLE_SORT,
+    CHANGE_TABLE_ROWS,
+    TABLE_ADD_FILTER
+} = types;
+
 export function changeSort(key, table) {
     return {
-        type: types.CHANGE_TABLE_SORT,
+        type: CHANGE_TABLE_SORT,
         payload: {
             key,
             table
@@ -13,9 +19,19 @@ export function changeSort(key, table) {
 
 export function changeRows(rows, table) {
     return {
-        type: types.CHANGE_TABLE_ROWS,
+        type: CHANGE_TABLE_ROWS,
         payload: {
             rows,
+            table
+        }
+    };
+}
+
+export function addFilter(filter, table) {
+    return {
+        type: TABLE_ADD_FILTER,
+        payload: {
+            filter,
             table
         }
     };

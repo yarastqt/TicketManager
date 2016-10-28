@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 
 import {
-    ProgressBar,
     Header,
     Sidebar,
     Modal,
@@ -18,7 +17,6 @@ function Dashboard({ sidebar, dispatch, children }) {
 
     return (
         <div className="main">
-            <ProgressBar />
             <Header />
             <Sidebar sidebar={ sidebar } />
             <div className={ contentClasses }>

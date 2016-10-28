@@ -1,6 +1,14 @@
 import orderBy from 'lodash/orderBy';
 import { getRange } from '../utils';
 
+export function filterData(data, filters) {
+    if (!filters.length) {
+        return data;
+    }
+
+    
+}
+
 export function sortData(data, { key, desc }) {
     return orderBy(data, key, desc ? 'desc' : 'asc');
 }

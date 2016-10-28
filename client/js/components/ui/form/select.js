@@ -4,7 +4,7 @@ import Control from './control';
 
 class Select extends Control {
     renderControl() {
-        const { name, value, children, required } = this.props;
+        const { name, value, children, required, onChange } = this.props;
 
         return (
             <div className="select">
@@ -15,6 +15,7 @@ class Select extends Control {
                     className="select__control"
                     onFocus={ this.handleFocus.bind(this) }
                     onBlur={ this.handleBlur.bind(this) }
+                    onChange={ onChange }
                     required={ required }
                 >
                     { children }
@@ -27,7 +28,7 @@ class Select extends Control {
 Select.propTypes = {
     name: PropTypes.string.isRequired,
     // value: PropTypes.string.isRequired,
-    children: React.PropTypes.arrayOf(PropTypes.element).isRequired
+    // children: React.PropTypes.arrayOf(PropTypes.element).isRequired
 };
 
 export default Select;

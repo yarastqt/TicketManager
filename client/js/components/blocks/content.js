@@ -13,7 +13,7 @@ function Content({ title, children }) {
 
 Content.propTypes = {
     title: PropTypes.string.isRequired,
-    children: PropTypes.arrayOf(PropTypes.element).isRequired
+    children: PropTypes.arrayOf(PropTypes.element)
 };
 
 export default Content;

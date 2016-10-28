@@ -16,6 +16,7 @@ import LoginView from '../views/auth/login';
 import TasksView from '../views/tasks';
 import UsersView from '../views/users';
 import ProfileView from '../views/profile';
+import StatisticsView from '../views/statistics';
 import NotFound from '../views/notfound';
 
 /**
@@ -38,6 +39,7 @@ export default (store) => (
                 <Route path="page/:page" />
             </Route>
             <Route path="profile" component={ ProfileView } />
+            <Route path="statistics" component={ StatisticsView } />
         </Route>
         <Route path="*" component={ NotFound } />
     </Route>
