@@ -33,9 +33,21 @@ class Sidebar extends Component {
 
 Sidebar.defaultProps = {
     menu: [
-        { url: '/tasks', name: 'Заявки', icon: 'box' },
-        { url: '/users', name: 'Пользователи', icon: 'people' },
-        { url: '/statistics', name: 'Статистика', icon: 'chart' }
+        {
+            url: '/tasks',
+            name: 'Заявки',
+            icon: 'box'
+        },
+        {
+            url: '/users',
+            name: 'Пользователи',
+            icon: 'people'
+        },
+        {
+            url: '/statistics',
+            name: 'Статистика',
+            icon: 'chart'
+        }
     ]
 };
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
 
+import NotFound from '../views/notfound';
 import { AuthActions } from '../actions';
 
 /**
@@ -12,16 +13,22 @@ import { AuthActions } from '../actions';
  */
 function requireAuthentication(ComposedComponent) {
     class AuthenticatedComponent extends Component {
+        state = {
+            allowed: true
+        };
+
         componentWillMount() {
-            this.checkAuthenticated();
+            this.checkAuthenticated(this.props);
+            this.checkAccess(this.props);
         }
 
-        componentWillReceiveProps() {
-            this.checkAuthenticated();
+        componentWillReceiveProps(nexProps) {
+            this.checkAuthenticated(nexProps);
+            this.checkAccess(nexProps);
         }
 
-        checkAuthenticated() {
-            const { user, authenticated, dispatch, location } = this.props;
+        checkAuthenticated(props) {
+            const { user, authenticated, dispatch, location } = props;
 
             if (!user && authenticated) {
                 dispatch(AuthActions.loadUserProfile());
@@ -35,9 +42,23 @@ function requireAuthentication(ComposedComponent) {
             }
         }
 
+        checkAccess(props) {
+            props.routes.map((route) => {
+                if (route.hasOwnProperty('roles') && props.user) {
+                    if (route.roles.indexOf(props.user.role) === -1) {
+                        this.setState({ allowed: false });
+                    }
+                } else {
+                    this.setState({ allowed: true });
+                }
+            });
+        }
+
         render() {
             if (!this.props.user || !this.props.authenticated) {
                 return null;
+            } else if (!this.state.allowed) {
+                return <NotFound />;
             }
 
             return <ComposedComponent { ...this.props } />;

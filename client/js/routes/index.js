@@ -35,7 +35,7 @@ export default (store) => (
             <Route path="tasks" component={ TasksView }>
                 <Route path="page/:page" />
             </Route>
-            <Route path="users" component={ UsersView }>
+            <Route path="users" component={ UsersView } roles={ ['admin'] }>
                 <Route path="page/:page" />
             </Route>
             <Route path="profile" component={ ProfileView } />
