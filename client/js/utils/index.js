@@ -2,10 +2,12 @@ import isEqual from 'lodash/isEqual';
 
 import http from './http';
 import createReducer from './reducer';
+import datez from './date';
 
 export {
     http,
-    createReducer
+    createReducer,
+    datez
 };
 
 export function getRange(total, page, rows) {
@@ -44,8 +46,6 @@ export function compareTaskObject(prev, next) {
     delete prevObject.createdAt;
     delete prevObject.createdBy;
     delete prevObject.id;
-    // temporary
-    delete nextObject.time;
 
     return isEqual(prevObject, nextObject);
 }

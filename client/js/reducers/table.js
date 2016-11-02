@@ -8,7 +8,7 @@ const initialState = {
             key: 'id',
             desc: true
         },
-        filters: []
+        filters: {}
     },
     users: {
         rows: 10,
@@ -16,7 +16,7 @@ const initialState = {
             key: 'blocked',
             desc: false
         },
-        filters: []
+        filters: {}
     }
 };
 
@@ -57,7 +57,7 @@ export default createReducer((state, payload) => ({
             ...state,
             [table]: {
                 ...state[table],
-                filters: [...state[table].filters, filter]
+                filters: { ...state[table].filters, ...filter }
             }
         };
     }

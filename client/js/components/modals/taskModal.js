@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { getTaskById } from '../../selectors/tasks';
-import { getFormData, compareTaskObject } from '../../utils';
+import { getFormData, compareTaskObject, datez } from '../../utils';
 import { Input, Select, Textarea, Button } from '../../components/ui';
 import { TasksActions } from '../../actions';
 
@@ -18,6 +18,9 @@ class TaskModal extends Component {
         return (event) => {
             event.preventDefault();
             const data = getFormData(this.refs.form);
+            data.date = datez.toTS(data.date, data.time);
+
+            delete data.time;
 
             if (compareTaskObject(this.props.task, data)) {
                 this.props.hideModal();
@@ -29,7 +32,8 @@ class TaskModal extends Component {
 
     render() {
         const { task, hideModal } = this.props;
-        const { id, name, date, taskType, status, source, serviceType, comment } = task;
+        const { id, name, taskType, status, source, serviceType, comment } = task;
+        const date = datez.fromTS(task.date);
 
         return (
             <div className="modal__in">
@@ -37,8 +41,8 @@ class TaskModal extends Component {
                 <form className="form" ref="form" onSubmit={ this.updateTask(id) }>
                     <Input type="text" name="name" label="Имя (ФИО / Компания)" value={ name } autofocus />
                     <div className="form__group">
-                        <Input type="date" name="date" label="Дата" value={ date } />
-                        <Input type="time" name="time" label="Время" />
+                        <Input type="date" name="date" label="Дата" value={ date.date() } />
+                        <Input type="time" name="time" label="Время" value={ date.time() } />
                     </div>
                     <Input type="text" name="taskType" label="Тип (Звонок / Заявка)" value={ taskType } />
                     <Select name="status" label="Статус" value={ status }>

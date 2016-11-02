@@ -14,6 +14,21 @@ const { hideModal } = ModalActions;
 class Modal extends Component {
     constructor() {
         super();
+        this.hideModalOnEsc = this.hideModalOnEsc.bind(this);
+    }
+
+    componentDidMount() {
+        document.addEventListener('keyup', this.hideModalOnEsc);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keyup', this.hideModalOnEsc);
+    }
+
+    hideModalOnEsc(event) {
+        if (this.props.modal.visible && event.keyCode === 27) {
+            this.props.hideModal();
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -28,7 +43,9 @@ class Modal extends Component {
 
     renderContent() {
         const { view, props } = this.props.modal;
-        const modalProps = Object.assign({}, props, { hideModal: this.props.hideModal });
+        const modalProps = Object.assign({}, props, {
+            hideModal: this.props.hideModal
+        });
 
         switch (this.props.modal.view) {
             case 'user':
@@ -38,7 +55,7 @@ class Modal extends Component {
                 return <TaskModal { ...modalProps } />;
 
             case 'taskNew':
-                return <TaskNewModal { ...modalProps } />
+                return <TaskNewModal { ...modalProps } />;
 
             default:
                 return null;

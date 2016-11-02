@@ -109,11 +109,13 @@ class Table extends Component {
 
     renderCells(data) {
         return this.props.children.map((item, key) => {
-            const element = item.props.cell || item;
+            const value = item.props.cell
+                ? item.props.cell(data[item.props.name])
+                : data[item.props.name];
 
-            return React.cloneElement(element, {
-                value: data[item.props.name],
+            return React.cloneElement(item, {
                 width: item.props.width,
+                value,
                 key
             });
         });
@@ -213,10 +215,9 @@ Table.propTypes = {
 function mapStateToProps(state, props) {
     const { name, data, page } = props;
     const { rows, sort, filters } = state.table[name];
-    let processedData = sortData(data, sort);
+    let processedData = filterData(data, filters);
+        processedData = sortData(processedData, sort);
         processedData = paginate(processedData, page, rows);
-
-    console.log(filterData(data, filters));
 
     return {
         total: props.data.length,

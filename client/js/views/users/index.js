@@ -9,32 +9,20 @@ import { UsersActions, ModalActions } from '../../actions';
 const { getAllUsers, removeUser } = UsersActions;
 const { showModal } = ModalActions;
 
-function AvatarCell({ value, width }) {
+function AvatarCell(value) {
     return (
-        <div className="table__row-cell" style={{ width: `${width}%` }}>
-            <img className="image" src={ value } />
-        </div>
+        <img className="image" src={ value } />
     );
 }
 
-function StatusCell({ value, width }) {
-    return (
-        <div className="table__row-cell" style={{ width: `${width}%` }}>
-            {
-                value
-                    ? <span className="status-failure">Заблокирован</span>
-                    : <span className="status-done">Активен</span>
-            }
-        </div>
-    );
+function StatusCell(value) {
+    return value
+        ? <span className="status-failure">Заблокирован</span>
+        : <span className="status-done">Активен</span>;
 }
 
-function RoleCell({ value, width }) {
-    return (
-        <div className="table__row-cell" style={{ width: `${width}%` }}>
-            { dict.roles[value] }
-        </div>
-    );
+function RoleCell(value) {
+    return dict.roles[value];
 }
 
 class UsersView extends Component {
@@ -78,7 +66,7 @@ class UsersView extends Component {
                             name="avatar"
                             header={ <TableHeader /> }
                             width="5"
-                            cell={ <AvatarCell /> }
+                            cell={ AvatarCell }
                         />
                         <TableColumn
                             name="username"
@@ -94,13 +82,13 @@ class UsersView extends Component {
                             name="role"
                             header={ <TableHeader sorted title="Группа" /> }
                             width="20"
-                            cell={ <RoleCell /> }
+                            cell={ RoleCell }
                         />
                         <TableColumn
                             name="blocked"
                             header={ <TableHeader sorted title="Состояние" /> }
                             width="20"
-                            cell={ <StatusCell /> }
+                            cell={ StatusCell }
                         />
                     </Table>
                 </Loader>

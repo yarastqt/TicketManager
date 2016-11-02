@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 
 import { Button, Select } from '../../components/ui';
 import { TableActions } from '../../actions';
@@ -13,16 +14,21 @@ class TaskTableFilters extends Component {
     }
 
     changeFilter(event) {
-        this.props.addFilter(event.target.value, 'tasks');
+        this.props.addFilter({
+            [event.target.name]: event.target.value
+        }, 'tasks');
     }
 
     render() {
         const { source, status, manager, serviceType } = this.props.filters;
+        const filtersClasses = classnames('filters', {
+            'filters_visible': this.props.visible
+        });
 
         return (
-            <div className="filters">
+            <div className={ filtersClasses }>
                 <div className="filters__item">
-                    <Select name="status" label="Источник" value="" onChange={ this.changeFilter }>
+                    <Select name="source" label="Источник" value="" onChange={ this.changeFilter }>
                         <option value="" disabled></option>
                         {
                             source.map((item, key) =>
@@ -42,7 +48,7 @@ class TaskTableFilters extends Component {
                     </Select>
                 </div>
                 <div className="filters__item">
-                    <Select name="status" label="Менеджер" value="" onChange={ this.changeFilter }>
+                    <Select name="createdBy" label="Менеджер" value="" onChange={ this.changeFilter }>
                         <option value="" disabled></option>
                         {
                             manager.map((item, key) =>
@@ -52,7 +58,7 @@ class TaskTableFilters extends Component {
                     </Select>
                 </div>
                 <div className="filters__item">
-                    <Select name="status" label="Вид услуги" value="" onChange={ this.changeFilter }>
+                    <Select name="serviceType" label="Вид услуги" value="" onChange={ this.changeFilter }>
                         <option value="" disabled></option>
                         {
                             serviceType.map((item, key) =>

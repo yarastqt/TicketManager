@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { datez } from '../../utils';
 import dict from '../../constants/dict';
 import { Content, Loader } from '../../components/blocks';
 import { Table, TableColumn, TableHeader, Button } from '../../components/ui';
@@ -10,28 +11,33 @@ import { TasksActions, ModalActions } from '../../actions';
 const { getAllTasks, removeTask } = TasksActions;
 const { showModal } = ModalActions;
 
-function StatusCell({ value, width }) {
+function StatusCell(value) {
     return (
-        <div className="table__row-cell" style={{ width: `${width}%` }}>
-            <span className={ `status-${value}` }>{ dict.statuses[value] }</span>
-        </div>
+        <span className={ `status-${value}` }>
+            { dict.statuses[value] }
+        </span>
     );
 }
 
-function ManagerCell({ value, width }) {
-    return (
-        <div className="table__row-cell" style={{ width: `${width}%` }}>
-            { value.username }
-        </div>
-    );
+function ManagerCell(value) {
+    return value.username;
+}
+
+function DateCell(value) {
+    return datez.fromTS(value).date(true);
 }
 
 class TasksView extends Component {
+    state = {
+        visibleFilters: false
+    };
+
     constructor() {
         super();
         this.showTaskNewModal = this.showTaskNewModal.bind(this);
         this.showTaskModal = this.showTaskModal.bind(this);
         this.removeTask = this.removeTask.bind(this);
+        this.toggleVisibleFilters = this.toggleVisibleFilters.bind(this);
     }
 
     componentDidMount() {
@@ -52,6 +58,12 @@ class TasksView extends Component {
         }
     }
 
+    toggleVisibleFilters() {
+        this.setState((state) => {
+            return { ...state, visibleFilters: !state.visibleFilters };
+        });
+    }
+
     render() {
         const { page, tasks } = this.props;
         const { list, fetching } = tasks;
@@ -61,10 +73,11 @@ class TasksView extends Component {
                 <div className="content__header">
                     <div className="content__heading">Заявки</div>
                     <div className="content__actions">
+                        <Button icon="filter" view="pseudo" onClick={ this.toggleVisibleFilters } />
                         <Button icon="quick-add" text="Добавить заявку" onClick={ this.showTaskNewModal } />
                     </div>
                 </div>
-                <TaskTableFilters />
+                <TaskTableFilters visible={ this.state.visibleFilters } />
                 <Loader fetching={ fetching }>
                     <Table
                         edit={ this.showTaskModal }
@@ -87,6 +100,7 @@ class TasksView extends Component {
                             name="date"
                             header={ <TableHeader sorted title="Дата" /> }
                             width="15"
+                            cell={ DateCell }
                         />
                         <TableColumn
                             name="source"
@@ -102,13 +116,13 @@ class TasksView extends Component {
                             name="status"
                             header={ <TableHeader sorted title="Статус" /> }
                             width="10"
-                            cell={ <StatusCell /> }
+                            cell={ StatusCell }
                         />
                         <TableColumn
                             name="createdBy"
                             header={ <TableHeader title="Менеджер" /> }
                             width="10"
-                            cell={ <ManagerCell /> }
+                            cell={ ManagerCell }
                         />
                         <TableColumn
                             name="serviceType"
