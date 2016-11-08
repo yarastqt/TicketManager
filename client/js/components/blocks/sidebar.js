@@ -4,7 +4,11 @@ import classnames from 'classnames';
 
 class Sidebar extends Component {
     renderMenuList() {
-        return this.props.menu.map(({ url, name, icon }, index) => {
+        return this.props.menu.map(({ url, name, icon, roles }, index) => {
+            if (roles && roles.indexOf(this.props.user.role) === -1) {
+                return null;
+            }
+
             return (
                 <div className="sidebar-menu__item" key={ index }>
                     <Link to={ url } className="sidebar-menu__link" activeClassName="sidebar-menu__link_active" title={ name }>
@@ -41,7 +45,8 @@ Sidebar.defaultProps = {
         {
             url: '/users',
             name: 'Пользователи',
-            icon: 'people'
+            icon: 'people',
+            roles: ['admin']
         },
         {
             url: '/statistics',
@@ -59,6 +64,7 @@ Sidebar.propTypes = {
             icon: PropTypes.string.isRequired
         })
     ),
+    user: PropTypes.object.isRequired,
     sidebar: PropTypes.bool.isRequired
 };
 

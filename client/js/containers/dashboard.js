@@ -10,7 +10,7 @@ import {
     Notification
 } from '../components/blocks';
 
-function Dashboard({ sidebar, dispatch, children }) {
+function Dashboard({ user, sidebar, dispatch, children }) {
     const contentClasses = classnames('content', {
         'content_expanded': sidebar
     });
@@ -18,7 +18,7 @@ function Dashboard({ sidebar, dispatch, children }) {
     return (
         <div className="main">
             <Header />
-            <Sidebar sidebar={ sidebar } />
+            <Sidebar user={ user } sidebar={ sidebar } />
             <div className={ contentClasses }>
                 { children }
                 <div className="footer">
@@ -33,5 +33,6 @@ function Dashboard({ sidebar, dispatch, children }) {
 }
 
 export default connect((state) => ({
+    user: state.session.user,
     sidebar: state.sidebar
 }))(Dashboard);
