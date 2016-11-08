@@ -1,5 +1,7 @@
-=icon($icon, $width, $height)
-    &_#{$icon}
-        background-image: url('/assets/i/icons/' + $icon + '.svg')
-        width: $width
-        height: $height
+=icon($icon, $width, $height, $color: null)
+    @if $color
+        background-image: svg($icon, '[fill]:' + $color + '')
+    @else
+        background-image: svg($icon)
+    width: $width
+    height: $height

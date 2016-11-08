@@ -2,21 +2,36 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
-import { Button, Select } from '../../components/ui';
+import { getFormData, datez } from '../../utils';
+import { Input, Button, Select } from '../../components/ui';
 import { TableActions } from '../../actions';
 
-const { addFilter } = TableActions;
+const { addFilter, resetFilters } = TableActions;
 
 class TaskTableFilters extends Component {
     constructor() {
         super();
         this.changeFilter = this.changeFilter.bind(this);
+        this.resetFilters = this.resetFilters.bind(this);
     }
 
     changeFilter(event) {
-        this.props.addFilter({
-            [event.target.name]: event.target.value
-        }, 'tasks');
+        const data = getFormData(this.refs.form, true);
+
+        if (data.startDate) {
+            data.startDate = datez.toTS(data.startDate);
+        }
+
+        if (data.endDate) {
+            data.endDate = datez.toTS(data.endDate);
+        }
+
+        this.props.addFilter(data, 'tasks');
+    }
+
+    resetFilters(event) {
+        event.preventDefault();
+        this.refs.form.reset();
     }
 
     render() {
@@ -27,49 +42,45 @@ class TaskTableFilters extends Component {
 
         return (
             <div className={ filtersClasses }>
-                <div className="filters__item">
-                    <Select name="source" label="Источник" value="" onChange={ this.changeFilter }>
-                        <option value="" disabled></option>
+                <form className="form filters__form" ref="form" onChange={ this.changeFilter }>
+                    <Input type="date" name="startDate" label="Начальная дата" />
+                    <Input type="date" name="endDate" label="Конечная дата" />
+                    <Select name="source" label="Источник" value="">
+                        <option value=""></option>
                         {
                             source.map((item, key) =>
                                 <option value={ item } key={ key }>{ item }</option>
                             )
                         }
                     </Select>
-                </div>
-                <div className="filters__item">
-                    <Select name="status" label="Статус" value="" onChange={ this.changeFilter }>
-                        <option value="" disabled></option>
+                    <Select name="status" label="Статус" value="">
+                        <option value=""></option>
                         {
                             status.map((item, key) =>
                                 <option value={ item } key={ key }>{ item }</option>
                             )
                         }
                     </Select>
-                </div>
-                <div className="filters__item">
-                    <Select name="createdBy" label="Менеджер" value="" onChange={ this.changeFilter }>
-                        <option value="" disabled></option>
+                    <Select name="createdBy" label="Менеджер" value="">
+                        <option value=""></option>
                         {
                             manager.map((item, key) =>
                                 <option value={ item } key={ key }>{ item }</option>
                             )
                         }
                     </Select>
-                </div>
-                <div className="filters__item">
-                    <Select name="serviceType" label="Вид услуги" value="" onChange={ this.changeFilter }>
-                        <option value="" disabled></option>
+                    <Select name="serviceType" label="Вид услуги" value="">
+                        <option value=""></option>
                         {
                             serviceType.map((item, key) =>
                                 <option value={ item } key={ key }>{ item }</option>
                             )
                         }
                     </Select>
-                </div>
-                <div className="filters__item">
-                    <Button icon="close" view="pseudo" />
-                </div>
+                    <div className="form__actions">
+                        <Button icon="close" view="pseudo" onClick={ this.resetFilters } />
+                    </div>
+                </form>
             </div>
         );
     }
@@ -105,5 +116,5 @@ export default connect(
     (state) => ({
         filters: getFilters(state.tasks.list)
     }),
-    { addFilter }
+    { addFilter, resetFilters }
 )(TaskTableFilters);

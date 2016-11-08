@@ -4,7 +4,8 @@ import types from '../constants';
 const {
     CHANGE_TABLE_SORT,
     CHANGE_TABLE_ROWS,
-    TABLE_ADD_FILTER
+    TABLE_ADD_FILTER,
+    TABLE_RESET_FILTERS
 } = types;
 
 export function changeSort(key, table) {

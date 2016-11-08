@@ -4,7 +4,11 @@ function pad(number) {
 
 export default {
     toTS(date, time) {
-        return Date.parse(`${date} ${time}`);
+        if (time) {
+            return Date.parse(`${date} ${time}`);
+        }
+
+        return Date.parse(date);
     },
 
     fromTS(ts) {

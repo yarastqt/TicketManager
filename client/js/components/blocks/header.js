@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classnames from 'classnames';
+import Portal from 'react-portal';
 
 import dict from '../../constants/dict';
 import { AuthActions, SidebarActions } from '../../actions';
@@ -11,23 +12,48 @@ const { toggleSidebar } = SidebarActions;
 
 class Header extends Component {
     state = {
-        userActive: false
+        popup: {
+            visible: false,
+            position: {
+                top: null,
+                left: null
+            }
+        }
     };
 
-    handleTogglePopup() {
+    constructor() {
+        super();
+        this.openPopup = this.openPopup.bind(this);
+        this.closePopup = this.closePopup.bind(this);
+    }
+
+    openPopup() {
+        const bodyRect = document.body.getBoundingClientRect();
+        const targetRect = this.refs.headerUser.getBoundingClientRect();
+
         this.setState({
-            userActive: !this.state.userActive
+            popup: {
+                visible: true,
+                position: {
+                    top: targetRect.top - bodyRect.top + 48,
+                    left: targetRect.right
+                }
+            }
         });
     }
 
-    handleLogOut() {
-        this.props.logOut();
+    closePopup() {
+        this.setState({
+            ...this.state,
+            popup: { ...this.state.popup, visible: false }
+        });
     }
 
     render() {
         const { user, toggleSidebar } = this.props;
+        const { visible, position } = this.state.popup;
         const userClasses = classnames('header__user', {
-            'header__user_active': this.state.userActive
+            'header__user_active': visible
         });
 
         return (
@@ -37,7 +63,7 @@ class Header extends Component {
                         <i className="icon icon_toggle"></i>
                     </div>
                     <div className="header__logo"></div>
-                    <div className={ userClasses } onClick={ this.handleTogglePopup.bind(this) }>
+                    <div className={ userClasses } ref="headerUser" onClick={ this.openPopup }>
                         <div className="header__user-meta">
                             <div className="header__user-name">Привет, { user.username }</div>
                             <div className="header__user-role">{ dict.roles[user.role] }</div>
@@ -45,17 +71,19 @@ class Header extends Component {
                         <div className="header__user-avatar">
                             <img className="image" src={ user.avatar } />
                         </div>
-                        <div className="header__popup">
-                            <Link to="/profile" className="header__popup-link">
-                                <i className="icon icon_person"></i>
-                                <span>Профиль</span>
-                            </Link>
-                            <div className="header__popup-separator"></div>
-                            <div className="header__popup-link" onClick={ this.handleLogOut.bind(this) }>
-                                <i className="icon icon_exit"></i>
-                                <span>Выйти</span>
+                        <Portal closeOnEsc closeOnOutsideClick isOpened={ visible } onClose={ this.closePopup }>
+                            <div className="popup" style={{ left: position.left, top: position.top }}>
+                                <Link to="/profile" className="popup__button" onClick={ this.closePopup }>
+                                    <i className="icon icon_person"></i>
+                                    <span className="popup__button-text">Профиль</span>
+                                </Link>
+                                <div className="popup__separator"></div>
+                                <div className="popup__button" onClick={ this.props.logOut }>
+                                    <i className="icon icon_exit"></i>
+                                    <span className="popup__button-text">Выйти</span>
+                                </div>
                             </div>
-                        </div>
+                        </Portal>
                     </div>
                 </div>
             </div>

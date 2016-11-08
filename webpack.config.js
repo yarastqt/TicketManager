@@ -2,6 +2,16 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
+const postcssProcessors = [
+    require('autoprefixer')({
+        browsers: ['last 2 versions']
+    }),
+    require('postcss-svg')({
+        paths: ['public/assets/i/icons/'],
+        svgo: true
+    })
+];
+
 module.exports = {
     devtool: 'source-map',
     entry: [
@@ -36,8 +46,9 @@ module.exports = {
             },
             {
                 test: /\.sass$/,
-                loader: ExtractTextPlugin.extract('style', 'css!autoprefixer?browsers=last 2 versions!sass!import-glob'),
+                loader: ExtractTextPlugin.extract('style', 'css!postcss!sass!import-glob'),
             }
         ]
-    }
+    },
+    postcss: postcssProcessors
 };

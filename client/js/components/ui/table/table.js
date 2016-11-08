@@ -27,11 +27,11 @@ class Table extends Component {
     }
 
     componentWillMount() {
-        this.redirectIfEmpty(this.props);
+        // this.redirectIfEmpty(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.redirectIfEmpty(nextProps);
+        // this.redirectIfEmpty(nextProps);
     }
 
     redirectIfEmpty(props) {
@@ -64,23 +64,23 @@ class Table extends Component {
         };
     }
 
-    hidePopup() {
+    closePopup() {
         this.setState({
             ...this.state,
-            popup: { ...this.state.popup, visible: false }            
+            popup: { ...this.state.popup, visible: false }
         });
     }
 
     handleEdit(id) {
         return () => {
-            this.hidePopup();
+            this.closePopup();
             this.props.edit(id);
         };
     }
 
     handleRemove(id) {
         return () => {
-            this.hidePopup();
+            this.closePopup();
             this.props.remove(id);
         };
     }
@@ -127,11 +127,21 @@ class Table extends Component {
                 <div className="table__row" key={ key }>
                     { this.renderCells(item) }
                     <div className="table__row-action">
-                        <div className="table__row-button" onClick={ this.openPopup(item.id) }></div>
+                        { this.renderActions(item) }
                     </div>
                 </div>
             );
         });
+    }
+
+    renderActions(data) {
+        if (this.props.user.role !== 'manager' || this.props.user.role === 'manager'
+            && this.props.user.id === data.createdBy.id
+        ) {
+            return (
+                <div className="table__row-button" onClick={ this.openPopup(data.id) }></div>
+            );
+        }
     }
 
     renderHeaders() {
@@ -222,6 +232,7 @@ function mapStateToProps(state, props) {
     return {
         total: props.data.length,
         data: processedData,
+        user: state.session.user,
         rows,
         sort
     };

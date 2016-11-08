@@ -20,12 +20,20 @@ export function getRange(total, page, rows) {
     };
 }
 
-export function getFormData(form) {
+export function getFormData(form, isValue) {
     const targers = form.querySelectorAll('input, textarea, select');
 
     return [].reduce.call(targers, (result, formElement) => {
         if (formElement.hasAttribute('name')) {
-            result[formElement.name] = formElement.value.trim();
+            const value = formElement.value.trim();
+
+            if (isValue) {
+                if (value.length) {
+                    result[formElement.name] = value;
+                }
+            } else {
+                result[formElement.name] = value;
+            }
         }
 
         return result;

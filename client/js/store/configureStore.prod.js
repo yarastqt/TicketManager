@@ -2,7 +2,6 @@ import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
 
-// import apiMiddleware from '../middleware/api';
 import rootReducer from '../reducers';
 
 // Remove react dev tools from google chrome extension
@@ -22,7 +21,6 @@ export default (browserHistory) => {
     const createStoreWithMiddleware = applyMiddleware(
         reduxRouterMiddleware,
         thunkMiddleware,
-        // apiMiddleware
     )(createStore);
 
     return createStoreWithMiddleware(rootReducer);

@@ -1,11 +1,16 @@
 .filters
     display: none
-    align-items: flex-end
     margin-bottom: 28px
 
     &_visible
-        display: flex
+        display: block
 
-    &__item
-        flex: 1 0 auto
-        margin-right: 14px
+    &__form
+        max-width: 100% !important
+        display: flex
+        align-items: flex-end
+
+        .form__field
+            flex: 1 0 0
+            margin-right: 14px
+            margin-bottom: 0

@@ -28,9 +28,9 @@ class ProfileView extends Component {
         const { id, role, email, username } = this.props.user;
 
         return (
-            <Content title="Профиль пользователя">
+            <Content title="Профиль">
                 <div className="content__header">
-                    <div className="content__heading">Профиль пользователя</div>
+                    <div className="content__heading">Профиль</div>
                 </div>
                 <div className="profile">
                     <form className="form" ref="form" onSubmit={ this.updateProfile }>

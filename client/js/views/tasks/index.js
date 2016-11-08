@@ -59,8 +59,8 @@ class TasksView extends Component {
     }
 
     toggleVisibleFilters() {
-        this.setState((state) => {
-            return { ...state, visibleFilters: !state.visibleFilters };
+        this.setState({
+            visibleFilters: !this.state.visibleFilters
         });
     }
 

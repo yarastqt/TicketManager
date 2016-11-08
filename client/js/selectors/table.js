@@ -1,5 +1,4 @@
 import orderBy from 'lodash/orderBy';
-import filter from 'lodash/filter';
 import { getRange } from '../utils';
 
 export function filterData(data, filters) {
@@ -7,7 +6,36 @@ export function filterData(data, filters) {
         return data;
     }
 
-    return filter(data, filters);
+    const l = Object.keys(filters).length;
+    const result = data.filter((item) => {
+        let matches = 0;
+
+        for (let key in filters) {
+            if (key === 'startDate' || key === 'endDate') {
+                const endDate = filters.endDate ? filters.endDate : filters.startDate;
+
+                if (item.date >= filters.startDate && item.date <= endDate + 86400000) {
+                    matches++;
+                    continue;
+                }
+            }
+
+            if (key === 'createdBy' && item.createdBy.username === filters[key]) {
+                matches++;
+                continue;
+            }
+
+            if (item[key] === filters[key]) {
+                matches++;
+            }
+        }
+
+        if (matches === l) {
+            return item;
+        }
+    });
+
+    return result;
 }
 
 export function sortData(data, { key, desc }) {

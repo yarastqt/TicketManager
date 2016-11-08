@@ -1,9 +1,4 @@
 .loader
-    position: absolute
-    top: 68px
-    left: 0
-    right: 0
-    bottom: 0
     margin: auto
     width: 70px
     height: 70px
@@ -12,18 +7,13 @@
     align-items: center
     user-select: none
     cursor: default
+    pointer-events: none
 
     &__spinner
         animation: spinner 2s linear infinite
         transform-origin: center center
         height: 100%
         width: 100%
-        position: absolute
-        top: 0
-        bottom: 0
-        left: 0
-        right: 0
-        margin: auto
 
     &__spinner-path
         stroke-dasharray: 1, 200
@@ -33,11 +23,6 @@
         stroke: $color-blue
 
 .empty-list
-    position: absolute
-    top: 64px
-    left: 0
-    right: 0
-    bottom: 0
     margin: auto
     height: 105px
     display: flex
@@ -46,6 +31,7 @@
     user-select: none
     cursor: default
     opacity: .5
+    pointer-events: none
 
     &__icon
         background-repeat: no-repeat
