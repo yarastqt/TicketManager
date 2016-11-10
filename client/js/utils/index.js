@@ -20,14 +20,14 @@ export function getRange(total, page, rows) {
     };
 }
 
-export function getFormData(form, isValue) {
+export function getFormData(form, onlyFilled) {
     const targers = form.querySelectorAll('input, textarea, select');
 
     return [].reduce.call(targers, (result, formElement) => {
         if (formElement.hasAttribute('name')) {
             const value = formElement.value.trim();
 
-            if (isValue) {
+            if (onlyFilled) {
                 if (value.length) {
                     result[formElement.name] = value;
                 }

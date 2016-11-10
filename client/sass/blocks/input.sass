@@ -5,11 +5,11 @@
         opacity: .5
         cursor: default
 
-    &__eye
+    &__eye, &__cancel
         position: absolute
-        right: 14px
-        width: 24px
-        height: 24px
+        right: 12px
+        width: 20px
+        height: 20px
         top: 0
         bottom: 0
         margin: auto
@@ -17,6 +17,14 @@
         display: flex
         align-items: center
         justify-content: center
+
+        .icon
+            width: 20px
+            height: 20px
+
+    &__cancel:hover
+        .icon_close
+            +icon('close', 24px, 24px, $color-blue)
 
     &__control
         height: 38px
@@ -48,7 +56,7 @@
             transition: background-color 5000s ease-in-out 0s
 
     &__control[type="password"]
-        padding-right: 48px
+        padding-right: 44px
 
     &__error
         color: $color-pink

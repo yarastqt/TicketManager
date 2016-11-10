@@ -1,6 +1,13 @@
 import { createReducer } from '../utils';
 import types from '../constants';
 
+const {
+    CHANGE_TABLE_SORT,
+    CHANGE_TABLE_ROWS,
+    TABLE_ADD_FILTER,
+    TABLE_REMOVE_FILTER
+} = types;
+
 const initialState = {
     tasks: {
         rows: 25,
@@ -21,7 +28,7 @@ const initialState = {
 };
 
 export default createReducer((state, payload) => ({
-    [types.CHANGE_TABLE_SORT]() {
+    [CHANGE_TABLE_SORT]() {
         const { key, table } = payload;
 
         return {
@@ -38,7 +45,7 @@ export default createReducer((state, payload) => ({
         };
     },
 
-    [types.CHANGE_TABLE_ROWS]() {
+    [CHANGE_TABLE_ROWS]() {
         const { rows, table } = payload;
 
         return {
@@ -50,7 +57,7 @@ export default createReducer((state, payload) => ({
         };
     },
 
-    [types.TABLE_ADD_FILTER]() {
+    [TABLE_ADD_FILTER]() {
         const { filter, table } = payload;
 
         return {
@@ -58,6 +65,21 @@ export default createReducer((state, payload) => ({
             [table]: {
                 ...state[table],
                 filters: { ...state[table].filters, ...filter }
+            }
+        };
+    },
+
+    [TABLE_REMOVE_FILTER]() {
+        const { filter, table } = payload;
+        const filters = state[table].filters;
+
+        delete filters[filter];
+
+        return {
+            ...state,
+            [table]: {
+                ...state[table],
+                filters
             }
         };
     }

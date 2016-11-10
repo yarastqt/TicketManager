@@ -22,7 +22,7 @@ export default {
         return {
             date(normalize) {
                 return normalize
-                    ? `${day}-${month}-${year}`
+                    ? `${day}.${month}.${year}`
                     : `${year}-${month}-${day}`
             },
 

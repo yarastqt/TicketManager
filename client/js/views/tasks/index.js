@@ -11,6 +11,10 @@ import { TasksActions, ModalActions } from '../../actions';
 const { getAllTasks, removeTask } = TasksActions;
 const { showModal } = ModalActions;
 
+function TypeCell(value) {
+    return dict.types[value];
+}
+
 function StatusCell(value) {
     return (
         <span className={ `status-${value}` }>
@@ -111,6 +115,7 @@ class TasksView extends Component {
                             name="taskType"
                             header={ <TableHeader sorted title="Тип" /> }
                             width="10"
+                            cell={ TypeCell }
                         />
                         <TableColumn
                             name="status"

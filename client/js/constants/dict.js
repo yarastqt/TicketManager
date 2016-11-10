@@ -10,5 +10,11 @@ export default {
         failure: 'Отказ',
         done: 'Выполнено',
         canceled: 'Отменено'
+    },
+    types: {
+        application: 'Заявка',
+        call: 'Звонок',
+        mail: 'Почта',
+        other: 'Другое'
     }
 };

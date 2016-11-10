@@ -44,23 +44,26 @@ class TaskModal extends Component {
                         <Input type="date" name="date" label="Дата" value={ date.date() } />
                         <Input type="time" name="time" label="Время" value={ date.time() } />
                     </div>
-                    <Input type="text" name="taskType" label="Тип (Звонок / Заявка)" value={ taskType } />
-                    <Select name="status" label="Статус" value={ status }>
-                        <option value="pending">В процессе</option>
-                        <option value="failure">Отказ</option>
-                        <option value="done">Выполнено</option>
-                        <option value="canceled">Отменено</option>
-                    </Select>
-                    <Select name="source" label="Источник" value={ source }>
-                        <option value="none" disabled>Выберите источник</option>
-                        <option value="yandex">Яндекс</option>
-                        <option value="google">Google</option>
-                    </Select>
-                    <Select name="serviceType" label="Вид услуги" value={ serviceType }>
-                        <option value="none" disabled>Выберите вид услуги</option>
-                        <option value="Переезд квартиры">Переезд квартиры</option>
-                        <option value="Переезд офиса">Переезд офиса</option>
-                    </Select>
+                    <Select name="taskType" label="Тип" value={ taskType } options={[
+                        { value: 'application', label: 'Заявка' },
+                        { value: 'call', label: 'Звонок' },
+                        { value: 'mail', label: 'Почта' }
+                    ]} custom />
+                    <Select name="status" label="Статус" value={ status } options={[
+                        { value: 'pending', label: 'В процессе' },
+                        { value: 'failure', label: 'Отказ' },
+                        { value: 'done', label: 'Выполнено' },
+                        { value: 'canceled', label: 'Отменено' }
+                    ]} />
+                    <Select name="source" label="Источник" value={ source } options={[
+                        { value: 'yandex rcya', label: 'Яндекс РСЯ' },
+                        { value: 'yandex', label: 'Яндекс' },
+                        { value: 'google cms', label: 'Google КМС' },
+                        { value: 'google', label: 'Google' }
+                    ]} custom />
+                    <Select name="serviceType" label="Вид услуги" value={ serviceType } options={[
+                        { value: 'Переезд квартиры', label: 'Переезд квартиры' }
+                    ]} custom />
                     <Textarea name="comment" label="Комментарий" value={ comment } />
                     <div className="form__actions">
                         <Button icon="update" text="Обновить" />

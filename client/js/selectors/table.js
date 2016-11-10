@@ -10,7 +10,7 @@ export function filterData(data, filters) {
     const result = data.filter((item) => {
         let matches = 0;
 
-        for (let key in filters) {
+        for (const key in filters) {
             if (key === 'startDate' || key === 'endDate') {
                 const endDate = filters.endDate ? filters.endDate : filters.startDate;
 

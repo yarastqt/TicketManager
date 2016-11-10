@@ -32,7 +32,7 @@ class Control extends Component {
 
         return (
             <div className={ fieldClasses }>
-                <label htmlFor={ name } className="form__field-label">{ label }</label>
+                { label && <label htmlFor={ name } className="form__field-label">{ label }</label> }
                 { this.renderControl() }
             </div>
         );
@@ -41,7 +41,7 @@ class Control extends Component {
 
 Control.propTypes = {
     name: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    label: PropTypes.string
 };
 
 export default Control;

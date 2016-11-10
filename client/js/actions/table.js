@@ -5,7 +5,7 @@ const {
     CHANGE_TABLE_SORT,
     CHANGE_TABLE_ROWS,
     TABLE_ADD_FILTER,
-    TABLE_RESET_FILTERS
+    TABLE_REMOVE_FILTER
 } = types;
 
 export function changeSort(key, table) {
@@ -31,6 +31,16 @@ export function changeRows(rows, table) {
 export function addFilter(filter, table) {
     return {
         type: TABLE_ADD_FILTER,
+        payload: {
+            filter,
+            table
+        }
+    };
+}
+
+export function removeFilter(filter, table) {
+    return {
+        type: TABLE_REMOVE_FILTER,
         payload: {
             filter,
             table

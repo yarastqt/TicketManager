@@ -35,17 +35,20 @@ class TasksNewModal extends Component {
                         <Input type="date" name="date" label="Дата" value={ datez.currentDate() } />
                         <Input type="time" name="time" label="Время" value={ datez.currentTime() } />
                     </div>
-                    <Input type="text" name="taskType" label="Тип (Звонок / Заявка)" required />
-                    <Select name="source" label="Источник" value="" required>
-                        <option value="" disabled>Выберите источник</option>
-                        <option value="yandex">Яндекс</option>
-                        <option value="google">Google</option>
-                    </Select>
-                    <Select name="serviceType" label="Вид услуги" value="" required>
-                        <option value="" disabled>Выберите вид услуги</option>
-                        <option value="Переезд квартиры">Переезд квартиры</option>
-                        <option value="Переезд офиса">Переезд офиса</option>
-                    </Select>
+                    <Select name="taskType" label="Тип" options={[
+                        { value: 'application', label: 'Заявка' },
+                        { value: 'call', label: 'Звонок' },
+                        { value: 'mail', label: 'Почта' }
+                    ]} custom />
+                    <Select name="source" label="Источник" options={[
+                        { value: 'yandex rcya', label: 'Яндекс РСЯ' },
+                        { value: 'yandex', label: 'Яндекс' },
+                        { value: 'google cms', label: 'Google КМС' },
+                        { value: 'google', label: 'Google' }
+                    ]} custom />
+                    <Select name="serviceType" label="Вид услуги" options={[
+                        { value: 'Переезд квартиры', label: 'Переезд квартиры' }
+                    ]} custom />
                     <Textarea name="comment" label="Комментарий" />
                     <div className="form__actions">
                         <Button icon="quick-add" text="Добавить" />

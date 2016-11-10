@@ -12,6 +12,8 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 render((
     <Provider store={ store }>
-        <Router onUpdate={ () => window.scrollTo(0, 0) } history={ history }>{ configureRoutes(store) }</Router>
+        <Router onUpdate={ () => window.scrollTo(0, 0) } history={ history }>
+            { configureRoutes(store) }
+        </Router>
     </Provider>
 ), document.getElementById('react-root'));

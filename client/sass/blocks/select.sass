@@ -15,6 +15,27 @@
         margin: auto
         pointer-events: none
 
+    &__clear
+        position: absolute
+        right: 32px
+        width: 20px
+        height: 20px
+        top: 0
+        bottom: 0
+        margin: auto
+        cursor: pointer
+        display: flex
+        align-items: center
+        justify-content: center
+
+        .icon
+            width: 20px
+            height: 20px
+
+        &:hover
+            .icon_close
+                +icon('close', 24px, 24px, $color-blue)
+
     &__control
         appearance: none
         border-radius: 2px
