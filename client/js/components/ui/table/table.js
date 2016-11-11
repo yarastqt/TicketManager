@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Portal from 'react-portal';
+import shallowCompare from 'react-addons-shallow-compare';
 
 import { filterData, sortData, paginate } from '../../../selectors/table';
 import TablePagination from './tablePagination';
@@ -21,6 +22,7 @@ class Table extends Component {
     constructor() {
         super();
         this.openPopup = this.openPopup.bind(this);
+        this.closePopup = this.closePopup.bind(this);
         this.changeSort = this.changeSort.bind(this);
         this.changePage = this.changePage.bind(this);
         this.changeRows = this.changeRows.bind(this);
@@ -34,15 +36,19 @@ class Table extends Component {
         // this.redirectIfEmpty(nextProps);
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
+
     redirectIfEmpty(props) {
         if (props.total > 0 && !props.data.length) {
-            let nexPage = 1;
+            let nextPage = 1;
 
             if (props.page > 1) {
-                nexPage = props.page - 1;
+                nextPage = props.page - 1;
             }
 
-            this.changePage(nexPage)();
+            this.changePage(nextPage)();
         }
     }
 
@@ -66,7 +72,6 @@ class Table extends Component {
 
     closePopup() {
         this.setState({
-            ...this.state,
             popup: { ...this.state.popup, visible: false }
         });
     }
@@ -187,7 +192,7 @@ class Table extends Component {
                         rows={ rows }
                     />
                 </div>
-                <Portal closeOnEsc closeOnOutsideClick isOpened={ visible }>
+                <Portal closeOnEsc closeOnOutsideClick isOpened={ visible } onClose={ this.closePopup }>
                     <div className="popup" style={{ left: position.left, top: position.top }}>
                         <div className="popup__button" onClick={ this.handleEdit(props) }>
                             <i className="icon icon_edit"></i>

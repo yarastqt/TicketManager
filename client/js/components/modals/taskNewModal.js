@@ -30,7 +30,7 @@ class TasksNewModal extends Component {
             <div className="modal__in">
                 <div className="modal__heading">Новая заявка</div>
                 <form className="form" ref="form" onSubmit={ this.addTask }>
-                    <Input type="text" name="name" label="Имя (ФИО / Компания)" required autofocus />
+                    <Input type="text" name="name" label="Имя (ФИО / Компания)" required />
                     <div className="form__group">
                         <Input type="date" name="date" label="Дата" value={ datez.currentDate() } />
                         <Input type="time" name="time" label="Время" value={ datez.currentTime() } />

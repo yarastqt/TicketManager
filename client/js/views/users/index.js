@@ -36,6 +36,11 @@ class UsersView extends Component {
         this.props.getAllUsers();
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.users.list.length !== nextProps.users.list.length
+            || this.props.page !== nextProps.page;
+    }
+
     showUserModal(userId) {
         this.props.showModal('user', { userId });
     }

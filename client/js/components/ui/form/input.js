@@ -20,17 +20,21 @@ class Input extends Control {
 
             return { type: 'password' };
         });
+
+        setTimeout(() => {
+            this.refs.control.focus();
+        }, 0);
     }
 
     renderEye() {
+        const iconClasses = !this.state.type && this.props.type === 'password' || this.state.type === 'password'
+            ? 'icon icon_eye-close'
+            : 'icon icon_eye-open';
+
         if (this.props.type === 'password') {
             return (
                 <span className="input__eye" onClick={ this.changeType }>
-                    {
-                        (!this.state.type && this.props.type === 'password' || this.state.type === 'password')
-                            ? <i className="icon icon_eye-close"></i>
-                            : <i className="icon icon_eye-open"></i>
-                    }
+                    <i className={ iconClasses }></i>
                 </span>
             );
         }
@@ -43,14 +47,15 @@ class Input extends Control {
             <div className={ this.getClassName('input') }>
                 { this.renderEye() }
                 <input
+                    ref="control"
                     type={ this.state.type || type }
                     name={ name }
                     id={ name }
                     defaultValue={ value }
                     className="input__control"
                     autoComplete="off"
-                    onFocus={ this.handleFocus.bind(this) }
-                    onBlur={ this.handleBlur.bind(this) }
+                    onFocus={ this.handleFocus }
+                    onBlur={ this.handleBlur }
                     disabled={ disabled }
                     autoFocus={ autofocus }
                     required={ required }

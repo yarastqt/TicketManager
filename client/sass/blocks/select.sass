@@ -1,5 +1,13 @@
+.form__field_focused
+    .select:before
+        +icon('arrow-down', 20px, 20px, $color-blue)
+
 .select
     position: relative
+
+    &_disabled
+        opacity: .5
+        cursor: default
 
     &:before
         content: ''
@@ -7,9 +15,7 @@
         right: 12px
         top: 0
         bottom: 0
-        width: 20px
-        height: 20px
-        background-image: url(/assets/i/icons/arrow-down.svg)
+        +icon('arrow-down', 20px, 20px)
         background-repeat: no-repeat
         background-size: 100%
         margin: auto
@@ -42,7 +48,7 @@
         background-color: #fcfcfc
         border: 1px solid #e0e0e0
         height: 38px
-        padding: 0 36px 0 12px
+        padding: 0 42px 0 12px
         font: inherit
         font-size: 1.4rem
         transition: 200ms ease-in-out
@@ -52,3 +58,6 @@
         &:focus
             border-color: $color-blue
             background-color: #fff
+
+        &_clearable
+            padding-right: 62px

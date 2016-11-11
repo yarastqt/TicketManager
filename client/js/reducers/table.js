@@ -5,7 +5,8 @@ const {
     CHANGE_TABLE_SORT,
     CHANGE_TABLE_ROWS,
     TABLE_ADD_FILTER,
-    TABLE_REMOVE_FILTER
+    TABLE_REMOVE_FILTER,
+    TABLE_REMOVE_ALL_FILTERS
 } = types;
 
 const initialState = {
@@ -80,6 +81,18 @@ export default createReducer((state, payload) => ({
             [table]: {
                 ...state[table],
                 filters
+            }
+        };
+    },
+
+    [TABLE_REMOVE_ALL_FILTERS]() {
+        const { table } = payload;
+
+        return {
+            ...state,
+            [table]: {
+                ...state[table],
+                filters: {}
             }
         };
     }

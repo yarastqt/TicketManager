@@ -37,12 +37,11 @@ class UserModal extends Component {
                 <form className="form" ref="form" onSubmit={ this.updateUser(id) }>
                     <Input type="text" name="username" label="Имя" value={ username } disabled />
                     <Input type="text" name="email" label="E-Mail" value={ email } disabled />
-                    <Select name="blocked" label="Состояние" value={ blocked.toString() } options={[
-                        { value: 'false', label: 'Активен' },
-                        { value: 'true', label: 'Заблокирован' }
+                    <Select name="blocked" label="Состояние" value={ blocked } options={[
+                        { value: false, label: 'Активен' },
+                        { value: true, label: 'Заблокирован' }
                     ]} />
                     <Select name="role" label="Роль" value={ role } options={[
-                        { value: 'newbie', label: 'Новичок' },
                         { value: 'manager', label: 'Менеджер' },
                         { value: 'senior manager', label: 'Старшый менеджер' },
                         { value: 'admin', label: 'Администратор' }

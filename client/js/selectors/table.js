@@ -2,11 +2,12 @@ import orderBy from 'lodash/orderBy';
 import { getRange } from '../utils';
 
 export function filterData(data, filters) {
-    if (!Object.keys(filters).length) {
+    const filtersLength = Object.keys(filters).length;
+
+    if (!filtersLength || (filtersLength === 1 && filters.endDate)) {
         return data;
     }
 
-    const l = Object.keys(filters).length;
     const result = data.filter((item) => {
         let matches = 0;
 
@@ -30,7 +31,7 @@ export function filterData(data, filters) {
             }
         }
 
-        if (matches === l) {
+        if (matches === filtersLength) {
             return item;
         }
     });

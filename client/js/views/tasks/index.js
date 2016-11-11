@@ -48,6 +48,12 @@ class TasksView extends Component {
         this.props.getAllTasks();
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.tasks.list.length !== nextProps.tasks.list.length
+            || this.props.page !== nextProps.page
+            || this.state.visibleFilters !== nextState.visibleFilters;
+    }
+
     showTaskNewModal() {
         this.props.showModal('taskNew');
     }
@@ -63,9 +69,7 @@ class TasksView extends Component {
     }
 
     toggleVisibleFilters() {
-        this.setState({
-            visibleFilters: !this.state.visibleFilters
-        });
+        this.setState({ visibleFilters: !this.state.visibleFilters });
     }
 
     render() {

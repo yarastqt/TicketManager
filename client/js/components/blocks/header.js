@@ -44,7 +44,6 @@ class Header extends Component {
 
     closePopup() {
         this.setState({
-            ...this.state,
             popup: { ...this.state.popup, visible: false }
         });
     }

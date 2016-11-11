@@ -6,16 +6,18 @@ class Control extends Component {
         focused: false
     };
 
+    constructor() {
+        super();
+        this.handleFocus = this.handleFocus.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
+    }
+
     handleFocus() {
-        this.setState({
-            focused: true
-        });
+        this.setState({ focused: true });
     }
 
     handleBlur() {
-        this.setState({
-            focused: false
-        });
+        this.setState({ focused: false });
     }
 
     getClassName(controlName) {

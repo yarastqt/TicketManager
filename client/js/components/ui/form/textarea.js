@@ -7,14 +7,7 @@ class Textarea extends Control {
         const { name, value } = this.props;
 
         return (
-            <textarea
-                name={ name }
-                id={ name }
-                defaultValue={ value }
-                className="textarea"
-                onFocus={ this.handleFocus.bind(this) }
-                onBlur={ this.handleBlur.bind(this) }
-            />
+            <textarea name={ name } id={ name } defaultValue={ value } className="textarea" onFocus={ this.handleFocus } onBlur={ this.handleBlur } />
         );
     }
 }

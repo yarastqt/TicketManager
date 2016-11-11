@@ -1,6 +1,5 @@
 export default {
     roles: {
-        'newbie': 'Новичок',
         'manager': 'Менеджер',
         'senior manager': 'Старшый менеджер',
         'admin': 'Администратор'

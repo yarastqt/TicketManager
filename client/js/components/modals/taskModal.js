@@ -39,7 +39,7 @@ class TaskModal extends Component {
             <div className="modal__in">
                 <div className="modal__heading">Редактировать заявку</div>
                 <form className="form" ref="form" onSubmit={ this.updateTask(id) }>
-                    <Input type="text" name="name" label="Имя (ФИО / Компания)" value={ name } autofocus />
+                    <Input type="text" name="name" label="Имя (ФИО / Компания)" value={ name } />
                     <div className="form__group">
                         <Input type="date" name="date" label="Дата" value={ date.date() } />
                         <Input type="time" name="time" label="Время" value={ date.time() } />
