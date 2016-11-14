@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import shallowCompare from 'react-addons-shallow-compare';
 
 import dict from '../../constants/dict';
 import { Content, Loader } from '../../components/blocks';
-import { Table, TableColumn, TableHeader } from '../../components/ui';
+import { Table, TableColumn } from '../../components/ui';
 import { UsersActions, ModalActions } from '../../actions';
 
 const { getAllUsers, removeUser } = UsersActions;
@@ -16,9 +17,15 @@ function AvatarCell(value) {
 }
 
 function StatusCell(value) {
-    return value
-        ? <span className="status-failure">Заблокирован</span>
-        : <span className="status-done">Активен</span>;
+    if (value) {
+        return (
+            <span className="status-failure">Заблокирован</span>
+        );
+    }
+
+    return (
+        <span className="status-done">Активен</span>
+    );
 }
 
 function RoleCell(value) {
@@ -37,8 +44,7 @@ class UsersView extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return this.props.users.list.length !== nextProps.users.list.length
-            || this.props.page !== nextProps.page;
+        return shallowCompare(this, nextProps, nextState);
     }
 
     showUserModal(userId) {
@@ -69,31 +75,32 @@ class UsersView extends Component {
                     >
                         <TableColumn
                             name="avatar"
-                            header={ <TableHeader /> }
                             width="5"
                             cell={ AvatarCell }
                         />
                         <TableColumn
                             name="username"
-                            header={ <TableHeader title="Имя" /> }
                             width="25"
+                            title="Имя"
                         />
                         <TableColumn
                             name="email"
-                            header={ <TableHeader title="E-Mail" /> }
                             width="30"
+                            title="E-Mail"
                         />
                         <TableColumn
                             name="role"
-                            header={ <TableHeader sorted title="Группа" /> }
                             width="20"
+                            title="Группа"
                             cell={ RoleCell }
+                            sorted
                         />
                         <TableColumn
                             name="blocked"
-                            header={ <TableHeader sorted title="Состояние" /> }
                             width="20"
+                            title="Состояние"
                             cell={ StatusCell }
+                            sorted
                         />
                     </Table>
                 </Loader>

@@ -2,12 +2,12 @@ import isEqual from 'lodash/isEqual';
 
 import http from './http';
 import createReducer from './reducer';
-import datez from './date';
+import YDate from './date';
 
 export {
     http,
     createReducer,
-    datez
+    YDate
 };
 
 export function getRange(total, page, rows) {
@@ -68,6 +68,10 @@ export function getScrollWidth() {
     const clientWidth = document.body.clientWidth;
 
     return innerWidth - clientWidth;
+}
+
+export function compareObject(prev, next) {
+    return isEqual(prev, next);
 }
 
 export function compareTaskObject(prev, next) {

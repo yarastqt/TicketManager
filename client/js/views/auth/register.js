@@ -30,8 +30,8 @@ class RegisterView extends Component {
                 <div className="sign-container__in">
                     <div className="sign-container__title">Регистрация</div>
                     <form className="form" ref="form" onSubmit={ this.register }>
-                        <Input type="text" name="username" label="Имя" required autofocus />
-                        <Input type="email" name="email" label="E-Mail" required />
+                        <Input type="text" name="username" label="Имя" placeholder="Marvin" required autofocus />
+                        <Input type="email" name="email" label="E-Mail" placeholder="example@domain.com" required />
                         <Input type="password" name="password" label="Пароль" required />
                         <div className="form__actions">
                             <Button text="Зарегистрироваться" />

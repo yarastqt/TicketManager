@@ -41,7 +41,7 @@ class Input extends Control {
     }
 
     renderControl() {
-        const { type, name, value, disabled, autofocus, required } = this.props;
+        const { type, name, value, placeholder, disabled, autofocus, required } = this.props;
 
         return (
             <div className={ this.getClassName('input') }>
@@ -52,6 +52,7 @@ class Input extends Control {
                     name={ name }
                     id={ name }
                     defaultValue={ value }
+                    placeholder={ placeholder }
                     className="input__control"
                     autoComplete="off"
                     onFocus={ this.handleFocus }
@@ -69,6 +70,7 @@ Input.propTypes = {
     type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     value: PropTypes.string,
+    placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     autoFocus: PropTypes.bool,
     required: PropTypes.bool

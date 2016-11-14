@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getFormData, datez } from '../../utils';
+import { getFormData, YDate } from '../../utils';
 import { Input, Select, Textarea, Button } from '../../components/ui';
 import { TasksActions } from '../../actions';
 
@@ -16,7 +16,7 @@ class TasksNewModal extends Component {
     addTask(event) {
         event.preventDefault();
         const data = getFormData(this.refs.form);
-        data.date = datez.toTS(data.date, data.time);
+        data.date = YDate.toTS(data.date, data.time);
 
         delete data.time;
 
@@ -32,8 +32,8 @@ class TasksNewModal extends Component {
                 <form className="form" ref="form" onSubmit={ this.addTask }>
                     <Input type="text" name="name" label="Имя (ФИО / Компания)" required />
                     <div className="form__group">
-                        <Input type="date" name="date" label="Дата" value={ datez.currentDate() } />
-                        <Input type="time" name="time" label="Время" value={ datez.currentTime() } />
+                        <Input type="date" name="date" label="Дата" value={ YDate.currentDate() } />
+                        <Input type="time" name="time" label="Время" value={ YDate.currentTime() } />
                     </div>
                     <Select name="taskType" label="Тип" options={[
                         { value: 'application', label: 'Заявка' },

@@ -4,6 +4,7 @@ import Portal from 'react-portal';
 import shallowCompare from 'react-addons-shallow-compare';
 
 import { filterData, sortData, paginate } from '../../../selectors/table';
+import TableHeader from './tableHeader';
 import TablePagination from './tablePagination';
 import { TableActions } from '../../../actions';
 
@@ -151,13 +152,14 @@ class Table extends Component {
 
     renderHeaders() {
         return this.props.children.map((item, key) => {
-            return React.cloneElement(item.props.header, {
-                name: item.props.name,
-                changeSort: this.changeSort,
-                sort: this.props.sort,
-                width: item.props.width,
-                key
-            });
+            return (
+                <TableHeader
+                    { ...item.props }
+                    sort={ this.props.sort }
+                    changeSort={ this.changeSort }
+                    key={ key }
+                />
+            );
         });
     }
 

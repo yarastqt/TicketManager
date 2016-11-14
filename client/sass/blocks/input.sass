@@ -22,6 +22,13 @@
             width: 20px
             height: 20px
 
+    &__eye:hover
+        .icon_eye-close
+            +icon('eye-close', 20px, 20px, $color-blue)
+
+        .icon_eye-open
+            +icon('eye-open', 20px, 20px, $color-blue)
+
     &__cancel:hover
         .icon_close
             +icon('close', 24px, 24px, $color-blue)
@@ -41,6 +48,7 @@
         appearance: none
 
         &::placeholder
+            transition: 400ms ease-in-out
             color: rgba($color-base, .5)
 
         &:focus
@@ -49,6 +57,9 @@
 
             & + .input__error
                 background-image: none
+
+            &::placeholder
+                color: rgba($color-base, .25)
 
         &:-webkit-autofill
             -webkit-text-fill-color: $color-base

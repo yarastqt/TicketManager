@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 
 import { getFilters } from '../../selectors/filters';
-import { getFormData, datez, debounce } from '../../utils';
+import { getFormData, YDate, debounce, compareObject } from '../../utils';
 import { Input, Button, Select } from '../../components/ui';
 import { TableActions } from '../../actions';
 
+const TABLE_NAME = 'tasks';
 const { addFilter, removeFilter, removeAllFilters } = TableActions;
 
 class TaskTableFilters extends Component {
@@ -17,46 +18,93 @@ class TaskTableFilters extends Component {
         this.removeAllFilters = this.removeAllFilters.bind(this);
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return !compareObject(this.props.activeFilters, nextProps.activeFilters)
+            || !compareObject(this.props.filtersList, nextProps.filtersList)
+            || this.props.visible !== nextProps.visible;
+    }
+
     addFilter(event) {
         const data = getFormData(this.refs.form, true);
 
         if (data.startDate) {
-            data.startDate = datez.toTS(data.startDate);
+            data.startDate = YDate.toTS(data.startDate);
         }
 
         if (data.endDate) {
-            data.endDate = datez.toTS(data.endDate);
+            data.endDate = YDate.toTS(data.endDate);
         }
 
-        this.props.addFilter(data, 'tasks');
+        this.props.addFilter(data, TABLE_NAME);
     }
 
     removeFilter(filterName) {
-        this.props.removeFilter(filterName, 'tasks');
+        this.props.removeFilter(filterName, TABLE_NAME);
     }
 
     removeAllFilters(event) {
         event.preventDefault();
-        this.props.removeAllFilters('tasks');
+        this.refs.form.reset();
+        this.props.removeAllFilters(TABLE_NAME);
     }
 
     render() {
-        const { sources, statuses, managers, serviceTypes } = this.props.filters;
-        const filtersClasses = classnames('filters', {
-            'filters_visible': this.props.visible
-        });
+        const { visible, filtersList, activeFilters } = this.props;
 
         return (
-            <div className={ filtersClasses }>
+            <div className={ visible ? 'filters filters_visible' : 'filters' }>
                 <form className="form filters__form" ref="form" onChange={ this.addFilter }>
-                    <Input type="date" name="startDate" label="Начальная дата" />
-                    <Input type="date" name="endDate" label="Конечная дата" />
-                    <Select name="source" label="Источник" onClear={ this.removeFilter } options={ sources } clearable />
-                    <Select name="status" label="Статус" onClear={ this.removeFilter } options={ statuses } clearable />
-                    <Select name="createdBy" label="Менеджер" onClear={ this.removeFilter } options={ managers } clearable />
-                    <Select name="serviceType" label="Вид услуги" onClear={ this.removeFilter } options={ serviceTypes } clearable />
+                    <Input
+                        type="date"
+                        name="startDate"
+                        label="Начальная дата"
+                        value={ activeFilters.startDate ? YDate.fromTS(activeFilters.startDate).date() : '' }
+                    />
+                    <Input
+                        type="date"
+                        name="endDate"
+                        label="Конечная дата"
+                        value={ activeFilters.endDate ? YDate.fromTS(activeFilters.endDate).date() : '' }
+                    />
+                    <Select
+                        name="source"
+                        label="Источник"
+                        onClear={ this.removeFilter }
+                        value={ activeFilters.source }
+                        options={ filtersList.sources }
+                        clearable
+                    />
+                    <Select
+                        name="status"
+                        label="Статус"
+                        onClear={ this.removeFilter }
+                        value={ activeFilters.status }
+                        options={ filtersList.statuses }
+                        clearable
+                    />
+                    <Select
+                        name="createdBy"
+                        label="Менеджер"
+                        onClear={ this.removeFilter }
+                        value={ activeFilters.createdBy }
+                        options={ filtersList.managers }
+                        clearable
+                    />
+                    <Select
+                        name="serviceType"
+                        label="Вид услуги"
+                        onClear={ this.removeFilter }
+                        value={ activeFilters.serviceType }
+                        options={ filtersList.serviceTypes }
+                        clearable
+                    />
                     <div className="form__actions">
-                        <Button icon="close" view="pseudo" onClick={ this.removeAllFilters } />
+                        <Button
+                            icon="close"
+                            view="pseudo"
+                            onClick={ this.removeAllFilters }
+                            disabled={ Object.keys(activeFilters).length > 0 ? false : true }
+                        />
                     </div>
                 </form>
             </div>
@@ -66,7 +114,8 @@ class TaskTableFilters extends Component {
 
 export default connect(
     (state) => ({
-        filters: getFilters(state.tasks.list)
+        activeFilters: state.table[TABLE_NAME].filters,
+        filtersList: getFilters(state.tasks.list)
     }),
     { addFilter, removeFilter, removeAllFilters }
 )(TaskTableFilters);

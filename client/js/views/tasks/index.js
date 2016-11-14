@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import shallowCompare from 'react-addons-shallow-compare';
 
-import { datez } from '../../utils';
+import { YDate } from '../../utils';
 import dict from '../../constants/dict';
 import { Content, Loader } from '../../components/blocks';
-import { Table, TableColumn, TableHeader, Button } from '../../components/ui';
+import { Table, TableColumn, Button } from '../../components/ui';
 import TaskTableFilters from './filters';
 import { TasksActions, ModalActions } from '../../actions';
 
@@ -28,7 +29,7 @@ function ManagerCell(value) {
 }
 
 function DateCell(value) {
-    return datez.fromTS(value).date(true);
+    return YDate.fromTS(value).date(true);
 }
 
 class TasksView extends Component {
@@ -49,9 +50,7 @@ class TasksView extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return this.props.tasks.list.length !== nextProps.tasks.list.length
-            || this.props.page !== nextProps.page
-            || this.state.visibleFilters !== nextState.visibleFilters;
+        return shallowCompare(this, nextProps, nextState);
     }
 
     showTaskNewModal() {
@@ -96,52 +95,58 @@ class TasksView extends Component {
                     >
                         <TableColumn
                             name="id"
-                            header={ <TableHeader sorted title="ID" /> }
                             width="8"
+                            title="ID"
+                            sorted
                         />
                         <TableColumn
                             name="name"
-                            header={ <TableHeader title="Имя" /> }
                             width="12"
+                            title="Имя"
                         />
                         <TableColumn
                             name="date"
-                            header={ <TableHeader sorted title="Дата" /> }
                             width="15"
+                            title="Дата"
                             cell={ DateCell }
+                            sorted
                         />
                         <TableColumn
                             name="source"
-                            header={ <TableHeader sorted title="Источник" /> }
                             width="10"
+                            title="Источник"
+                            sorted
                         />
                         <TableColumn
                             name="taskType"
-                            header={ <TableHeader sorted title="Тип" /> }
                             width="10"
+                            title="Тип"
                             cell={ TypeCell }
+                            sorted
                         />
                         <TableColumn
                             name="status"
-                            header={ <TableHeader sorted title="Статус" /> }
                             width="10"
+                            title="Статус"
                             cell={ StatusCell }
+                            sorted
                         />
                         <TableColumn
                             name="createdBy"
-                            header={ <TableHeader title="Менеджер" /> }
                             width="10"
+                            title="Менеджер"
                             cell={ ManagerCell }
                         />
                         <TableColumn
                             name="serviceType"
-                            header={ <TableHeader sorted title="Вид услуги" /> }
+                            title="Вид услуги"
                             width="10"
+                            sorted
                         />
                         <TableColumn
                             name="comment"
-                            header={ <TableHeader title="Комментарий" /> }
                             width="15"
+                            title="Комментарий"
                         />
                     </Table>
                 </Loader>

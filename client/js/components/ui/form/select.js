@@ -17,13 +17,19 @@ class Select extends Control {
         this.clearSelect = this.clearSelect.bind(this);
     }
 
-    componentWillMount() {
-        if (typeof this.props.value !== 'undefined') {
-            if (!this.props.options.some(({ value }) => value === this.props.value)) {
+    componentDidMount() {
+        if (typeof this.props.value !== 'undefined' && this.props.value !== '') {
+            if (this.props.options.length && !this.props.options.some(({ value }) => value === this.props.value)) {
                 this.setState({ value: this.props.value, type: 'input' });
             } else {
                 this.setState({ value: this.props.value });
             }
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (typeof nextProps.value === 'undefined') {
+            this.setState({ value: '' });
         }
     }
 
@@ -33,7 +39,7 @@ class Select extends Control {
 
     changeOption(event) {
         if (event.target.value === 'other') {
-            this.setState({ value: '', type: 'input' });
+            this.setState({ value: this.props.value || '', type: 'input' });
             setTimeout(() => {
                 this.refs.control.focus();
             }, 0);
@@ -78,15 +84,12 @@ class Select extends Control {
     renderSelect() {
         const { name, options, disabled, required, custom } = this.props;
         const value = typeof this.state.value !== 'undefined' ? this.state.value : '';
-        const selectClasses = classnames('select', {
-            'select_disabled': this.props.disabled
-        });
         const controlClasses = classnames('select__control', {
             'select__control_clearable': this.props.clearable && this.state.value
         });
 
         return (
-            <div className={ selectClasses }>
+            <div className={ this.props.disabled ? 'select select_disabled' : 'select' }>
                 { this.renderClearControl() }
                 <select ref="control" name={ name } id={ name } value={ value } className={ controlClasses } onChange={ this.changeOption } onFocus={ this.handleFocus } onBlur={ this.handleBlur } disabled={ disabled } required={ required }>
                     { this.renderPlaceholder() }

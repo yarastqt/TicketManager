@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
+import React, { Children, PropTypes } from 'react';
 
 function App({ children }) {
-    return React.Children.only(children);
+    return Children.only(children);
 }
 
 App.propTypes = {
