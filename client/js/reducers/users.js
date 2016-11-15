@@ -1,5 +1,5 @@
-import { createReducer } from '../utils';
-import types from '../constants';
+import { createReducer } from 'utils';
+import types from 'constants';
 
 const {
     USERS_REQUEST,
@@ -25,7 +25,7 @@ export default createReducer((state, payload) => ({
     [USER_UPDATE_SUCCESS]() {
         const list = state.list.map((user) => {
             if (user.id === payload.id) {
-                return Object.assign({}, user, payload);
+                return { ...user, ...payload };
             }
 
             return user;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getFormData, YDate } from '../../utils';
-import { Input, Select, Textarea, Button } from '../../components/ui';
-import { TasksActions } from '../../actions';
+import { getFormData, YDate } from 'utils';
+import { Input, Select, Textarea, Button } from 'components/ui';
+import { TasksActions } from 'actions';
 
 const { addTask } = TasksActions;
 
@@ -36,15 +36,16 @@ class TasksNewModal extends Component {
                         <Input type="time" name="time" label="Время" value={ YDate.currentTime() } />
                     </div>
                     <Select name="taskType" label="Тип" options={[
-                        { value: 'application', label: 'Заявка' },
-                        { value: 'call', label: 'Звонок' },
-                        { value: 'mail', label: 'Почта' }
+                        { value: 'Заявка', label: 'Заявка' },
+                        { value: 'Звонок', label: 'Звонок' },
+                        { value: 'Почта', label: 'Почта' }
                     ]} custom />
+                    <Input type="text" name="task" label="Источник заявки" required />
                     <Select name="source" label="Источник" options={[
-                        { value: 'yandex rcya', label: 'Яндекс РСЯ' },
-                        { value: 'yandex', label: 'Яндекс' },
-                        { value: 'google cms', label: 'Google КМС' },
-                        { value: 'google', label: 'Google' }
+                        { value: 'Яндекс РСЯ', label: 'Яндекс РСЯ' },
+                        { value: 'Яндекс', label: 'Яндекс' },
+                        { value: 'Google КМС', label: 'Google КМС' },
+                        { value: 'Google', label: 'Google' }
                     ]} custom />
                     <Select name="serviceType" label="Вид услуги" options={[
                         { value: 'Переезд квартиры', label: 'Переезд квартиры' }

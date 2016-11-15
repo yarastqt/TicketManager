@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import dict from '../../constants/dict';
-import { getFormData } from '../../utils';
-import { Content } from '../../components/blocks';
-import { Input, Button } from '../../components/ui';
-import { ProfileActions } from '../../actions';
+import dict from 'constants/dict';
+import { getFormData } from 'utils';
+import { Content } from 'components/blocks';
+import { Input, Button } from 'components/ui';
+import { ProfileActions } from 'actions';
 
 const { updateProfile } = ProfileActions;
 

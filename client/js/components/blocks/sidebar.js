@@ -52,6 +52,11 @@ Sidebar.defaultProps = {
             url: '/statistics',
             name: 'Статистика',
             icon: 'chart'
+        },
+        {
+            url: '/lala',
+            name: 'lala',
+            icon: 'code'
         }
     ]
 };

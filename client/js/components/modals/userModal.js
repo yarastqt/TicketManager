@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getUserById } from '../../selectors/users';
-import { getFormData, compareUserObject } from '../../utils';
-import { Input, Select, Button } from '../../components/ui';
-import { UsersActions } from '../../actions';
+import { getUserById } from 'selectors/users';
+import { getFormData, compareUserObject } from 'utils';
+import { Input, Select, Button } from 'components/ui';
+import { UsersActions } from 'actions';
 
 const { updateUser } = UsersActions;
 

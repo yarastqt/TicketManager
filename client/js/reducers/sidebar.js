@@ -1,5 +1,5 @@
-import { createReducer } from '../utils';
-import types from '../constants';
+import { createReducer } from 'utils';
+import types from 'constants';
 
 const initialState = localStorage.getItem('sidebar')
     ? JSON.parse(localStorage.getItem('sidebar'))

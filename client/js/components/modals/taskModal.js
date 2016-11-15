@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getTaskById } from '../../selectors/tasks';
-import { getFormData, compareTaskObject, YDate } from '../../utils';
-import { Input, Select, Textarea, Button } from '../../components/ui';
-import { TasksActions } from '../../actions';
+import { getTaskById } from 'selectors/tasks';
+import { getFormData, compareTaskObject, YDate } from 'utils';
+import { Input, Select, Textarea, Button } from 'components/ui';
+import { TasksActions } from 'actions';
 
 const { updateTask } = TasksActions;
 
@@ -45,9 +45,9 @@ class TaskModal extends Component {
                         <Input type="time" name="time" label="Время" value={ date.time() } />
                     </div>
                     <Select name="taskType" label="Тип" value={ taskType } options={[
-                        { value: 'application', label: 'Заявка' },
-                        { value: 'call', label: 'Звонок' },
-                        { value: 'mail', label: 'Почта' }
+                        { value: 'Заявка', label: 'Заявка' },
+                        { value: 'Звонок', label: 'Звонок' },
+                        { value: 'Почта', label: 'Почта' }
                     ]} custom />
                     <Select name="status" label="Статус" value={ status } options={[
                         { value: 'pending', label: 'В процессе' },
@@ -56,10 +56,10 @@ class TaskModal extends Component {
                         { value: 'canceled', label: 'Отменено' }
                     ]} />
                     <Select name="source" label="Источник" value={ source } options={[
-                        { value: 'yandex rcya', label: 'Яндекс РСЯ' },
-                        { value: 'yandex', label: 'Яндекс' },
-                        { value: 'google cms', label: 'Google КМС' },
-                        { value: 'google', label: 'Google' }
+                        { value: 'Яндекс РСЯ', label: 'Яндекс РСЯ' },
+                        { value: 'Яндекс', label: 'Яндекс' },
+                        { value: 'Google КМС', label: 'Google КМС' },
+                        { value: 'Google', label: 'Google' }
                     ]} custom />
                     <Select name="serviceType" label="Вид услуги" value={ serviceType } options={[
                         { value: 'Переезд квартиры', label: 'Переезд квартиры' }

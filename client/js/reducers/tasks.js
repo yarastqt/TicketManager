@@ -1,5 +1,5 @@
-import { createReducer } from '../utils';
-import types from '../constants';
+import { createReducer } from 'utils';
+import types from 'constants';
 
 const {
     TASKS_REQUEST,
@@ -30,7 +30,7 @@ export default createReducer((state, payload) => ({
     [TASK_UPDATE_SUCCESS]() {
         const list = state.list.map((task) => {
             if (task.id === payload.id) {
-                return Object.assign({}, task, payload);
+                return { ...task, ...payload };
             }
 
             return task;

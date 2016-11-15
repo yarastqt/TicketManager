@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import shallowCompare from 'react-addons-shallow-compare';
 
-import dict from '../../constants/dict';
-import { Content, Loader } from '../../components/blocks';
-import { Table, TableColumn } from '../../components/ui';
-import { UsersActions, ModalActions } from '../../actions';
+import dict from 'constants/dict';
+import { Content, Loader } from 'components/blocks';
+import { Table, TableColumn } from 'components/ui';
+import { UsersActions, ModalActions } from 'actions';
 
 const { getAllUsers, removeUser } = UsersActions;
 const { showModal } = ModalActions;

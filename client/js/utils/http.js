@@ -1,5 +1,5 @@
 import 'isomorphic-fetch';
-import { apiURL } from '../constants/api';
+import { apiURL } from 'constants/api';
 
 function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {

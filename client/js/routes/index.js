@@ -2,22 +2,22 @@ import React from 'react';
 import { IndexRedirect, Route } from 'react-router';
 
 // Base containers
-import App from '../containers/app';
-import Dashboard from '../containers/dashboard';
-import Auth from '../containers/auth';
+import App from 'containers/app';
+import Dashboard from 'containers/dashboard';
+import Auth from 'containers/auth';
 
 // Helper components
-import requireNotAuthentication from '../components/notAuthenticated';
-import requireAuthentication from '../components/authenticated';
+import requireNotAuthentication from 'components/notAuthenticated';
+import requireAuthentication from 'components/authenticated';
 
 // Views
-import RegisterView from '../views/auth/register';
-import LoginView from '../views/auth/login';
-import TasksView from '../views/tasks';
-import UsersView from '../views/users';
-import ProfileView from '../views/profile';
-import StatisticsView from '../views/statistics';
-import NotFound from '../views/notfound';
+import RegisterView from 'views/auth/register';
+import LoginView from 'views/auth/login';
+import TasksView from 'views/tasks';
+import UsersView from 'views/users';
+import ProfileView from 'views/profile';
+import StatisticsView from 'views/statistics';
+import NotFound from 'views/notfound';
 
 /**
  * Configure routes

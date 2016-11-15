@@ -1,3 +1,5 @@
+import dict from 'constants/dict';
+
 export function getFilters(list) {
     const filters = {
         sources: [], statuses: [], managers: [], serviceTypes: []
@@ -24,7 +26,12 @@ export function getFilters(list) {
 
         for (const key in filters) {
             filters[key] = filters[key].reduce((container, value) => {
-                container.push({ value, label: value });
+                if (key === 'statuses') {
+                    container.push({ value, label: dict.statuses[value] });
+                } else {
+                    container.push({ value, label: value });
+                }
+
                 return container;
             }, []);
         }

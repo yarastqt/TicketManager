@@ -2,19 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import shallowCompare from 'react-addons-shallow-compare';
 
-import { YDate } from '../../utils';
-import dict from '../../constants/dict';
-import { Content, Loader } from '../../components/blocks';
-import { Table, TableColumn, Button } from '../../components/ui';
+import { YDate } from 'utils';
+import dict from 'constants/dict';
+import { Content, Loader } from 'components/blocks';
+import { Table, TableColumn, Button } from 'components/ui';
 import TaskTableFilters from './filters';
-import { TasksActions, ModalActions } from '../../actions';
+import { TasksActions, ModalActions } from 'actions';
 
 const { getAllTasks, removeTask } = TasksActions;
 const { showModal } = ModalActions;
-
-function TypeCell(value) {
-    return dict.types[value];
-}
 
 function StatusCell(value) {
     return (
@@ -121,7 +117,6 @@ class TasksView extends Component {
                             name="taskType"
                             width="10"
                             title="Тип"
-                            cell={ TypeCell }
                             sorted
                         />
                         <TableColumn

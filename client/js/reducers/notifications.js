@@ -1,5 +1,5 @@
-import { createReducer } from '../utils';
-import types from '../constants';
+import { createReducer } from 'utils';
+import types from 'constants';
 
 export default createReducer((state, payload) => ({
     [types.NOTIFICATION_SHOW]() {

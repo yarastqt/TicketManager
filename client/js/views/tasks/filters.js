@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
-import { getFilters } from '../../selectors/filters';
-import { getFormData, YDate, debounce, compareObject } from '../../utils';
-import { Input, Button, Select } from '../../components/ui';
-import { TableActions } from '../../actions';
+import { getFilters } from 'selectors/filters';
+import { getFormData, YDate, debounce, compareObject } from 'utils';
+import { Input, Button, Select } from 'components/ui';
+import { TableActions } from 'actions';
 
 const TABLE_NAME = 'tasks';
 const { addFilter, removeFilter, removeAllFilters } = TableActions;
@@ -19,8 +19,8 @@ class TaskTableFilters extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return !compareObject(this.props.activeFilters, nextProps.activeFilters)
-            || !compareObject(this.props.filtersList, nextProps.filtersList)
+        return compareObject(this.props.activeFilters, nextProps.activeFilters)
+            || compareObject(this.props.filtersList, nextProps.filtersList)
             || this.props.visible !== nextProps.visible;
     }
 

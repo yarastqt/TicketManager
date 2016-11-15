@@ -1,5 +1,5 @@
-import { createReducer } from '../utils';
-import types from '../constants';
+import { createReducer } from 'utils';
+import types from 'constants';
 
 const initialState = {
     authenticated: localStorage.getItem('token') ? true : false,

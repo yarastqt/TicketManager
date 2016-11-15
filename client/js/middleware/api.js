@@ -1,5 +1,5 @@
-import { NotificationActions } from '../actions';
-import { http } from '../utils';
+import { NotificationActions } from 'actions';
+import { http } from 'utils';
 
 const { showNotification } = NotificationActions;
 

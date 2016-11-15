@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import types from '../constants';
+import types from 'constants';
 
 import sidebar from './sidebar';
 import session from './session';

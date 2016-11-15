@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
 
-import rootReducer from '../reducers';
+import rootReducer from 'reducers';
 
 // Remove react dev tools from google chrome extension
 if (typeof (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) === 'object') {

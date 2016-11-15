@@ -1,5 +1,6 @@
 import orderBy from 'lodash/orderBy';
-import { getRange } from '../utils';
+
+import { getRange } from 'utils';
 
 export function filterData(data, filters) {
     const filtersLength = Object.keys(filters).length;

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 
-import { getFormData } from '../../utils';
-import { Input, Button } from '../../components/ui';
-import { AuthActions } from '../../actions';
+import { getFormData } from 'utils';
+import { Input, Button } from 'components/ui';
+import { AuthActions } from 'actions';
 
 const { login } = AuthActions;
 
