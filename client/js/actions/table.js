@@ -1,5 +1,6 @@
 import { push } from 'react-router-redux';
-import types from '../constants';
+
+import types from 'constants';
 
 const {
     CHANGE_TABLE_SORT,

@@ -10,6 +10,7 @@ import notifications from './notifications';
 import table from './table';
 import tasks from './tasks';
 import users from './users';
+import tracks from './tracks';
 
 const appReducer = combineReducers({
     routing: routerReducer,
@@ -19,7 +20,8 @@ const appReducer = combineReducers({
     notifications,
     table,
     tasks,
-    users
+    users,
+    tracks
 });
 
 export default (state, action) => {

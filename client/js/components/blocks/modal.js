@@ -6,8 +6,12 @@ import UserModal from '../modals/userModal';
 import TaskModal from '../modals/taskModal';
 import TaskNewModal from '../modals/taskNewModal';
 
-import { getScrollWidth } from '../../utils';
-import { ModalActions } from '../../actions';
+
+import TrackModal from 'views/tracking/trackModal';
+import TrackNewModal from 'views/tracking/trackNewModal';
+
+import { getScrollWidth } from 'utils';
+import { ModalActions } from 'actions';
 
 const { hideModal } = ModalActions;
 
@@ -42,10 +46,8 @@ class Modal extends Component {
     }
 
     renderContent() {
-        const { view, props } = this.props.modal;
-        const modalProps = Object.assign({}, props, {
-            hideModal: this.props.hideModal
-        });
+        const { modal: { view, props }, hideModal } = this.props;
+        const modalProps = { ...props, hideModal };
 
         switch (this.props.modal.view) {
             case 'user':
@@ -56,6 +58,12 @@ class Modal extends Component {
 
             case 'taskNew':
                 return <TaskNewModal { ...modalProps } />;
+
+            case 'track':
+                return <TrackModal { ...modalProps } />;
+
+            case 'trackNew':
+                return <TrackNewModal { ...modalProps } />;
 
             default:
                 return null;
@@ -72,7 +80,7 @@ class Modal extends Component {
                 <div className="modal__container">
                     { this.renderContent() }
                 </div>
-                <div className="modal__overlay" onClick={ this.props.hideModal } />
+                <div className="modal__overlay" onClick={ this.props.hideModal }></div>
             </div>
         );
     }

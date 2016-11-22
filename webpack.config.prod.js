@@ -66,5 +66,8 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+        root: path.join(__dirname, 'client/js')
+    },
     postcss: postcssProcessors
 };

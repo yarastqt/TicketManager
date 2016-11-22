@@ -8,7 +8,7 @@ import {
     Modal,
     Elevator,
     Notification
-} from '../components/blocks';
+} from 'components/blocks';
 
 function Dashboard({ user, sidebar, dispatch, children }) {
     const contentClasses = classnames('content', {

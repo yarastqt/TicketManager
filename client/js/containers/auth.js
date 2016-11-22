@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router'
 
-import Notification from '../components/blocks/notification';
+import Notification from 'components/blocks/notification';
 
 function Auth({ children, location }) {
     return (

@@ -40,8 +40,8 @@ export default createReducer((state, payload) => ({
     },
 
     [TASK_REMOVE_SUCCESS]() {
-        const list = state.list.filter((task) =>
-            task.id !== parseInt(payload.id)
+        const list = state.list.filter(
+            (task) => task.id !== parseInt(payload.id)
         );
 
         return { ...state, list };

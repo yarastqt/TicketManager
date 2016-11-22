@@ -26,6 +26,8 @@ class TasksNewModal extends Component {
     }
 
     render() {
+        const { sources, taskTypes, serviceTypes } = this.props.options;
+
         return (
             <div className="modal__in">
                 <div className="modal__heading">Новая заявка</div>
@@ -35,21 +37,12 @@ class TasksNewModal extends Component {
                         <Input type="date" name="date" label="Дата" value={ YDate.currentDate() } />
                         <Input type="time" name="time" label="Время" value={ YDate.currentTime() } />
                     </div>
-                    <Select name="taskType" label="Тип" options={[
-                        { value: 'Заявка', label: 'Заявка' },
-                        { value: 'Звонок', label: 'Звонок' },
-                        { value: 'Почта', label: 'Почта' }
-                    ]} custom />
-                    <Input type="text" name="task" label="Источник заявки" required />
-                    <Select name="source" label="Источник" options={[
-                        { value: 'Яндекс РСЯ', label: 'Яндекс РСЯ' },
-                        { value: 'Яндекс', label: 'Яндекс' },
-                        { value: 'Google КМС', label: 'Google КМС' },
-                        { value: 'Google', label: 'Google' }
-                    ]} custom />
-                    <Select name="serviceType" label="Вид услуги" options={[
-                        { value: 'Переезд квартиры', label: 'Переезд квартиры' }
-                    ]} custom />
+                    <Select name="source" label="Источник" options={ sources } custom required />
+                    <div className="form__group">
+                        <Select name="taskType" label="Тип" options={ taskTypes } custom required />
+                        <Input type="text" name="taskSource" label="Источник заявки" required />
+                    </div>
+                    <Select name="serviceType" label="Вид услуги" options={ serviceTypes } custom />
                     <Textarea name="comment" label="Комментарий" />
                     <div className="form__actions">
                         <Button icon="quick-add" text="Добавить" />
@@ -59,6 +52,25 @@ class TasksNewModal extends Component {
         );
     }
 }
+
+TasksNewModal.defaultProps = {
+    options: {
+        sources: [
+            { value: 'Яндекс РСЯ', label: 'Яндекс РСЯ' },
+            { value: 'Яндекс', label: 'Яндекс' },
+            { value: 'Google КМС', label: 'Google КМС' },
+            { value: 'Google', label: 'Google' }
+        ],
+        taskTypes: [
+            { value: 'Заявка', label: 'Заявка' },
+            { value: 'Звонок', label: 'Звонок' },
+            { value: 'Почта', label: 'Почта' }
+        ],
+        serviceTypes: [
+            { value: 'Переезд квартиры', label: 'Переезд квартиры' }
+        ]
+    }
+};
 
 export default connect(
     (state) => ({}),

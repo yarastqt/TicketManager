@@ -35,8 +35,8 @@ export default createReducer((state, payload) => ({
     },
 
     [USER_REMOVE_SUCCESS]() {
-        const list = state.list.filter((user) =>
-            user.id !== payload.id
+        const list = state.list.filter(
+            (user) => user.id !== parseInt(payload.id)
         );
 
         return { ...state, list: list };

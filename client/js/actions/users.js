@@ -1,5 +1,5 @@
-import types from '../constants';
-import { http } from '../utils';
+import types from 'constants';
+import { http } from 'utils';
 import { hideModal } from './modal';
 import { showNotification } from './notifications';
 

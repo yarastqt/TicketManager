@@ -96,13 +96,15 @@ class TasksView extends Component {
                             sorted
                         />
                         <TableColumn
-                            name="name"
-                            width="12"
-                            title="Имя"
+                            name="status"
+                            width="10"
+                            title="Статус"
+                            cell={ StatusCell }
+                            sorted
                         />
                         <TableColumn
                             name="date"
-                            width="15"
+                            width="10"
                             title="Дата"
                             cell={ DateCell }
                             sorted
@@ -120,11 +122,9 @@ class TasksView extends Component {
                             sorted
                         />
                         <TableColumn
-                            name="status"
-                            width="10"
-                            title="Статус"
-                            cell={ StatusCell }
-                            sorted
+                            name="taskSource"
+                            width="16"
+                            title="Источник заявки"
                         />
                         <TableColumn
                             name="createdBy"
@@ -140,7 +140,7 @@ class TasksView extends Component {
                         />
                         <TableColumn
                             name="comment"
-                            width="15"
+                            width="16"
                             title="Комментарий"
                         />
                     </Table>

@@ -1,5 +1,5 @@
-import find from 'lodash/find';
-
-export function getTaskById(tasks, id) {
-    return find(tasks, { id: parseInt(id) }) || {};
+export function getTaskById(tasks, taskId) {
+    return tasks.filter(
+        (task) => task.id === parseInt(taskId)
+    ).pop() || {};
 }

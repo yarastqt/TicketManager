@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import classnames from 'classnames';
 
 class Sidebar extends Component {
     renderMenuList() {
@@ -21,12 +20,8 @@ class Sidebar extends Component {
     }
 
     render() {
-        const sidebarClasses = classnames('sidebar', {
-            'sidebar_expanded': this.props.sidebar
-        });
-
         return (
-            <div className={ sidebarClasses }>
+            <div className={ this.props.sidebar ? 'sidebar sidebar_expanded': 'sidebar' }>
                 <div className="sidebar-menu">
                     { this.renderMenuList() }
                 </div>
@@ -54,9 +49,10 @@ Sidebar.defaultProps = {
             icon: 'chart'
         },
         {
-            url: '/lala',
-            name: 'lala',
-            icon: 'code'
+            url: '/tracking',
+            name: 'Отслеживание',
+            icon: 'code',
+            roles: ['admin']
         }
     ]
 };

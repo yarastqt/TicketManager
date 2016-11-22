@@ -1,13 +1,21 @@
-import isEqual from 'lodash/isEqual';
-
 import http from './http';
 import createReducer from './reducer';
 import YDate from './date';
+import {
+    compareObject,
+    compareTaskObject,
+    compareUserObject,
+    compareTrackObject
+} from './compare';
 
 export {
     http,
     createReducer,
-    YDate
+    YDate,
+    compareObject,
+    compareTaskObject,
+    compareUserObject,
+    compareTrackObject
 };
 
 export function getRange(total, page, rows) {
@@ -70,35 +78,30 @@ export function getScrollWidth() {
     return innerWidth - clientWidth;
 }
 
-export function compareObject(prev, next) {
-    return isEqual(prev, next);
+export function createTrackConfig(token) {
+const config = `
+/**
+ * Send task to API
+ * @param array $data task data
+ */
+function sendTask($data) {
+    $curl = curl_init();
+    $curlOptions = [
+        CURLOPT_URL => 'http://138.68.71.239/api/v1/tasks',
+        CURLOPT_POST => true,
+        CURLOPT_HTTPHEADER => [
+            'Origin: ' . $_SERVER['HTTP_ORIGIN'],
+            'Content-Type: application/json',
+            'Authorization: bearer ${token}'
+        ],
+        CURLOPT_POSTFIELDS => json_encode($data)
+    ];
+
+    curl_setopt_array($curl, $curlOptions);
+    curl_exec($curl);
+    curl_close($curl);
 }
+`;
 
-export function compareTaskObject(prev, next) {
-    const prevObject = Object.assign({}, prev);
-    const nextObject = Object.assign({}, next);
-
-    delete prevObject.createdAt;
-    delete prevObject.createdBy;
-    delete prevObject.id;
-
-    return isEqual(prevObject, nextObject);
-}
-
-export function compareUserObject(prev, next) {
-    const prevObject = Object.assign({}, prev);
-    const nextObject = Object.assign({}, next);
-
-    delete prevObject.avatar;
-    delete prevObject.id;
-
-    if (nextObject.blocked === 'true') {
-        nextObject.blocked = true;
-    }
-
-    if (nextObject.blocked === 'false') {
-        nextObject.blocked = false;
-    }
-
-    return isEqual(prevObject, nextObject);
+    return config.trim();
 }

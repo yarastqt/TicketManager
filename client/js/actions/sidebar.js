@@ -1,4 +1,4 @@
-import types from '../constants';
+import types from 'constants';
 
 export function toggleSidebar() {
     return (dispatch, getState) => {

@@ -1,4 +1,4 @@
-import types from '../constants';
+import types from 'constants';
 
 export function showNotification(data) {
     return (dispatch) => {
@@ -9,13 +9,13 @@ export function showNotification(data) {
             payload: { ...data, id }
         });
 
-        setTimeout(() => {
-            dispatch(hideNotification(id));
-        }, 2000);
+        // setTimeout(() => {
+        //     dispatch(hideNotification(id));
+        // }, 2000);
     }
 }
 
-function hideNotification(id) {
+export function hideNotification(id) {
     return {
         type: types.NOTIFICATION_HIDE,
         payload: {

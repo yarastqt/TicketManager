@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 
-import types from '../constants';
-import { http } from '../utils';
+import types from 'constants';
+import { http } from 'utils';
 import { showNotification } from './notifications';
 
 const {

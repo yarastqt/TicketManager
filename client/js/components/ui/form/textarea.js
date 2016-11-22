@@ -3,18 +3,39 @@ import React, { Component, PropTypes } from 'react';
 import Control from './control';
 
 class Textarea extends Control {
+    constructor() {
+        super();
+        this.autoSelect = this.autoSelect.bind(this);
+    }
+
+    autoSelect() {
+        this.refs.control.select();
+    }
+
     renderControl() {
-        const { name, value } = this.props;
+        const { name, value, readonly, autoselect } = this.props;
 
         return (
-            <textarea name={ name } id={ name } defaultValue={ value } className="textarea" onFocus={ this.handleFocus } onBlur={ this.handleBlur } />
+            <textarea
+                ref="control"
+                name={ name }
+                id={ name }
+                defaultValue={ value }
+                className="textarea"
+                onClick={ autoselect && this.autoSelect }
+                onFocus={ this.handleFocus }
+                onBlur={ this.handleBlur }
+                readOnly={ readonly }
+            />
         );
     }
 }
 
 Textarea.propTypes = {
     name: PropTypes.string.isRequired,
-    value: PropTypes.string
+    value: PropTypes.string,
+    readonly: PropTypes.bool,
+    autoselect: PropTypes.bool
 };
 
 export default Textarea;

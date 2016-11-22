@@ -31,9 +31,12 @@ class TaskModal extends Component {
     }
 
     render() {
-        const { task, hideModal } = this.props;
-        const { id, name, taskType, status, source, serviceType, comment } = task;
-        const date = YDate.fromTS(task.date);
+        const {
+            task: { id, name, taskType, taskSource, status, source, serviceType, comment },
+            options: { sources, taskTypes, serviceTypes, statuses },
+        } = this.props;
+
+        const date = YDate.fromTS(this.props.task.date);
 
         return (
             <div className="modal__in">
@@ -44,26 +47,13 @@ class TaskModal extends Component {
                         <Input type="date" name="date" label="Дата" value={ date.date() } />
                         <Input type="time" name="time" label="Время" value={ date.time() } />
                     </div>
-                    <Select name="taskType" label="Тип" value={ taskType } options={[
-                        { value: 'Заявка', label: 'Заявка' },
-                        { value: 'Звонок', label: 'Звонок' },
-                        { value: 'Почта', label: 'Почта' }
-                    ]} custom />
-                    <Select name="status" label="Статус" value={ status } options={[
-                        { value: 'pending', label: 'В процессе' },
-                        { value: 'failure', label: 'Отказ' },
-                        { value: 'done', label: 'Выполнено' },
-                        { value: 'canceled', label: 'Отменено' }
-                    ]} />
-                    <Select name="source" label="Источник" value={ source } options={[
-                        { value: 'Яндекс РСЯ', label: 'Яндекс РСЯ' },
-                        { value: 'Яндекс', label: 'Яндекс' },
-                        { value: 'Google КМС', label: 'Google КМС' },
-                        { value: 'Google', label: 'Google' }
-                    ]} custom />
-                    <Select name="serviceType" label="Вид услуги" value={ serviceType } options={[
-                        { value: 'Переезд квартиры', label: 'Переезд квартиры' }
-                    ]} custom />
+                    <Select name="status" label="Статус" value={ status } options={ statuses } required />
+                    <Select name="source" label="Источник" value={ source } options={ sources } custom required />
+                    <div className="form__group">
+                        <Select name="taskType" label="Тип" value={ taskType } options={ taskTypes } custom required />
+                        <Input type="text" name="taskSource" label="Источник заявки" value={ taskSource } required />
+                    </div>
+                    <Select name="serviceType" label="Вид услуги" value={ serviceType } options={ serviceTypes } custom />
                     <Textarea name="comment" label="Комментарий" value={ comment } />
                     <div className="form__actions">
                         <Button icon="update" text="Обновить" />
@@ -73,6 +63,31 @@ class TaskModal extends Component {
         );
     }
 }
+
+TaskModal.defaultProps = {
+    options: {
+        sources: [
+            { value: 'Яндекс РСЯ', label: 'Яндекс РСЯ' },
+            { value: 'Яндекс', label: 'Яндекс' },
+            { value: 'Google КМС', label: 'Google КМС' },
+            { value: 'Google', label: 'Google' }
+        ],
+        taskTypes: [
+            { value: 'Заявка', label: 'Заявка' },
+            { value: 'Звонок', label: 'Звонок' },
+            { value: 'Почта', label: 'Почта' }
+        ],
+        serviceTypes: [
+            { value: 'Переезд квартиры', label: 'Переезд квартиры' }
+        ],
+        statuses: [
+            { value: 'pending', label: 'В процессе' },
+            { value: 'failure', label: 'Отказ' },
+            { value: 'done', label: 'Выполнено' },
+            { value: 'canceled', label: 'Отменено' }
+        ]
+    }
+};
 
 export default connect(
     (state, props) => ({

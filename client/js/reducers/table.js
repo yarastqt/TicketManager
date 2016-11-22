@@ -25,6 +25,14 @@ const initialState = {
             desc: false
         },
         filters: {}
+    },
+    tracks: {
+        rows: 25,
+        sort: {
+            key: 'id',
+            desc: true
+        },
+        filters: {}
     }
 };
 

@@ -1,8 +1,8 @@
 import jwtDecode from 'jwt-decode';
 import { push } from 'react-router-redux';
 
-import types from '../constants';
-import { http } from '../utils';
+import types from 'constants';
+import { http } from 'utils';
 import { showNotification } from './notifications';
 
 const {

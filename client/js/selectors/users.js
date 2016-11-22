@@ -1,5 +1,5 @@
-import find from 'lodash/find';
-
-export function getUserById(users, id) {
-    return find(users, { id }) || {};
+export function getUserById(users, userId) {
+    return users.filter(
+        (user) => user.id === userId
+    ).pop() || {};
 }

@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import Portal from 'react-portal';
 import shallowCompare from 'react-addons-shallow-compare';
 
-import { filterData, sortData, paginate } from '../../../selectors/table';
+import { filterData, sortData, paginate } from 'selectors/table';
 import TableHeader from './tableHeader';
 import TablePagination from './tablePagination';
-import { TableActions } from '../../../actions';
+import { TableActions } from 'actions';
 
 class Table extends Component {
     state = {
@@ -232,14 +232,20 @@ Table.propTypes = {
 function mapStateToProps(state, props) {
     const { name, data, page } = props;
     const { rows, sort, filters } = state.table[name];
+    let total = data.length;
     let processedData = filterData(data, filters);
-        processedData = sortData(processedData, sort);
-        processedData = paginate(processedData, page, rows);
+
+    if (total !== processedData.length) {
+        total = processedData.length;
+    }
+
+    processedData = sortData(processedData, sort);
+    processedData = paginate(processedData, page, rows);
 
     return {
-        total: props.data.length,
         data: processedData,
         user: state.session.user,
+        total,
         rows,
         sort
     };

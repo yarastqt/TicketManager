@@ -41,7 +41,7 @@ class Input extends Control {
     }
 
     renderControl() {
-        const { type, name, value, placeholder, disabled, autofocus, required } = this.props;
+        const { type, name, value, placeholder, disabled, autofocus, required, readonly } = this.props;
 
         return (
             <div className={ this.getClassName('input') }>
@@ -60,6 +60,7 @@ class Input extends Control {
                     disabled={ disabled }
                     autoFocus={ autofocus }
                     required={ required }
+                    readOnly={ readonly }
                 />
             </div>
         );
@@ -73,7 +74,8 @@ Input.propTypes = {
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     autoFocus: PropTypes.bool,
-    required: PropTypes.bool
+    required: PropTypes.bool,
+    readonly: PropTypes.bool
 };
 
 export default Input;
