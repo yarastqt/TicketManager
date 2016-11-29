@@ -1,0 +1,78 @@
+.select
+    position: relative
+
+    &:before
+        content: ''
+        position: absolute
+        right: 12px
+        top: 0
+        bottom: 0
+        +icon('arrow-down', 20px, 20px)
+        background-repeat: no-repeat
+        background-size: 100%
+        margin: auto
+        pointer-events: none
+
+    &_disabled
+        opacity: .5
+        cursor: default
+
+    &_clearable &__control
+        padding-right: 62px
+
+    &_focused
+        &:before
+            +icon('arrow-down', 20px, 20px, $color-blue)
+
+    &__clear
+        position: absolute
+        right: 32px
+        width: 20px
+        height: 20px
+        top: 0
+        bottom: 0
+        margin: auto
+        cursor: pointer
+        display: flex
+        align-items: center
+        justify-content: center
+
+        .icon
+            width: 20px
+            height: 20px
+
+        &:hover
+            .icon_close
+                +icon('close', 24px, 24px, $color-blue)
+
+    &__control
+        appearance: none
+        border-radius: 2px
+        background-color: #fcfcfc
+        border: 1px solid #e0e0e0
+        height: 38px
+        padding: 0 42px 0 12px
+        font: inherit
+        font-size: 1.4rem
+        transition: 200ms ease-in-out
+        color: $color-base
+        width: 100%
+
+        &:focus
+            border-color: $color-blue
+            background-color: #fff
+
+    &__control:focus + &__error
+        background-image: none
+
+    &__error
+        color: $color-pink
+        cursor: default
+        font-size: 1.2rem
+        padding: 0 4px
+        background-color: #fff
+        background-image: linear-gradient(to bottom, #fcfcfc 0%, #fcfcfc 50%, #fff 50%, #fff 100%);
+        position: absolute
+        right: 5px
+        bottom: -7px
+        user-select: none

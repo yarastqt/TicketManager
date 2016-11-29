@@ -1,0 +1,72 @@
+.sidebar
+    position: fixed
+    z-index: 100
+    top: 60px
+    bottom: 0
+    width: 87px
+    left: 0
+    background-color: #fff
+    border-right: 1px solid $color-gray
+    transition: 200ms ease-in-out
+    transform: translate3d(0, 0, 0)
+    box-shadow: 2px 0 10px -1px rgba($color-base, .1)
+    overflow-x: hidden
+
+    &_expanded
+        width: 220px
+
+        .sidebar-menu__text
+            opacity: 1
+            visibility: visible
+
+    &-menu__item
+        position: relative
+    
+    &-menu__link
+        text-decoration: none
+        font-size: 1.4rem
+        padding: 0 3.1rem
+        color: $color-base
+        transition: 200ms ease-in-out
+        height: 50px
+        display: block
+        line-height: 50px
+        white-space: nowrap
+        user-select: none
+
+        &:before
+            content: ''
+            position: absolute
+            top: 0
+            bottom: 0
+            width: 3px
+            background-color: $color-blue
+            right: 100%
+            transition: 200ms ease-in-out
+
+        &:hover, &_active
+            color: $color-blue
+            background-color: $color-light-blue
+
+            &:before
+                transform: translate3d(100%, 0, 0)
+
+            .icon_box
+                +icon('box', 24px, 24px, $color-blue)
+
+            .icon_people
+                +icon('people', 24px, 24px, $color-blue)
+
+            .icon_chart
+                +icon('chart', 24px, 24px, $color-blue)
+
+            .icon_code
+                +icon('code', 24px, 24px, $color-blue)
+
+        .icon
+            top: -1px
+
+    &-menu__text
+        transition: 200ms ease-in-out
+        opacity: 0
+        visibility: hidden

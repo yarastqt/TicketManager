@@ -1,14 +1,13 @@
 {
   "name": "JetMix-TM",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "JetMix frontend",
   "scripts": {
-    "start": "NODE_ENV=development node index.js",
-    "build": "NODE_ENV=production webpack --config ./webpack.config.prod.js"
+    "start": "NODE_ENV=development babel-node ./scripts/server.dev.js",
+    "build": "NODE_ENV=production webpack --config ./scripts/webpack.config.prod.babel.js",
+    "build:stats": "NODE_ENV=production webpack --config ./scripts/webpack.config.prod.babel.js --json > stats.json"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Eugeniy Tropin",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
@@ -35,7 +34,8 @@
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.12.2"
+    "webpack-hot-middleware": "^2.12.2",
+    "redux-logger": "^2.6.1"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -53,7 +53,7 @@
     "react-router": "^2.7.0",
     "react-router-redux": "^4.0.5",
     "redux": "^3.5.2",
-    "redux-logger": "^2.6.1",
+    "redux-form": "^6.2.0",
     "redux-thunk": "^2.1.0"
   }
 }

@@ -2,5 +2,8 @@
 .gulp
 *.log
 node_modules
+build
+stats.json
+
 public/css
 public/js
