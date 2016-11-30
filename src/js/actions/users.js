@@ -1,16 +1,11 @@
-import types from 'constants';
 import { http } from 'utils';
 import { hideModal } from './modal';
 import { showNotification } from './notifications';
-
-const {
-    USERS_REQUEST,
-    USERS_SUCCESS,
-    USER_UPDATE_REQUEST,
-    USER_UPDATE_SUCCESS,
-    USER_REMOVE_REQUEST,
-    USER_REMOVE_SUCCESS
-} = types;
+import {
+    USERS_REQUEST, USERS_SUCCESS,
+    USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS,
+    USER_REMOVE_REQUEST, USER_REMOVE_SUCCESS
+} from 'constants/users';
 
 export function getUsers() {
     return (dispatch, getState) => {

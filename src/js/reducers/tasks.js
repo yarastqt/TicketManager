@@ -1,15 +1,10 @@
-import { createReducer } from 'utils';
-import types from 'constants';
-
-const {
-    TASKS_REQUEST,
-    TASKS_SUCCESS,
-    TASK_ADD_REQUEST,
-    TASK_ADD_SUCCESS,
-    TASK_UPDATE_REQUEST,
-    TASK_UPDATE_SUCCESS,
+import { createReducer, updateObjectInArray, deleteObjectFromArray } from 'utils';
+import {
+    TASKS_REQUEST, TASKS_SUCCESS,
+    TASK_ADD_REQUEST, TASK_ADD_SUCCESS,
+    TASK_UPDATE_REQUEST, TASK_UPDATE_SUCCESS,
     TASK_REMOVE_SUCCESS
-} = types;
+} from 'constants/tasks';
 
 const initialState = {
     list: [],
@@ -30,20 +25,16 @@ export default createReducer((state, payload) => ({
     },
 
     [TASK_UPDATE_SUCCESS]() {
-        const list = state.list.map((task) => {
-            if (task.id === payload.id) {
-                return { ...task, ...payload };
-            }
-
-            return task;
-        });
+        const list = updateObjectInArray(
+            state.list, 'id', payload
+        );
 
         return { ...state, list };
     },
 
     [TASK_REMOVE_SUCCESS]() {
-        const list = state.list.filter(
-            (task) => task.id !== parseInt(payload.id)
+        const list = deleteObjectFromArray(
+            state.list, 'id', parseInt(payload.id)
         );
 
         return { ...state, list };

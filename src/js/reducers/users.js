@@ -1,13 +1,9 @@
-import { createReducer } from 'utils';
-import types from 'constants';
-
-const {
-    USERS_REQUEST,
-    USERS_SUCCESS,
-    USER_UPDATE_REQUEST,
-    USER_UPDATE_SUCCESS,
+import { createReducer, updateObjectInArray, deleteObjectFromArray } from 'utils';
+import {
+    USERS_REQUEST, USERS_SUCCESS,
+    USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS,
     USER_REMOVE_SUCCESS
-} = types;
+} from 'constants/users';
 
 const initialState = {
     list: [],
@@ -24,22 +20,18 @@ export default createReducer((state, payload) => ({
     },
 
     [USER_UPDATE_SUCCESS]() {
-        const list = state.list.map((user) => {
-            if (user.id === payload.id) {
-                return { ...user, ...payload };
-            }
-
-            return user;
-        });
+        const list = updateObjectInArray(
+            state.list, 'id', payload
+        );
 
         return { ...state, list };
     },
 
     [USER_REMOVE_SUCCESS]() {
-        const list = state.list.filter(
-            (user) => user.id !== payload.id
+        const list = deleteObjectFromArray(
+            state.list, 'id', payload.id
         );
 
-        return { ...state, list: list };
+        return { ...state, list };
     }
 }), initialState);

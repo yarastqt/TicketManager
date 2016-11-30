@@ -19,11 +19,10 @@ export default {
     ],
     output: {
         path: path.join(__dirname, '..', 'build'),
-        filename: 'assets/js/bundle.js'
+        public: '/assets/'
     },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin,
-        new ExtractTextPlugin('assets/css/bundle.css'),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify(process.env.NODE_ENV)

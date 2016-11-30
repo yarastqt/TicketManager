@@ -1,14 +1,9 @@
 import { push } from 'react-router-redux';
 
-import types from 'constants';
-
-const {
-    CHANGE_TABLE_SORT,
-    CHANGE_TABLE_ROWS,
-    TABLE_SET_FILTER,
-    TABLE_REMOVE_FILTER,
-    TABLE_REMOVE_ALL_FILTERS
-} = types;
+import {
+    CHANGE_TABLE_SORT, CHANGE_TABLE_ROWS,
+    TABLE_SET_FILTER, TABLE_REMOVE_FILTER, TABLE_REMOVE_ALL_FILTERS    
+} from 'constants/table';
 
 export function changeSort(key, table) {
     return {

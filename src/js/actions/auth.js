@@ -2,21 +2,17 @@ import jwtDecode from 'jwt-decode';
 import { push } from 'react-router-redux';
 import { SubmissionError } from 'redux-form';
 
-import types from 'constants';
 import { http } from 'utils';
 import { showNotification } from './notifications';
-
-const {
-    LOGIN_REQUEST,
-    LOGIN_SUCCES,
-    REGISTER_REQUEST,
-    REGISTER_SUCCESS,
-    LOGOUT_SUCCESS
-} = types;
+import {
+    LOGOUT_SUCCESS,
+    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE,
+    REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE
+} from 'constants/auth';
 
 function loginSuccess(user) {
     return {
-        type: LOGIN_SUCCES,
+        type: LOGIN_SUCCESS,
         payload: {
             user
         }

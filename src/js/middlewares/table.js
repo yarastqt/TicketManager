@@ -1,13 +1,13 @@
 import { push } from 'react-router-redux';
 
-import types from 'constants';
+import { TABLE_SET_FILTER, TABLE_REMOVE_FILTER, TABLE_REMOVE_ALL_FILTERS } from 'constants/table';
 
 export default function tableMiddleware({ dispatch }) {
     return (next) => (action) => {
         const actions = [
-            types.TABLE_SET_FILTER,
-            types.TABLE_REMOVE_FILTER,
-            types.TABLE_REMOVE_ALL_FILTERS
+            TABLE_SET_FILTER,
+            TABLE_REMOVE_FILTER,
+            TABLE_REMOVE_ALL_FILTERS
         ].indexOf(action.type);
 
         if (actions !== -1) {

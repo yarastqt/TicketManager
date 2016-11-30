@@ -1,12 +1,12 @@
 import { createReducer } from 'utils';
-import types from 'constants';
+import { NOTIFICATION_SHOW, NOTIFICATION_HIDE } from 'constants/toasts';
 
 export default createReducer((state, payload) => ({
-    [types.NOTIFICATION_SHOW]() {
+    [NOTIFICATION_SHOW]() {
         return [ ...state, payload ];
     },
 
-    [types.NOTIFICATION_HIDE]() {
+    [NOTIFICATION_HIDE]() {
         return state.filter((notification) =>
             notification.id !== payload.id
         );

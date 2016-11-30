@@ -1,5 +1,7 @@
 import webpack from 'webpack';
 import path from 'path';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 import config from './webpack.config.shared';
 
@@ -7,11 +9,12 @@ export default {
     ...config,
     output: {
         ...config.output,
-        public: '/assets/'
+        filename: '/assets/js/bundle.[hash].js'
     },
     plugins: [
         ...config.plugins,
         new webpack.optimize.DedupePlugin(),
+        new ExtractTextPlugin('/assets/css/bundle.[hash].css'),
         new webpack.optimize.UglifyJsPlugin({
             beautify: false,
             comments: false,
@@ -23,6 +26,21 @@ export default {
                 warnings: false,
                 drop_console: true,
                 unsafe: true
+            }
+        }),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, '..', 'src', 'index.prod.html'),
+            minify: {
+                collapseBooleanAttributes: true,
+                collapseWhitespace: true,
+                removeComments: true,
+                removeEmptyAttributes: true,
+                removeRedundantAttributes: true,
+                sortAttributes: true,
+                useShortDoctype: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                minifyJS: true
             }
         })
     ],
@@ -40,7 +58,7 @@ export default {
                     { mode: 'wrap' }
                 ],
                 include: [
-                    path.resolve(__dirname, '..', 'src'),
+                    path.resolve(__dirname, '..', 'src')
                 ]
             }
         ]

@@ -1,5 +1,6 @@
 import { createReducer } from 'utils';
-import types from 'constants';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from 'constants/auth';
+import { PROFILE_UPDATE_REQUEST, PROFILE_UPDATE_SUCCESS, PROFILE_UPDATE_FAILURE } from 'constants/profile';
 
 const initialState = {
     authenticated: localStorage.getItem('token') ? true : false,
@@ -7,19 +8,19 @@ const initialState = {
 };
 
 export default createReducer((state, payload) => ({
-    [types.LOGIN_REQUEST]() {
+    [LOGIN_REQUEST]() {
         return { authenticated: false, user: null };
     },
 
-    [types.PROFILE_UPDATE_SUCCESS]() {
+    [PROFILE_UPDATE_SUCCESS]() {
         return { authenticated: true, user: payload.user };
     },
 
-    [types.LOGIN_SUCCES]() {
+    [LOGIN_SUCCESS]() {
         return { authenticated: true, user: payload.user };
     },
 
-    [types.LOGOUT_SUCCESS]() {
+    [LOGOUT_SUCCESS]() {
         return { authenticated: false, user: null };
     }
 }), initialState);

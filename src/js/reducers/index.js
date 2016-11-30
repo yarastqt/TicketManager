@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 
-import types from 'constants';
+import { LOGOUT_SUCCESS } from 'constants/auth';
 
 import sidebar from './sidebar';
 import session from './session';
@@ -27,7 +27,7 @@ const rootReducer = combineReducers({
 });
 
 export default (state, action) => {
-    if (action.type === types.LOGOUT_SUCCESS) {
+    if (action.type === LOGOUT_SUCCESS) {
         state = undefined;
     }
 

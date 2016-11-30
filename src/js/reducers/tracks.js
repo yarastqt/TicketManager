@@ -1,15 +1,10 @@
-import { createReducer } from 'utils';
-import types from 'constants';
-
-const {
-    TRACKS_LOAD_REQUEST,
-    TRACKS_LOAD_SUCCESS,
-    TRACK_ADD_REQUEST,
-    TRACK_ADD_SUCCESS,
-    TRACK_DELETE_SUCCESS,
-    TRACK_UPDATE_REQUEST,
-    TRACK_UPDATE_SUCCESS
-} = types;
+import { createReducer, updateObjectInArray, deleteObjectFromArray } from 'utils';
+import {
+    TRACKS_LOAD_REQUEST, TRACKS_LOAD_SUCCESS,
+    TRACK_ADD_REQUEST, TRACK_ADD_SUCCESS,
+    TRACK_DELETE_REQUEST, TRACK_DELETE_SUCCESS,
+    TRACK_UPDATE_REQUEST, TRACK_UPDATE_SUCCESS
+} from 'constants/tracks';
 
 const initialState = {
     list: [],
@@ -30,16 +25,16 @@ export default createReducer((state, payload) => ({
     },
 
     [TRACK_DELETE_SUCCESS]() {
-        const list = state.list.filter(
-            (track) => track.id !== parseInt(payload.id)
+        const list = deleteObjectFromArray(
+            state.list, 'id', parseInt(payload.id)
         );
 
-        return { ...state, list: list };
+        return { ...state, list };
     },
 
     [TRACK_UPDATE_SUCCESS]() {
-        const list = state.list.map((track) =>
-            track.id === payload.id ? { ...track, ...payload } : track
+        const list = updateObjectInArray(
+            state.list, 'id', payload
         );
 
         return { ...state, list };

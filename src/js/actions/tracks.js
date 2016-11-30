@@ -1,18 +1,12 @@
-import types from 'constants';
 import { http } from 'utils';
 import { hideModal } from './modal';
 import { showNotification } from './notifications';
-
-const {
-    TRACKS_LOAD_REQUEST,
-    TRACKS_LOAD_SUCCESS,
-    TRACK_ADD_REQUEST,
-    TRACK_ADD_SUCCESS,
-    TRACK_DELETE_REQUEST,
-    TRACK_DELETE_SUCCESS,
-    TRACK_UPDATE_REQUEST,
-    TRACK_UPDATE_SUCCESS
-} = types;
+import {
+    TRACKS_LOAD_REQUEST, TRACKS_LOAD_SUCCESS,
+    TRACK_ADD_REQUEST, TRACK_ADD_SUCCESS,
+    TRACK_DELETE_REQUEST, TRACK_DELETE_SUCCESS,
+    TRACK_UPDATE_REQUEST, TRACK_UPDATE_SUCCESS
+} from 'constants/tracks';
 
 export function getTracks() {
     return (dispatch, getState) => {

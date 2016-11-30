@@ -1,8 +1,8 @@
-import types from 'constants';
+import { MODAL_SHOW, MODAL_HIDE } from 'constants/modal';
 
 export function showModal(view, props) {
     return {
-        type: types.MODAL_SHOW,
+        type: MODAL_SHOW,
         payload: {
             view,
             props
@@ -12,6 +12,6 @@ export function showModal(view, props) {
 
 export function hideModal() {
     return {
-        type: types.MODAL_HIDE
+        type: MODAL_HIDE
     };
 }

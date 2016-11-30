@@ -1,13 +1,8 @@
 import jwtDecode from 'jwt-decode';
 
-import types from 'constants';
+import { PROFILE_UPDATE_REQUEST, PROFILE_UPDATE_SUCCESS } from 'constants/profile';
 import { http } from 'utils';
 import { showNotification } from './notifications';
-
-const {
-    PROFILE_UPDATE_REQUEST,
-    PROFILE_UPDATE_SUCCESS
-} = types;
 
 function updateProfileSuccess(user) {
     return (dispatch) => {

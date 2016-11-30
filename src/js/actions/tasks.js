@@ -1,18 +1,12 @@
-import types from 'constants';
 import { http } from 'utils';
 import { hideModal } from './modal';
 import { showNotification } from './notifications';
-
-const {
-    TASKS_REQUEST,
-    TASKS_SUCCESS,
-    TASK_ADD_REQUEST,
-    TASK_ADD_SUCCESS,
-    TASK_UPDATE_REQUEST,
-    TASK_UPDATE_SUCCESS,
-    TASK_REMOVE_REQUEST,
-    TASK_REMOVE_SUCCESS
-} = types;
+import {
+    TASKS_REQUEST, TASKS_SUCCESS,
+    TASK_ADD_REQUEST, TASK_ADD_SUCCESS,
+    TASK_UPDATE_REQUEST, TASK_UPDATE_SUCCESS,
+    TASK_REMOVE_REQUEST, TASK_REMOVE_SUCCESS
+} from 'constants/tasks';
 
 export function getTasks() {
     return (dispatch, getState) => {
@@ -23,6 +17,8 @@ export function getTasks() {
 
             return http.get('/v1/tasks').then((payload) => {
                 dispatch({ type: TASKS_SUCCESS, payload });
+            }).catch((error) => {
+                console.log(error);
             });
         }
     };

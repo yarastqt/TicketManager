@@ -1,5 +1,5 @@
 import { createReducer } from 'utils';
-import types from 'constants';
+import { MODAL_SHOW, MODAL_HIDE } from 'constants/modal';
 
 const initialState = {
     visible: false,
@@ -8,11 +8,13 @@ const initialState = {
 };
 
 export default createReducer((state, payload) => ({
-    [types.MODAL_SHOW]() {
-        return { visible: true, view: payload.view, props: payload.props };
+    [MODAL_SHOW]() {
+        return {
+            visible: true, view: payload.view, props: payload.props
+        };
     },
 
-    [types.MODAL_HIDE]() {
+    [MODAL_HIDE]() {
         return initialState;
     }
 }), initialState);

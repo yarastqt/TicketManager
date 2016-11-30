@@ -9,16 +9,17 @@ export default {
     devtool: 'source-map',
     entry: [
         ...config.entry,
-        'webpack-hot-middleware/client',
+        'webpack-hot-middleware/client'
     ],
     output: {
         ...config.output,
-        public: '/assets/'
+        filename: 'assets/js/bundle.js'
     },
     plugins: [
         ...config.plugins,
         new webpack.HotModuleReplacementPlugin,
         new webpack.NoErrorsPlugin(),
+        new ExtractTextPlugin('assets/css/bundle.css')
     ],
     module: {
         loaders: [
@@ -28,7 +29,7 @@ export default {
                 test: /\.js$/,
                 plugins: ['transform-runtime'],
                 include: [
-                    path.resolve(__dirname, '..', 'src'),
+                    path.resolve(__dirname, '..', 'src')
                 ]
             }
         ]
