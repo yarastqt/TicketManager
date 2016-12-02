@@ -27,13 +27,14 @@ class LoginView extends Component {
                     <div className="sign-container__title">Авторизация</div>
                     <form className="form" onSubmit={ this.props.handleSubmit(this.login) }>
                         <Field name="email" type="text" label="E-Mail"
-                            component={ Input }
+                            component={ Input } autofocus
                         />
                         <Field name="password" type="password" label="Пароль"
                             component={ Input }
                         />
                         <FormActions position="right">
-                            <Button type="submit" view="action" text="Войти"
+                            <Button type="submit" view="action"
+                                text={ this.props.submitting ? 'Авторизация...' : 'Войти' }
                                 disabled={ this.props.submitting }
                             />
                         </FormActions>
@@ -45,7 +46,7 @@ class LoginView extends Component {
 }
 
 LoginView = reduxForm({
-    form: 'login',
+    form: 'auth/login',
     validate
 })(LoginView);
 

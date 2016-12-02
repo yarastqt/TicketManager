@@ -26,7 +26,7 @@ class RegisterView extends Component {
                     <div className="sign-container__title">Регистрация</div>
                     <form className="form" onSubmit={ this.props.handleSubmit(this.register) }>
                         <Field name="username" type="text" label="Имя" placeholder="Marvin"
-                            component={ Input }
+                            component={ Input } autofocus
                         />
                         <Field name="email" type="text" label="E-Mail" placeholder="example@domain.com"
                             component={ Input }
@@ -35,7 +35,8 @@ class RegisterView extends Component {
                             component={ Input }
                         />
                         <FormActions position="right">
-                            <Button type="submit" view="action" text="Зарегистрироваться"
+                            <Button type="submit" view="action"
+                                text={ this.props.submitting ? 'Регистрация...' : 'Зарегистрироваться' }
                                 disabled={ this.props.submitting }
                             />
                         </FormActions>
@@ -47,7 +48,7 @@ class RegisterView extends Component {
 }
 
 RegisterView = reduxForm({
-    form: 'register',
+    form: 'auth/register',
     validate
 })(RegisterView);
 

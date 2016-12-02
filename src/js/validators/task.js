@@ -1,35 +1,33 @@
+import { isEmpty } from 'utils';
+
 export function taskForm(data) {
     const errors = {};
 
-    if (!data.name) {
+    if (isEmpty(data.name)) {
         errors.name = 'Укажите ФИО или компанию';
     }
 
-    if (!data.date) {
+    if (isEmpty(data.date)) {
         errors.date = 'Укажите дату';
     }
 
-    if (!data.time) {
+    if (isEmpty(data.time)) {
         errors.time = 'Укажите время';
     }
 
-    if (!data.status) {
+    if (isEmpty(data.status)) {
         errors.status = 'Укажите статус';
     }
 
-    if (!data.source) {
-        errors.source = 'Укажите источник';
-    }
-
-    if (!data.taskType) {
+    if (isEmpty(data.taskType)) {
         errors.taskType = 'Укажите тип заявки';
     }
 
-    if (!data.taskSource) {
+    if (isEmpty(data.taskSource)) {
         errors.taskSource = 'Укажите источник заявки';
     }
 
-    if (!data.serviceType) {
+    if (isEmpty(data.serviceType)) {
         errors.serviceType = 'Укажите вид услуги';
     }
 

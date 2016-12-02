@@ -3,13 +3,13 @@ import { Link } from 'react-router';
 
 class Sidebar extends Component {
     renderMenuList() {
-        return this.props.menu.map(({ url, name, icon, roles }, index) => {
+        return this.props.menu.map(({ url, name, icon, roles }) => {
             if (roles && roles.indexOf(this.props.user.role) === -1) {
                 return null;
             }
 
             return (
-                <div className="sidebar-menu__item" key={ index }>
+                <div className="sidebar-menu__item" key={ name }>
                     <Link to={ url } className="sidebar-menu__link" activeClassName="sidebar-menu__link_active" title={ name }>
                         <i className={ `icon icon_${ icon }` }></i>
                         <span className="sidebar-menu__text">{ name }</span>

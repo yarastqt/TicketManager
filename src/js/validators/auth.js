@@ -1,13 +1,16 @@
+import { isEmpty } from 'utils';
+import { emailReg } from 'constants/validators';
+
 export function loginForm(data) {
     const errors = {};
 
-    if (!data.email) {
+    if (isEmpty(data.email)) {
         errors.email = 'Обязательно';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
+    } else if (!emailReg.test(data.email)) {
         errors.email = 'Некорректный email';
     }
 
-    if (!data.password) {
+    if (isEmpty(data.password)) {
         errors.password = 'Обязательно';
     }
 
@@ -17,17 +20,17 @@ export function loginForm(data) {
 export function registerForm(data) {
     const errors = {};
 
-    if (!data.username) {
+    if (isEmpty(data.username)) {
         errors.username = 'Обязательно';
     }
 
-    if (!data.email) {
+    if (isEmpty(data.email)) {
         errors.email = 'Обязательно';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
+    } else if (!emailReg.test(data.email)) {
         errors.email = 'Некорректный email';
     }
 
-    if (!data.password) {
+    if (isEmpty(data.password)) {
         errors.password = 'Обязательно';
     }
 

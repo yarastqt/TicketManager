@@ -23,7 +23,7 @@ function ManagerCell(value) {
 }
 
 function DateCell(value) {
-    return DateUtil.fromTS(value).date(true);
+    return DateUtil.fromTS(value).getDate(true);
 }
 
 class TasksView extends Component {

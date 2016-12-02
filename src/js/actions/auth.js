@@ -29,17 +29,17 @@ export function login(data, redirectAfterLogin) {
     return (dispatch) => {
         dispatch({ type: LOGIN_REQUEST });
 
-        return http.post('/v1/auth/login', data).then(
-            (data) => {
+        return http.post('/v1/auth/login', data)
+            .then((data) => {
                 const user = jwtDecode(data);
                 localStorage.setItem('token', data);
                 dispatch(loginSuccess(user));
                 dispatch(push(redirectAfterLogin));
-            },
-            (data) => {
-                throw new SubmissionError({ email: 'Неверный email или пароль' });
-            }
-        );
+            })
+            .catch((data) => {
+                const field = Object.keys(data.errors)[0];
+                throw new SubmissionError({ [field]: data.errors[field] });
+            });
     };
 }
 
@@ -81,7 +81,8 @@ export function register(data) {
         return http.post('/v1/auth/register', data).then(
             (data) => dispatch(registerSuccess()),
             (data) => {
-                throw new SubmissionError({ email: 'Данный email уже используется' });
+                const field = Object.keys(data.errors)[0];
+                throw new SubmissionError({ [field]: data.errors[field] });
             }
         );
     };

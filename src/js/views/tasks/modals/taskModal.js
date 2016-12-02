@@ -64,7 +64,8 @@ class TaskModal extends Component {
                         <Button type="button" view="pseudo" text="Отмена"
                             onClick={ this.props.hideModal }
                         />
-                        <Button type="submit" view="action" icon="update" text="Обновить"
+                        <Button type="submit" view="action" icon="update"
+                            text={ this.props.submitting ? 'Обновление...' : 'Обновить' }
                             disabled={ this.props.pristine || this.props.submitting }
                         />
                     </FormActions>
@@ -78,9 +79,12 @@ TaskModal.defaultProps = {
     options: {
         sources: [
             { value: 'Яндекс РСЯ', label: 'Яндекс РСЯ' },
-            { value: 'Яндекс', label: 'Яндекс' },
+            { value: 'Яндекс Реклама', label: 'Яндекс Реклама' },
+            { value: 'Яндекс Поиск', label: 'Яндекс Поиск' },
             { value: 'Google КМС', label: 'Google КМС' },
-            { value: 'Google', label: 'Google' }
+            { value: 'Google Реклама', label: 'Google Реклама' },
+            { value: 'Google Поиск', label: 'Google Поиск' },
+            { value: 'Неизвестно', label: 'Неизвестно' }
         ],
         taskTypes: [
             { value: 'Заявка', label: 'Заявка' },
@@ -111,8 +115,8 @@ function mapStateToProps(state, props) {
     return {
         initialValues: {
             ...task,
-            date: TS.date(),
-            time: TS.time()
+            date: TS.getDate(),
+            time: TS.getTime()
         }
     };
 }

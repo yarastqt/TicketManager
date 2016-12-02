@@ -20,23 +20,23 @@ export default {
         const minutes = pad(date.getMinutes());
 
         return {
-            date(normalize) {
+            getDate(normalize) {
                 return normalize
                     ? `${day}.${month}.${year}`
                     : `${year}-${month}-${day}`
             },
 
-            time() {
+            getTime() {
                 return `${hours}:${minutes}`;
             }
         };
     },
 
     currentDate() {
-        return this.fromTS().date();
+        return this.fromTS().getDate();
     },
 
     currentTime() {
-        return this.fromTS().time();
+        return this.fromTS().getTime();
     }
 };

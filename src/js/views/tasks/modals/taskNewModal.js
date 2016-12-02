@@ -59,7 +59,8 @@ class TasksNewModal extends Component {
                         <Button type="button" view="pseudo" text="Отмена"
                             onClick={ this.props.hideModal }
                         />
-                        <Button type="submit" view="action" icon="quick-add" text="Добавить"
+                        <Button type="submit" view="action" icon="quick-add"
+                            text={ this.props.submitting ? 'Добавление...' : 'Добавить' }
                             disabled={ this.props.pristine || this.props.submitting }
                         />
                     </FormActions>
@@ -73,9 +74,12 @@ TasksNewModal.defaultProps = {
     options: {
         sources: [
             { value: 'Яндекс РСЯ', label: 'Яндекс РСЯ' },
-            { value: 'Яндекс', label: 'Яндекс' },
+            { value: 'Яндекс Реклама', label: 'Яндекс Реклама' },
+            { value: 'Яндекс Поиск', label: 'Яндекс Поиск' },
             { value: 'Google КМС', label: 'Google КМС' },
-            { value: 'Google', label: 'Google' }
+            { value: 'Google Реклама', label: 'Google Реклама' },
+            { value: 'Google Поиск', label: 'Google Поиск' },
+            { value: 'Неизвестно', label: 'Неизвестно' }
         ],
         taskTypes: [
             { value: 'Заявка', label: 'Заявка' },

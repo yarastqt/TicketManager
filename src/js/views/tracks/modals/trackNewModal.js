@@ -33,7 +33,8 @@ class TrackNewModal extends Component {
                         <Button type="button" view="pseudo" text="Отмена"
                             onClick={ this.props.hideModal }
                         />
-                        <Button type="submit" view="action" icon="quick-add" text="Добавить"
+                        <Button type="submit" view="action" icon="quick-add"
+                            text={ this.props.submitting ? 'Добавление...' : 'Добавить' }
                             disabled={ this.props.pristine || this.props.submitting }
                         />
                     </FormActions>

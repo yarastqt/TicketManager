@@ -1,11 +1,17 @@
+import { isEmpty } from 'utils';
+
 export function userForm(data) {
     const errors = {};
 
-    if (!data.blocked || typeof JSON.parse(data.blocked) !== 'boolean') {
-        errors.blocked = 'Укажите состояние';
+    if (typeof data.blocked === 'string') {
+        try {
+            JSON.parse(data.blocked)
+        } catch (e) {
+            errors.blocked = 'Укажите состояние';
+        }
     }
 
-    if (!data.role) {
+    if (isEmpty(data.role)) {
         errors.role = 'Укажите должность';
     }
 

@@ -63,7 +63,7 @@ class TaskTableFilters extends Component {
                     <FormActions position="left">
                         <Button type="button" view="pseudo" icon="close"
                             onClick={ this.removeAllFilters }
-                            disabled={ Object.keys(this.props.initialValues).length ? false : true }
+                            disabled={ this.props.resetSubmitting }
                         />
                     </FormActions>
                 </form>
@@ -76,10 +76,24 @@ TaskTableFilters = reduxForm({
     form: 'tasksFilters'
 })(TaskTableFilters);
 
+function mapStateToprops(state) {
+    const activeFilters = state.table['tasks'].filters;
+    const startDate = activeFilters.startDate && DateUtil.fromTS(activeFilters.startDate).getDate();
+    const endDate = activeFilters.endDate && DateUtil.fromTS(activeFilters.endDate).getDate();
+    const resetSubmitting = Object.keys(activeFilters).length ? false : true;
+
+    return {
+        initialValues: {
+            ...activeFilters,
+            startDate,
+            endDate
+        },
+        filtersList: getFilters(state.tasks.list),
+        resetSubmitting
+    };
+}
+
 export default connect(
-    (state) => ({
-        initialValues: state.table['tasks'].filters,
-        filtersList: getFilters(state.tasks.list)
-    }),
+    mapStateToprops,
     { setFilter, removeFilter, removeAllFilters }
 )(TaskTableFilters);

@@ -1,16 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { apiURL } from 'constants/api';
 
-function checkStatus(response) {
-    if (response.status >= 200 && response.status < 300) {
-        return response;
-    }
-
-    const error = new Error(response.statusText);
-    error.response = response.json();
-    throw error;
-}
-
 function parseJSON(response) {
     return response.json();
 }
@@ -29,9 +19,20 @@ function request(url, options) {
     const headers = getHeaders(token);
     const advancedOptions = { ...options, headers };
 
-    return fetch(endpoint, advancedOptions)
-        .then(checkStatus)
-        .then(parseJSON);
+    return new Promise((resolve, reject) => {
+        fetch(endpoint, advancedOptions)
+            .then((response) => {
+                if (response.ok) {
+                    parseJSON(response).then(
+                        (response) => resolve(response)
+                    );
+                } else {
+                    parseJSON(response).then(
+                        (response) => reject(response)
+                    );
+                }
+            });
+    });
 }
 
 export default {

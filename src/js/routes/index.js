@@ -1,5 +1,5 @@
 import React from 'react';
-import { IndexRedirect, Route } from 'react-router';
+import { IndexRedirect, IndexRoute, Route } from 'react-router';
 
 // Base containers
 import App from 'containers/app';
@@ -16,6 +16,8 @@ import LoginView from 'views/auth/login';
 import TasksView from 'views/tasks';
 import UsersView from 'views/users';
 import ProfileView from 'views/profile';
+import ProfileCommonView from 'views/profile/common';
+import ProfileSecurityView from 'views/profile/security';
 import StatisticsView from 'views/statistics';
 import TracksView from 'views/tracks';
 import NotFound from 'views/notfound';
@@ -39,7 +41,10 @@ export default (store) => (
             <Route path="users" component={ UsersView } roles={ ['admin'] }>
                 <Route path="page/:page" />
             </Route>
-            <Route path="profile" component={ ProfileView } />
+            <Route path="profile" component={ ProfileView }>
+                <IndexRoute component={ ProfileCommonView } />
+                <Route path="security" component={ ProfileSecurityView } />
+            </Route>
             <Route path="statistics" component={ StatisticsView } />
             <Route path="tracks" component={ TracksView } />
         </Route>

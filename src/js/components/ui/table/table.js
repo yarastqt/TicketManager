@@ -121,16 +121,16 @@ class Table extends Component {
 
             return React.cloneElement(item, {
                 width: item.props.width,
-                value,
-                key
+                key: item.props.name,
+                value
             });
         });
     }
 
     renderRows() {
-        return this.props.data.map((item, key) => {
+        return this.props.data.map((item) => {
             return (
-                <div className="table__row" key={ key }>
+                <div className="table__row" key={ item.id }>
                     { this.renderCells(item) }
                     <div className="table__row-action">
                         { this.renderActions(item) }
@@ -151,13 +151,13 @@ class Table extends Component {
     }
 
     renderHeaders() {
-        return this.props.children.map((item, key) => {
+        return this.props.children.map((item) => {
             return (
                 <TableHeader
                     { ...item.props }
                     sort={ this.props.sort }
                     changeSort={ this.changeSort }
-                    key={ key }
+                    key={ item.props.name }
                 />
             );
         });

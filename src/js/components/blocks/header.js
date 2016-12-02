@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Portal from 'react-portal';
 
-import dict from '../../constants/dict';
-import { AuthActions, SidebarActions } from '../../actions';
-
-const { logOut } = AuthActions;
-const { toggleSidebar } = SidebarActions;
+import dict from 'constants/dict';
+import { logOut } from 'actions/auth';
+import { toggleSidebar } from 'actions/sidebar';
 
 class Header extends Component {
     state = {
@@ -57,9 +55,7 @@ class Header extends Component {
                     <div className="header__menu-toggle" onClick={ toggleSidebar }>
                         <i className="icon icon_toggle"></i>
                     </div>
-                    <div className="header__logo">
-                        <Link to="/" className="header__logo-link"></Link>
-                    </div>
+                    <div className="header__logo"></div>
                     <div className={ visible ? 'header__user header__user_active' : 'header__user' } ref="headerUser" onClick={ this.openPopup }>
                         <div className="header__user-meta">
                             <div className="header__user-name">Привет, { user.username }</div>

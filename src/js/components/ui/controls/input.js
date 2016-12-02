@@ -10,6 +10,7 @@ class Input extends Component {
 
     componentDidMount() {
         this.setState({ value: this.props.input.value, type: this.props.type });
+        this.props.autofocus && this.refs.input.focus();
     }
 
     changeValue(event) {

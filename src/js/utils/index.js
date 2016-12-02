@@ -8,6 +8,10 @@ export {
     DateUtil
 };
 
+export function isEmpty(value) {
+    return !value || value.trim() === '';
+}
+
 export function findInArray(source, key, value) {
     return source.filter((item) => item[key] === value);
 }
