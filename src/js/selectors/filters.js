@@ -6,7 +6,7 @@ export function getFilters(list) {
     };
 
     if (list.length) {
-        list.map(({ source, status, createdBy, serviceType }) => {
+        list.forEach(({ source, status, createdBy, serviceType }) => {
             if (filters.sources.indexOf(source) === -1) {
                 filters.sources.push(source);
             }

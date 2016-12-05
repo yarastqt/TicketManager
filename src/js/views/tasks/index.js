@@ -27,12 +27,9 @@ function DateCell(value) {
 }
 
 class TasksView extends Component {
-    state = {
-        visibleFilters: false
-    };
-
     constructor() {
         super();
+        this.state = { visibleFilters: false };
         this.showTaskNewModal = this.showTaskNewModal.bind(this);
         this.showTaskModal = this.showTaskModal.bind(this);
         this.removeTask = this.removeTask.bind(this);
@@ -71,7 +68,7 @@ class TasksView extends Component {
                 <div className="content__header">
                     <div className="content__heading">Заявки</div>
                     <div className="content__actions">
-                        <Button type="button" view="pseudo" icon="filter"
+                        <Button type="button" view="pseudo" icon="filter" active={ this.state.visibleFilters }
                             onClick={ this.toggleVisibleFilters }
                         />
                         <Button type="button" view="action" icon="quick-add" text="Добавить заявку"
@@ -79,7 +76,9 @@ class TasksView extends Component {
                         />
                     </div>
                 </div>
-                <TaskTableFilters visible={ this.state.visibleFilters } />
+                <TaskTableFilters
+                    visible={ this.state.visibleFilters }
+                />
                 <Loader fetching={ this.props.tasks.fetching }>
                     <Table
                         name="tasks" data={ this.props.tasks.list } page={ this.props.page }

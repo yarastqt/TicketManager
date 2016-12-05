@@ -65,21 +65,14 @@ export function loadUserProfile() {
     };
 }
 
-function registerSuccess() {
-    return (dispatch) => {
-        dispatch({ type: REGISTER_SUCCESS });
-        dispatch(showNotification({
-            message: 'Регистрация прошла успешно. Ожидайте подтверждения администратора'
-        }));
-    };
-}
-
 export function register(data) {
     return (dispatch) => {
         dispatch({ type: REGISTER_REQUEST });
 
         return http.post('/v1/auth/register', data).then(
-            (data) => dispatch(registerSuccess()),
+            (data) => {
+                dispatch({ type: REGISTER_SUCCESS });
+            },
             (data) => {
                 const field = Object.keys(data.errors)[0];
                 throw new SubmissionError({ [field]: data.errors[field] });

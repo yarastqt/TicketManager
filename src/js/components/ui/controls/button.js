@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 
-function Button({ onClick, type, icon, text, view, disabled }) {
+function Button({ onClick, type, icon, text, view, active, disabled }) {
     const buttonClasses = classnames(`button button_view_${view}`, {
-        'button_disabled': disabled
+        'button_disabled': disabled,
+        'button_active': active
     });
 
     return (
