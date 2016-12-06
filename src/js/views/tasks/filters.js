@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import { Field, reduxForm } from 'redux-form';
 
 import { getFilters } from 'selectors/filters';
 import { DateUtil } from 'utils';
 import { Input, Button, Select, FormActions } from 'components/ui';
-import { setFilter, removeFilter, removeAllFilters } from 'actions/table';
+import { setFilter, removeFilter, removeAllFilters } from 'actions/filters';
 
 class TaskTableFilters extends Component {
     constructor() {
         super();
+        this.target = 'tasks';
         this.setFilter = this.setFilter.bind(this);
         this.removeAllFilters = this.removeAllFilters.bind(this);
     }
@@ -23,15 +23,15 @@ class TaskTableFilters extends Component {
 
             this.props.setFilter({
                 [filter.name]: filter.value
-            }, 'tasks');
+            }, this.target);
         } else {
-            this.props.removeFilter(filter.name, 'tasks');
+            this.props.removeFilter(filter.name, this.target);
         }
     }
 
     removeAllFilters() {
         this.props.reset();
-        this.props.removeAllFilters('tasks');
+        this.props.removeAllFilters(this.target);
     }
 
     render() {
@@ -39,10 +39,10 @@ class TaskTableFilters extends Component {
             <div className={ this.props.visible ? 'filters filters_visible' : 'filters' }>
                 <form className="form filters__form">
                     <Field name="startDate" type="date" label="Начальная дата"
-                        component={ Input } onChange={ this.setFilter } debounce={ 500 }
+                        component={ Input } onChange={ this.setFilter }
                     />
                     <Field name="endDate" type="date" label="Конечная дата"
-                        component={ Input } onChange={ this.setFilter } debounce={ 500 }
+                        component={ Input } onChange={ this.setFilter }
                     />
                     <Field name="source" label="Источник"
                         component={ Select } options={ this.props.filtersList.sources }
@@ -77,7 +77,7 @@ TaskTableFilters = reduxForm({
 })(TaskTableFilters);
 
 function mapStateToprops(state) {
-    const activeFilters = state.table['tasks'].filters;
+    const activeFilters = state.filters['tasks'];
     const startDate = activeFilters.startDate && DateUtil.fromTS(activeFilters.startDate).getDate();
     const endDate = activeFilters.endDate && DateUtil.fromTS(activeFilters.endDate).getDate();
     const resetSubmitting = Object.keys(activeFilters).length ? false : true;

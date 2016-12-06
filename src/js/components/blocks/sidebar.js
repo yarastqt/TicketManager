@@ -21,7 +21,7 @@ class Sidebar extends Component {
 
     render() {
         return (
-            <div className={ this.props.sidebar ? 'sidebar sidebar_expanded': 'sidebar' }>
+            <div className={ this.props.expanded ? 'sidebar sidebar_expanded': 'sidebar' }>
                 <div className="sidebar-menu">
                     { this.renderMenuList() }
                 </div>
@@ -66,7 +66,7 @@ Sidebar.propTypes = {
         })
     ),
     user: PropTypes.object.isRequired,
-    sidebar: PropTypes.bool.isRequired
+    expanded: PropTypes.bool.isRequired
 };
 
 export default Sidebar;

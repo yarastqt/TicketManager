@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Line, defaults as chartSettings } from 'react-chartjs-2';
 
-import { Content } from 'components/blocks';
+import { Content, Loader } from 'components/blocks';
 import { getTasks } from 'actions/tasks';
+import StatisticsFilters from './filters';
 
 Object.assign(chartSettings.global, {
     defaultFontColor: '#4b606b',
@@ -25,59 +26,57 @@ Object.assign(chartSettings.global, {
     // responsive: false
 });
 
-// chartSettings.global.elements.line.fill = false;
-
-const data = {
-    labels: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
-    datasets: [
-        {
-            label: 'Заявки отмененные',
-            // fill: false,
-            lineTension: 0.2,
-            backgroundColor: 'rgba(0, 105, 255, 0.1)',
-            borderColor: 'rgba(0, 105, 255, 1)',
-            borderWidth: 1,
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(0, 105, 255, 1)',
-            pointBackgroundColor: '#fff',
-            pointBorderWidth: 2,
-            pointHoverRadius: 4,
-            pointHoverBackgroundColor: 'rgba(0, 105, 255, 1)',
-            pointHoverBorderColor: 'rgba(0, 105, 255, 1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 2,
-            pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 0, 0]
-        },
-        {
-            label: 'Заявки выполненные',
-            // fill: false,
-            lineTension: 0.1,
-            backgroundColor: 'rgba(0, 105, 255, 0.1)',
-            borderColor: 'rgba(0, 105, 255, 1)',
-            borderWidth: 1,
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(0, 105, 255, 1)',
-            pointBackgroundColor: '#fff',
-            pointBorderWidth: 2,
-            pointHoverRadius: 4,
-            pointHoverBackgroundColor: 'rgba(0, 105, 255, 1)',
-            pointHoverBorderColor: 'rgba(0, 105, 255, 1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 2,
-            pointHitRadius: 10,
-            data: [10, 15, 80, 44, 52, 15, 70]
-        },
-    ]
-    // xLabels: [],
-    // yLabels: []
-};
+function makeData(points) {
+    return {
+        labels: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+        datasets: [
+            {
+                label: 'Заявки в процессе',
+                // fill: false,
+                lineTension: 0.2,
+                backgroundColor: 'rgba(0, 105, 255, 0.1)',
+                borderColor: 'rgba(0, 105, 255, 1)',
+                borderWidth: 1,
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: 'rgba(0, 105, 255, 1)',
+                pointBackgroundColor: '#fff',
+                pointBorderWidth: 2,
+                pointHoverRadius: 4,
+                pointHoverBackgroundColor: 'rgba(0, 105, 255, 1)',
+                pointHoverBorderColor: 'rgba(0, 105, 255, 1)',
+                pointHoverBorderWidth: 2,
+                pointRadius: 2,
+                pointHitRadius: 10,
+                data: points.pending
+            },
+            {
+                label: 'Заявки выполненные',
+                // fill: false,
+                lineTension: 0.1,
+                backgroundColor: 'rgba(25, 196, 172, 0.1)',
+                borderColor: 'rgba(25, 196, 172, 1)',
+                borderWidth: 1,
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: 'rgba(25, 196, 172, 1)',
+                pointBackgroundColor: '#fff',
+                pointBorderWidth: 2,
+                pointHoverRadius: 4,
+                pointHoverBackgroundColor: 'rgba(25, 196, 172, 1)',
+                pointHoverBorderColor: 'rgba(25, 196, 172, 1)',
+                pointHoverBorderWidth: 2,
+                pointRadius: 2,
+                pointHitRadius: 10,
+                data: points.done
+            },
+        ]
+    };
+}
 
 class StatisticsView extends Component {
     componentDidMount() {
@@ -85,13 +84,18 @@ class StatisticsView extends Component {
     }
 
     render() {
+        const chartData = makeData(this.props.tasks);
+
         return (
             <Content title="Статистика">
                 <div className="content__header">
                     <div className="content__heading">Статистика</div>
                 </div>
+                <StatisticsFilters />
                 <div className="profile">
-                    <Line data={data} height={ 100 } />
+                    <Loader fetching={ this.props.fetching }>
+                        <Line data={ chartData } height={ 100 } />
+                    </Loader>
                 </div>
             </Content>
         );
@@ -99,115 +103,68 @@ class StatisticsView extends Component {
 }
 
 
-function getTasksByLastWeek(tasks) {
+function getChartPoints(tasks, filters) {
     if (!tasks.length) {
         return {};
     }
 
-    const endWeek = Date.now() + 86400000;
-    const unknown = endWeek - 604800000;
-    const section = (endWeek - unknown) / 7;
+    if (!filters.startDate || !filters.endDate) {
+        return {};
+    }
 
-    const startWeek = endWeek - 604800000 - section;
+    // Устанавливаем конец текущего дня
+    const end = new Date;
+    const endDate = end.setHours(23, 59, 59, 999);
 
-    const data = {
-        pending: [0, 0, 0, 0, 0, 0, 0],
-        failure: [0, 0, 0, 0, 0, 0, 0],
-        done: [0, 0, 0, 0, 0, 0, 0],
-        canceled: [0, 0, 0, 0, 0, 0, 0]
+    // Устанавливаем начало дня
+    const start = new Date(endDate - 604800000);
+    const startDate = start.setHours(0, 0, 0, 0);
+
+    // Дефолтный период неделя = конечная дата - начальная дата
+    const period = endDate - startDate;
+
+    // Шаг для сравнения
+    const section = period / 7;
+
+    // Начальные установки графика
+    const pointsChart = {
+        pending: [0, 0, 0, 0, 0, 0, 0], failure: [0, 0, 0, 0, 0, 0, 0],
+        done: [0, 0, 0, 0, 0, 0, 0], canceled: [0, 0, 0, 0, 0, 0, 0]
     };
 
-    const result = tasks.reduce((container, task) => {
+    tasks.forEach((task) => {
+        for (let i = 1; i <= 7; i++) {
+            let startEdge = startDate + section * i;
+            let endEdge = startDate + section * (i + 1);
 
-        // console.log(task);
-
-        // if (task.date >= startWeek && task.date <= endWeek) {
-        //     for (let i = 1; i <= 7; i++) {
-        //         console.log('found+', i);
-        //     }
-        // }
-
-
-        // for (let i = 1; i <= 7; i++) {
-
-            let i = 2;
-
-            let startEdge = null;
-            let endEdge = startWeek * section * i;
-
-            if (i === 1) {
-                startEdge = startWeek;
-            } else {
-                startWeek + section * (i - 1);
-            }
-
-            if (task.date >= startEdge && task.date <= endEdge) {
-                if (task.status === 'failure') {
-                    console.log('fail');
+            if (task.date > startEdge && task.date <= endEdge) {
+                if (task.status === 'pending') {
+                    pointsChart['pending'][i]++;
+                } else if (task.status === 'failure') {
+                    pointsChart['failure'][i]++;
+                } else if (task.status === 'done') {
+                    pointsChart['done'][i]++;
+                } else if (task.status === 'canceled') {
+                    pointsChart['canceled'][i]++;
                 }
             }
+        }
+    });
 
-
-            // if (task.date >= startWeek && task.date <= startWeek + section * 2) {
-
-// let i = ;
-            // if (task.date >= startWeek + section * i && task.date <= startWeek + section * i) {
-
-                // if (task.status === 'pending') {
-                //     container['pending'][i - 1]++;
-                // } else if (task.status === 'failure') {
-                //     container['failure'][i - 1]++;
-                // } else if (task.status === 'done') {
-                //     container['done'][i - 1]++;
-                // } else if (task.status === 'canceled') {
-                //     container['canceled'][i - 1]++;
-                // }
-                // console.log(i);
-
-
-            // }
-        // }
-
-        // console.log(task);
-
-
-
-        return container;
-    }, data);
-
-
-
-    // console.log(result);
-
-    // const endResult = result.reduce((container, task) => {
-    //     switch (task.status) {
-    //         case 'pending':
-    //             container['pending']++;
-    //             break;
-
-    //         case 'failure':
-    //             container['failure']++;
-    //             break;
-
-    //         case 'done':
-    //             container['done']++;
-    //             break;
-
-    //         case 'canceled':
-    //             container['canceled']++;
-    //             break;
-    //     }
-
-    //     return container;
-    // }, initial);
-
-    // return endResult;
+    return pointsChart;
 }
 
+function mapStateToProps(state) {
+    const filters = state.filters['statistics'];
+    const tasks = getChartPoints(state.tasks.list, filters);
+
+    return {
+        tasks: {},
+        fetching: state.tasks.fetching
+    };
+}
 
 export default connect(
-    (state) => ({
-        tasks: getTasksByLastWeek(state.tasks.list)
-    }),
+    mapStateToProps,
     { getTasks }
 )(StatisticsView);

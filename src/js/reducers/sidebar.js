@@ -1,12 +1,12 @@
-import { createReducer } from 'utils';
-import { SIDEBAR_TOGGLE } from 'constants/sidebar';
+import createReducer from 'utils/@reducer';
+import { SIDEBAR_TOGGLE } from 'actions/sidebar';
 
-const initialState = localStorage.getItem('sidebar')
-    ? JSON.parse(localStorage.getItem('sidebar'))
-    : true;
+const sidebar = localStorage.getItem('sidebar');
 
-export default createReducer((state, payload) => ({
-    [SIDEBAR_TOGGLE]() {
-        return !state;
+export default createReducer({
+    [SIDEBAR_TOGGLE](state) {
+        return { expanded: !state.expanded };
     }
-}), initialState);
+}, {
+    expanded: sidebar ? JSON.parse(sidebar) : true
+});

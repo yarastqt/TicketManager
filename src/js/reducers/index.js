@@ -12,6 +12,7 @@ import table from './table';
 import tasks from './tasks';
 import users from './users';
 import tracks from './tracks';
+import filters from './filters';
 
 const rootReducer = combineReducers({
     routing: routerReducer,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
     table,
     tasks,
     users,
-    tracks
+    tracks,
+    filters
 });
 
 export default (state, action) => {

@@ -231,9 +231,11 @@ Table.propTypes = {
 
 function mapStateToProps(state, props) {
     const { name, data, page } = props;
-    const { rows, sort, filters } = state.table[name];
+    const filters = state.filters[name];
+    const { rows, sort } = state.table[name];
+
     let total = data.length;
-    let processedData = filterData(data, filters);
+    let processedData = filters ? filterData(data, filters) : data;
 
     if (total !== processedData.length) {
         total = processedData.length;

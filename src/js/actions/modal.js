@@ -1,4 +1,5 @@
-import { MODAL_SHOW, MODAL_HIDE } from 'constants/modal';
+export const MODAL_SHOW = 'MODAL_SHOW';
+export const MODAL_HIDE = 'MODAL_HIDE';
 
 export function showModal(view, props) {
     return {

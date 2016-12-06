@@ -40,9 +40,9 @@ class TasksView extends Component {
         this.props.getTasks();
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return shallowCompare(this, nextProps, nextState);
+    // }
 
     showTaskNewModal() {
         this.props.showModal('tasks/modals/taskNewModal');

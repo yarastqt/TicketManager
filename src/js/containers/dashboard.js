@@ -9,12 +9,12 @@ import {
     Notification
 } from 'components/blocks';
 
-function Dashboard({ user, sidebar, dispatch, children }) {
+function Dashboard({ user, expandedSidebar, dispatch, children }) {
     return (
         <div className="main">
             <Header />
-            <Sidebar user={ user } sidebar={ sidebar } />
-            <div className={ sidebar ? 'content content_expanded' : 'content' }>
+            <Sidebar user={ user } expanded={ expandedSidebar } />
+            <div className={ expandedSidebar ? 'content content_expanded' : 'content' }>
                 { children }
                 <div className="footer">
                     <div className="footer__developer">Разработано и спроектировано в JetMix &copy; { new Date().getFullYear() }</div>
@@ -29,5 +29,5 @@ function Dashboard({ user, sidebar, dispatch, children }) {
 
 export default connect((state) => ({
     user: state.session.user,
-    sidebar: state.sidebar
+    expandedSidebar: state.sidebar.expanded
 }))(Dashboard);
