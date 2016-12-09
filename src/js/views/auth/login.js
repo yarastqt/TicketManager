@@ -14,10 +14,8 @@ class LoginView extends Component {
     }
 
     login(credentials) {
-        return this.props.login(
-            credentials,
-            this.props.location.state && this.props.location.state.next || '/'
-        );
+        const { state } = this.props.location;
+        return this.props.login(credentials, state && state.next || '/');
     }
 
     render() {
@@ -25,9 +23,9 @@ class LoginView extends Component {
             <DocumentTitle title="Авторизация">
                 <div className="sign-container__in">
                     <div className="sign-container__title">Авторизация</div>
-                    <form className="form" onSubmit={ this.props.handleSubmit(this.login) }>
+                    <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.login) }>
                         <Field name="email" type="text" label="E-Mail"
-                            component={ Input } autofocus
+                            component={ Input }
                         />
                         <Field name="password" type="password" label="Пароль"
                             component={ Input }

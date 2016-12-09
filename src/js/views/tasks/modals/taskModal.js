@@ -28,7 +28,7 @@ class TaskModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Редактировать заявку</div>
-                <form className="form" onSubmit={ this.props.handleSubmit(this.updateTask) }>
+                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.updateTask) }>
                     <Field name="name" type="text" label="Имя (ФИО / Компания)"
                         component={ Input }
                     />
@@ -105,11 +105,12 @@ TaskModal.defaultProps = {
 
 TaskModal = reduxForm({
     form: 'updateTask',
+    enableReinitialize: true,
     validate
 })(TaskModal);
 
 function mapStateToProps(state, props) {
-    const task = getTaskById(state.tasks.list, props.taskId);
+    const task = getTaskById(state, props);
     const TS = DateUtil.fromTS(task.date);
 
     return {

@@ -1,19 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {
-    Header,
-    Sidebar,
-    Modal,
-    Elevator,
-    Notification
-} from 'components/blocks';
+import { Header, Sidebar, Modal, Elevator, Snackbar } from 'components/blocks';
 
 function Dashboard({ user, expandedSidebar, dispatch, children }) {
     return (
         <div className="main">
             <Header />
-            <Sidebar user={ user } expanded={ expandedSidebar } />
+            <Sidebar
+                user={ user } expanded={ expandedSidebar }
+            />
             <div className={ expandedSidebar ? 'content content_expanded' : 'content' }>
                 { children }
                 <div className="footer">
@@ -22,7 +18,7 @@ function Dashboard({ user, expandedSidebar, dispatch, children }) {
             </div>
             <Modal />
             <Elevator />
-            <Notification />
+            <Snackbar />
         </div>
     );
 }

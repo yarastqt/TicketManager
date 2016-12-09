@@ -23,7 +23,7 @@ class TrackModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Редактировать сайт</div>
-                <form className="form" onSubmit={ this.props.handleSubmit(this.updateTrack) }>
+                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.updateTrack) }>
                     <Field name="name" type="text" label="Название сайта"
                         component={ Input }
                     />
@@ -53,12 +53,14 @@ class TrackModal extends Component {
 
 TrackModal = reduxForm({
     form: 'updateTrack',
+    enableReinitialize: true,
     validate
 })(TrackModal);
 
 export default connect(
     (state, props) => ({
-        initialValues: getTrackById(state.tracks.list, props.trackId)
+        // initialValues: getTrackById(state.tracks.list, props.trackId)
+        initialValues: getTrackById(state, props)
     }),
     { updateTrack }
 )(TrackModal);

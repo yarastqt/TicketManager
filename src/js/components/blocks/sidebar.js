@@ -44,7 +44,7 @@ Sidebar.defaultProps = {
             roles: ['admin']
         },
         {
-            url: '/statistics',
+            url: '/reports',
             name: 'Статистика',
             icon: 'chart'
         },

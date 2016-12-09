@@ -7,7 +7,7 @@
     left: 0
     background-color: #fff
     border-right: 1px solid $color-gray
-    transition: 200ms ease-in-out
+    transition: 250ms $transition-function
     transform: translate3d(0, 0, 0)
     box-shadow: 2px 0 10px -1px rgba($color-base, .1)
     overflow-x: hidden
@@ -16,8 +16,7 @@
         width: 220px
 
         .sidebar-menu__text
-            opacity: 1
-            visibility: visible
+            animation: show-from-right 250ms $transition-function forwards
 
     &-menu__item
         position: relative
@@ -27,7 +26,7 @@
         font-size: 1.4rem
         padding: 0 3.1rem
         color: $color-base
-        transition: 200ms ease-in-out
+        transition: 250ms $transition-function
         height: 50px
         display: block
         line-height: 50px
@@ -42,7 +41,7 @@
             width: 3px
             background-color: $color-blue
             right: 100%
-            transition: 200ms ease-in-out
+            transition: 250ms $transition-function
 
         &:hover, &_active
             color: $color-blue
@@ -67,6 +66,6 @@
             top: -1px
 
     &-menu__text
-        transition: 200ms ease-in-out
-        opacity: 0
-        visibility: hidden
+        margin-left: 1.4rem !important
+        display: inline-block
+        animation: hide-to-right 250ms $transition-function forwards

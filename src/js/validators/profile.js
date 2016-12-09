@@ -1,7 +1,7 @@
 import { isEmpty } from 'utils';
 import { emailReg } from 'constants/validators';
 
-export function profileCommonForm(data) {
+export function profileCommonForm(data = {}) {
     const errors = {};
 
     if (isEmpty(data.username)) {

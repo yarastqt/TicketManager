@@ -3,12 +3,16 @@ import { push } from 'react-router-redux';
 import { SubmissionError } from 'redux-form';
 
 import { http } from 'utils';
-import { showNotification } from './notifications';
-import {
-    LOGOUT_SUCCESS,
-    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE,
-    REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE
-} from 'constants/auth';
+
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+
+export const REGISTER_REQUEST = 'REGISTER_REQUEST';
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAILURE = 'REGISTER_FAILURE';
 
 function loginSuccess(user) {
     return {
@@ -19,27 +23,19 @@ function loginSuccess(user) {
     };
 }
 
-function showNotify(message) {
-    return (dispatch) => {
-        dispatch(showNotification({ message }));
-    };
-}
-
 export function login(data, redirectAfterLogin) {
     return (dispatch) => {
         dispatch({ type: LOGIN_REQUEST });
 
-        return http.post('/v1/auth/login', data)
-            .then((data) => {
-                const user = jwtDecode(data);
-                localStorage.setItem('token', data);
-                dispatch(loginSuccess(user));
-                dispatch(push(redirectAfterLogin));
-            })
-            .catch((data) => {
-                const field = Object.keys(data.errors)[0];
-                throw new SubmissionError({ [field]: data.errors[field] });
-            });
+        return http.post('/v1/auth/login', data).then((data) => {
+            const user = jwtDecode(data);
+            localStorage.setItem('token', data);
+            dispatch(loginSuccess(user));
+            dispatch(push(redirectAfterLogin));
+        }).catch(({ errors }) => {
+            const field = Object.keys(errors)[0];
+            throw new SubmissionError({ [field]: errors[field] });
+        });
     };
 }
 
@@ -69,15 +65,12 @@ export function register(data) {
     return (dispatch) => {
         dispatch({ type: REGISTER_REQUEST });
 
-        return http.post('/v1/auth/register', data).then(
-            (data) => {
-                dispatch({ type: REGISTER_SUCCESS });
-            },
-            (data) => {
-                const field = Object.keys(data.errors)[0];
-                throw new SubmissionError({ [field]: data.errors[field] });
-            }
-        );
+        return http.post('/v1/auth/register', data).then(() => {
+            dispatch({ type: REGISTER_SUCCESS });
+        }).catch(({ errors }) => {
+            const field = Object.keys(errors)[0];
+            throw new SubmissionError({ [field]: errors[field] });
+        });
     };
 }
 

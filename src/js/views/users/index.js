@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import shallowCompare from 'react-addons-shallow-compare';
 
 import dict from 'constants/dict';
 import { Content, Loader } from 'components/blocks';
@@ -39,10 +38,6 @@ class UsersView extends Component {
 
     componentDidMount() {
         this.props.getUsers();
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     showUserModal(userId) {

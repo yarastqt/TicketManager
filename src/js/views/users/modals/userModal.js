@@ -23,7 +23,7 @@ class UserModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Редактировать профиль пользователя</div>
-                <form className="form" onSubmit={ this.props.handleSubmit(this.updateUser) }>
+                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.updateUser) }>
                     <Field name="username" type="text" label="Имя"
                         component={ Input } readonly
                     />
@@ -67,12 +67,13 @@ UserModal.defaultProps = {
 
 UserModal = reduxForm({
     form: 'updateUser',
+    enableReinitialize: true,
     validate
 })(UserModal);
 
 export default connect(
     (state, props) => ({
-        initialValues: getUserById(state.users.list, props.userId)
+        initialValues: getUserById(state, props)
     }),
     { updateUser }
 )(UserModal);

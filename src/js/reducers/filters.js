@@ -1,4 +1,4 @@
-import createReducer from 'utils/@reducer';
+import { createReducer } from 'utils';
 import { SET_FILTER, REMOVE_FILTER, REMOVE_ALL_FILTERS } from 'actions/filters';
 
 export default createReducer({

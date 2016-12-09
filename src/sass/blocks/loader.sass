@@ -18,16 +18,17 @@
     &__spinner-path
         stroke-dasharray: 1, 200
         stroke-dashoffset: 0
-        animation: dash 1.5s ease-in-out infinite
+        animation: dash 1500ms $transition-function infinite
         stroke-linecap: round
         stroke: $color-blue
 
 .empty-list
     margin: auto
-    height: 105px
+    height: 120px
     display: flex
     flex-direction: column
     align-items: center
+    justify-content: space-between
     user-select: none
     cursor: default
     opacity: .5
@@ -37,9 +38,7 @@
         background-repeat: no-repeat
         background-size: 100%
         background-position: 0 50%
-        background-image: url(/assets/i/icons/box.svg)
-        width: 84px
-        height: 84px
+        +icon('box', 84px, 84px)
 
     &__text
         font-size: 1.4rem

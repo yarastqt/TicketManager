@@ -6,7 +6,7 @@ import shallowCompare from 'react-addons-shallow-compare';
 import { filterData, sortData, paginate } from 'selectors/table';
 import TableHeader from './tableHeader';
 import TablePagination from './tablePagination';
-import { TableActions } from 'actions';
+import { changeSort, changeRows, changePage } from 'actions/table';
 
 class Table extends Component {
     state = {
@@ -165,13 +165,15 @@ class Table extends Component {
 
     render() {
         const { visible, props, position } = this.state.popup;
-        const { children, total, page, rows, data } = this.props;
+        const { children, isFilters, total, page, rows, data } = this.props;
 
         if (!data.length) {
             return (
                 <div className="empty-list">
                     <i className="empty-list__icon" />
-                    <span className="empty-list__text">Список пуст</span>
+                    <span className="empty-list__text">
+                        { isFilters ? 'Совпадений не найдено' : 'Список пуст' }
+                    </span>
                 </div>
             );
         }
@@ -233,6 +235,7 @@ function mapStateToProps(state, props) {
     const { name, data, page } = props;
     const filters = state.filters[name];
     const { rows, sort } = state.table[name];
+    const isFilters = filters && Object.keys(filters).length ? true : false;
 
     let total = data.length;
     let processedData = filters ? filterData(data, filters) : data;
@@ -247,6 +250,7 @@ function mapStateToProps(state, props) {
     return {
         data: processedData,
         user: state.session.user,
+        isFilters,
         total,
         rows,
         sort
@@ -255,5 +259,5 @@ function mapStateToProps(state, props) {
 
 export default connect(
     mapStateToProps,
-    { ...TableActions }
+    { changeSort, changeRows, changePage }
 )(Table);

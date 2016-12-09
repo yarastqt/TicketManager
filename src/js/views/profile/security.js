@@ -20,9 +20,8 @@ class ProfileSecurityView extends Component {
 
     render() {
         return (
-            <div className="profile__in">
-                <div className="profile__title">Настройки пароля</div>
-                <form className="form" onSubmit={ this.props.handleSubmit(this.updateProfile) }>
+            <div className="paper__in">
+                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.updateProfile) }>
                     <Field name="oldPassword" type="password" label="Старый пароль"
                         component={ Input }
                     />

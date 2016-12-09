@@ -21,8 +21,12 @@ function ProfileView({ children }) {
                     className="content__navigation-link"
                     activeClassName="content__navigation-link_active"
                 >Безопасность</Link>
+                <Link
+                    className="content__navigation-link content__navigation-link_disabled"
+                    activeClassName="content__navigation-link_active"
+                >Разработка</Link>
             </div>
-            <div className="profile">
+            <div className="paper">
                 { children }
             </div>
         </Content>

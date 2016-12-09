@@ -22,7 +22,7 @@ class TrackNewModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Новый сайт</div>
-                <form className="form" onSubmit={ this.props.handleSubmit(this.addTrack) }>
+                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.addTrack) }>
                     <Field name="name" type="text" label="Название сайта"
                         component={ Input }
                     />

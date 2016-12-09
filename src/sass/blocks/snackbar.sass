@@ -1,0 +1,39 @@
+.snackbar
+    position: fixed
+    z-index: 9100
+    bottom: 20px
+    left: 20px
+
+.toast
+    pointer-events: none
+    background-color: rgba(#010101, .85)
+    border-radius: 2px
+    min-height: 48px
+    padding: 14px 24px
+    min-width: 288px
+    max-width: 568px
+    transition: 250ms $transition-function
+    display: flex
+    justify-content: space-between
+    user-select: none
+    transform: translateY(100%)
+    opacity: 0
+    visibility: hidden
+
+    &_visible
+        transform: translateY(0)
+        opacity: 1
+        visibility: visible
+        pointer-events: all
+
+    &__text
+        color: #fff
+        font-size: 1.4rem
+        cursor: default
+
+    &__action
+        font-size: 1.4rem
+        margin-left: 24px
+        color: $color-pink
+        text-transform: uppercase
+        cursor: pointer

@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
+import { getFilters } from 'selectors/filters';
 import { DateUtil } from 'utils';
 import { Input, Button, Select, FormActions } from 'components/ui';
 import { setFilter, removeFilter, removeAllFilters } from 'actions/filters';
 
-class StatisticsFilters extends Component {
+class ReportsFilters extends Component {
     constructor() {
         super();
         this.target = 'statistics';
@@ -43,31 +44,38 @@ class StatisticsFilters extends Component {
                     <Field name="endDate" type="date" label="Конечная дата"
                         component={ Input } onChange={ this.setFilter }
                     />
+                    <Field name="source" label="Источник"
+                        component={ Select } options={ this.props.filtersList.sources }
+                        onChange={ this.setFilter } clearable
+                    />
+                    <Field name="createdBy" label="Менеджер"
+                        component={ Select } options={ this.props.filtersList.managers }
+                        onChange={ this.setFilter } clearable
+                    />
+                    <Field name="serviceType" label="Вид услуги"
+                        component={ Select } options={ this.props.filtersList.serviceTypes }
+                        onChange={ this.setFilter } clearable
+                    />
+                    <FormActions position="left">
+                        <Button type="button" view="pseudo" icon="close"
+                            // onClick={ this.removeAllFilters }
+                            // disabled={ this.props.resetSubmitting }
+                        />
+                    </FormActions>
                 </form>
             </div>
         );
     }
 }
 
-StatisticsFilters = reduxForm({
+ReportsFilters = reduxForm({
     form: 'statistics/filters'
-})(StatisticsFilters);
+})(ReportsFilters);
 
-function mapStateToprops(state) {
-    // const endDate = DateUtil.fromTS().getDate();
-    // const startDate = 
-
-
-    return {
-        initialValues: {
-
-        }
-    };
-}
 
 export default connect(
     (state) => ({
-
+        filtersList: getFilters(state)
     }),
     { setFilter, removeFilter, removeAllFilters }
-)(StatisticsFilters);
+)(ReportsFilters);

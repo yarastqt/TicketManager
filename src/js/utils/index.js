@@ -39,10 +39,3 @@ export function getRange(total, page, rows) {
         end
     };
 }
-
-export function getScrollWidth() {
-    const innerWidth = window.innerWidth;
-    const clientWidth = document.body.clientWidth;
-
-    return innerWidth - clientWidth;
-}

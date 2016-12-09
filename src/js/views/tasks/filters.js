@@ -73,7 +73,8 @@ class TaskTableFilters extends Component {
 }
 
 TaskTableFilters = reduxForm({
-    form: 'tasksFilters'
+    form: 'tasksFilters',
+    enableReinitialize: true
 })(TaskTableFilters);
 
 function mapStateToprops(state) {
@@ -88,7 +89,7 @@ function mapStateToprops(state) {
             startDate,
             endDate
         },
-        filtersList: getFilters(state.tasks.list),
+        filtersList: getFilters(state),
         resetSubmitting
     };
 }

@@ -1,6 +1,6 @@
 import { isEmpty } from 'utils';
 
-export function taskForm(data) {
+export function taskForm(data = {}) {
     const errors = {};
 
     if (isEmpty(data.name)) {

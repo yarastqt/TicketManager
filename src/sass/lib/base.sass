@@ -1,7 +1,7 @@
 *
     -webkit-tap-highlight-color: transparent
 
-*, *:after, *:before
+*, :after, :before
     margin: 0
     padding: 0
     box-sizing: border-box
@@ -24,12 +24,13 @@ html, body
     -webkit-font-smoothing: subpixel-antialiased
     -moz-font-smoothing: subpixel-antialiased
     -o-font-smoothing: subpixel-antialiased
+    overflow: hidden
 
 .main
     padding-top: 60px
     min-width: 320px
     position: relative
-    animation: main 400ms ease-in-out
+    animation: main 400ms ease-in-out forwards
 
     &__in
         padding-top: 20px

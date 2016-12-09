@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import shallowCompare from 'react-addons-shallow-compare';
 
 import { DateUtil } from 'utils';
 import dict from 'constants/dict';
@@ -39,10 +38,6 @@ class TasksView extends Component {
     componentDidMount() {
         this.props.getTasks();
     }
-
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     return shallowCompare(this, nextProps, nextState);
-    // }
 
     showTaskNewModal() {
         this.props.showModal('tasks/modals/taskNewModal');

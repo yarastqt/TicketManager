@@ -7,7 +7,7 @@
     padding: 20px 0
     position: relative
     opacity: 0
-    animation: container 1000ms ease-in-out forwards
+    animation: visible-transform 1000ms $transition-function forwards
 
     &__logo
         background-image: url(/assets/i/logo.svg)
@@ -24,8 +24,9 @@
     &__in
         width: 320px
         opacity: 0
+        visibility: hidden
         transform: translate3d(0, -20px, 0)
-        animation: container 400ms ease-in-out 1000ms forwards
+        animation: visible-transform 400ms $transition-function 1000ms forwards
 
     &__title
         font-size: 2.4rem
@@ -41,13 +42,13 @@
         margin-top: 20px
         opacity: 0
         transform: translate3d(0, 20px, 0)
-        animation: links 400ms ease-in-out 1200ms forwards
+        animation: visible-transform 400ms $transition-function 1400ms forwards
 
     &__link
         font-size: 1.4rem
         color: $color-blue
         text-decoration: none
-        transition: 200ms ease-in-out
+        transition: 250ms $transition-function
 
         &:hover
             color: $color-blue-hovered

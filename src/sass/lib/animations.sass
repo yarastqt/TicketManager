@@ -1,10 +1,6 @@
-@keyframes container
+@keyframes visible-transform
     100%
-        opacity: 1
-        transform: translate3d(0, 0, 0)
-
-@keyframes links
-    100%
+        visibility: visible
         opacity: 1
         transform: translate3d(0, 0, 0)
 
@@ -14,8 +10,30 @@
         visibility: hidden
 
     100%
+        visibility: visible
+        opacity: 1
+
+@keyframes show-from-right
+    0%
+        opacity: 0
+        visibility: hidden
+        transform: translateX(10px)
+
+    100%
         opacity: 1
         visibility: visible
+        transform: translateX(0)
+
+@keyframes hide-to-right
+    0%
+        opacity: 1
+        visibility: visible
+        transform: translateX(0)
+
+    100%
+        opacity: 0
+        visibility: hidden
+        transform: translateX(10px)
 
 @keyframes progress
     0%

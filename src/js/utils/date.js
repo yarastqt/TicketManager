@@ -32,11 +32,11 @@ export default {
         };
     },
 
-    currentDate() {
+    getCurrentDate() {
         return this.fromTS().getDate();
     },
 
-    currentTime() {
+    getCurrentTime() {
         return this.fromTS().getTime();
     }
 };

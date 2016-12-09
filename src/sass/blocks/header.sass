@@ -25,7 +25,7 @@
         justify-content: center
         cursor: pointer
         opacity: .5
-        transition: 200ms ease-in-out
+        transition: 250ms $transition-function
 
         &:hover
             opacity: 1
@@ -51,21 +51,16 @@
         border-radius: 23px
         cursor: pointer
         user-select: none
-        transition: 200ms ease-in-out
+        transition: 250ms $transition-function
 
         &_active, &:hover
             background-color: rgba($color-gray, .25)
 
     &__user-meta
         margin-right: 1.4rem
-
-    &__user-name
         font-size: 1.2rem
-        line-height: 1.8rem
 
     &__user-role
-        font-size: 1rem
-        line-height: 1.5rem
         color: rgba($color-base, .75)
 
     &__user-avatar

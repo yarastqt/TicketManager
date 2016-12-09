@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router'
 
-import Notification from 'components/blocks/notification';
+import { Snackbar } from 'components/blocks';
 
 function Auth({ children, location }) {
     return (
@@ -15,7 +15,7 @@ function Auth({ children, location }) {
                     <Link to="/auth/register" className="sign-container__link">Регистрация</Link>
                 ) }
             </div>
-            <Notification />
+            <Snackbar />
         </div>
     );
 }

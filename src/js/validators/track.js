@@ -1,7 +1,7 @@
 import { isEmpty } from 'utils';
 import { urlReg } from 'constants/validators';
 
-export function trackForm(data) {
+export function trackForm(data = {}) {
     const errors = {};
 
     if (isEmpty(data.name)) {

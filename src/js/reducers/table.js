@@ -1,4 +1,4 @@
-import createReducer from 'utils/@reducer';
+import { createReducer } from 'utils';
 import { CHANGE_TABLE_SORT, CHANGE_TABLE_ROWS } from 'actions/table';
 
 export default createReducer({

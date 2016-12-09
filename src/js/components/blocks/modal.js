@@ -2,13 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
-import { getScrollWidth } from 'utils';
 import { hideModal } from 'actions/modal';
 
 class Modal extends Component {
     constructor() {
         super();
-        this.scrollWidth = getScrollWidth();
         this.hideModalOnEsc = this.hideModalOnEsc.bind(this);
     }
 
@@ -23,16 +21,6 @@ class Modal extends Component {
     hideModalOnEsc(event) {
         if (this.props.modal.visible && event.keyCode === 27) {
             this.props.hideModal();
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.modal.visible) {
-            document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = this.scrollWidth > 0 ? this.scrollWidth : null;
-        } else {
-            document.body.style.overflow = null;
-            document.body.style.paddingRight = null;
         }
     }
 

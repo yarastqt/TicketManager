@@ -19,9 +19,8 @@ class ProfileCommonView extends Component {
 
     render() {
         return (
-            <div className="profile__in">
-                <div className="profile__title">Основные настройки</div>
-                <form className="form" onSubmit={ this.props.handleSubmit(this.updateProfile) }>
+            <div className="paper__in">
+                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.updateProfile) }>
                     <Field name="id" type="text" label="ID"
                         component={ Input } readonly
                     />
@@ -48,6 +47,7 @@ class ProfileCommonView extends Component {
 
 ProfileCommonView = reduxForm({
     form: 'profile/common',
+    enableReinitialize: true,
     validate
 })(ProfileCommonView);
 

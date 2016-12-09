@@ -29,9 +29,9 @@ class RegisterView extends Component {
                 ) : (
                     <div className="sign-container__in">
                         <div className="sign-container__title">Регистрация</div>
-                        <form className="form" onSubmit={ this.props.handleSubmit(this.register) }>
+                        <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.register) }>
                             <Field name="username" type="text" label="Имя" placeholder="Marvin"
-                                component={ Input } autofocus
+                                component={ Input }
                             />
                             <Field name="email" type="text" label="E-Mail" placeholder="example@domain.com"
                                 component={ Input }

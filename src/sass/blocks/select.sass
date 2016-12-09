@@ -54,7 +54,7 @@
         padding: 0 42px 0 12px
         font: inherit
         font-size: 1.4rem
-        transition: 200ms ease-in-out
+        transition: 250ms $transition-function
         color: $color-base
         width: 100%
 
@@ -66,13 +66,4 @@
         background-image: none
 
     &__error
-        color: $color-pink
-        cursor: default
-        font-size: 1.2rem
-        padding: 0 4px
-        background-color: #fff
-        background-image: linear-gradient(to bottom, #fcfcfc 0%, #fcfcfc 50%, #fff 50%, #fff 100%);
-        position: absolute
-        right: 5px
-        bottom: -7px
-        user-select: none
+        +control-error

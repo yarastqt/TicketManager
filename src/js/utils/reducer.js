@@ -6,10 +6,8 @@
  */
 export default (actionHandlersWrapper, initialState) => {
     return (state = initialState, { type, payload }) => {
-        const actionHandlers = actionHandlersWrapper(state, payload);
-
-        if (actionHandlers.hasOwnProperty(type)) {
-            return actionHandlers[type]();
+        if (actionHandlersWrapper.hasOwnProperty(type)) {
+            return actionHandlersWrapper[type](state, payload);
         }
 
         return state;

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
 
-import NotFound from '../views/notfound';
-import { AuthActions } from '../actions';
+import NotFound from 'views/notfound';
+import { loadUserProfile } from 'actions/auth';
 
 /**
  * Wrapper for dashboard component
@@ -31,7 +31,7 @@ function requireAuthentication(ComposedComponent) {
             const { user, authenticated, dispatch, location } = props;
 
             if (!user && authenticated) {
-                dispatch(AuthActions.loadUserProfile());
+                dispatch(loadUserProfile());
             } else if (!authenticated) {
                 dispatch(replace({
                     pathname: '/auth/login',

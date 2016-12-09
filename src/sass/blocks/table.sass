@@ -7,12 +7,6 @@
     &__header
         display: flex
         padding: 8px 14px
-
-    &__row
-        display: flex
-        padding: 12px 14px
-
-    &__header
         background-color: #fafafa
         border-bottom: 1px solid rgba($color-gray, .5)
         user-select: none
@@ -23,11 +17,10 @@
         line-height: 2.6rem
         font-weight: 500
         color: rgba($color-base, .74)
-        transition: 200ms $transition-function
+        transition: 250ms $transition-function
 
         .icon
             opacity: .74
-            transition: 200ms $transition-function
 
         span
             vertical-align: middle
@@ -45,16 +38,20 @@
                 opacity: 1
 
             .icon_arrow-downward
-                background-image: url('data:image/svg+xml;utf8,<svg fill="#0069ff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>')
+                +icon('arrow-downward', 16px, 16px, $color-blue)
 
             .icon_arrow-upward
-                background-image: url('data:image/svg+xml;utf8,<svg fill="#0069ff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>')
+                +icon('arrow-upward', 16px, 16px, $color-blue)
 
     &__row
+        display: flex
+        padding: 12px 14px
+        // padding: 18px 14px
         background-color: #fff
         height: 54px
         position: relative
-        transition: 200ms $transition-function
+        transition: 250ms $transition-function
+        overflow: hidden
 
         & + &
             border-top: 1px solid rgba($color-gray, .5)
@@ -67,7 +64,8 @@
             width: 3px
             background-color: $color-blue
             position: absolute
-            transition: 200ms $transition-function
+            transition: 250ms $transition-function
+            transform: translateX(-100%)
             opacity: 0
             visibility: hidden
 
@@ -77,9 +75,17 @@
             &:before
                 opacity: 1
                 visibility: visible
+                transform: translateX(0)
 
             .table__row-action
                 opacity: 1
+
+        // &_expanded
+        //     height: auto
+
+        //     .table__row-cell
+        //         white-space: initial
+        //         overflow: auto
 
     &__header-action,
     &__row-action
@@ -87,12 +93,10 @@
         align-items: center
         flex: 0 0 24px
         opacity: .2
-        transition: 200ms $transition-function
+        transition: 250ms $transition-function
 
     &__row-button
-        background-image: url(/assets/i/icons/more.svg)
-        width: 24px
-        height: 24px
+        +icon('more', 24px, 24px)
         cursor: pointer
 
     &__row-cell, &__header-cell
@@ -136,9 +140,7 @@
 
         &:after
             content: ''
-            width: 24px
-            height: 24px
-            background-image: url(/assets/i/icons/arrow-dropdown.svg)
+            +icon('arrow-dropdown', 24px, 24px)
             position: absolute
             right: 0
             top: 0

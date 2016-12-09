@@ -1,12 +1,22 @@
 import { http } from 'utils';
 import { hideModal } from './modal';
-import { showNotification } from './notifications';
-import {
-    TRACKS_LOAD_REQUEST, TRACKS_LOAD_SUCCESS,
-    TRACK_ADD_REQUEST, TRACK_ADD_SUCCESS,
-    TRACK_DELETE_REQUEST, TRACK_DELETE_SUCCESS,
-    TRACK_UPDATE_REQUEST, TRACK_UPDATE_SUCCESS
-} from 'constants/tracks';
+import { pushToast } from './toast';
+
+export const TRACKS_LOAD_REQUEST = 'TRACKS_LOAD_REQUEST';
+export const TRACKS_LOAD_SUCCESS = 'TRACKS_LOAD_SUCCESS';
+export const TRACKS_LOAD_FAILURE = 'TRACKS_LOAD_FAILURE';
+
+export const TRACK_ADD_REQUEST = 'TRACK_ADD_REQUEST';
+export const TRACK_ADD_SUCCESS = 'TRACK_ADD_SUCCESS';
+export const TRACK_ADD_FAILURE = 'TRACK_ADD_FAILURE';
+
+export const TRACK_DELETE_REQUEST = 'TRACK_DELETE_REQUEST';
+export const TRACK_DELETE_SUCCESS = 'TRACK_DELETE_SUCCESS';
+export const TRACK_DELETE_FAILURE = 'TRACK_DELETE_FAILURE';
+
+export const TRACK_UPDATE_REQUEST = 'TRACK_UPDATE_REQUEST';
+export const TRACK_UPDATE_SUCCESS = 'TRACK_UPDATE_SUCCESS';
+export const TRACK_UPDATE_FAILURE = 'TRACK_UPDATE_FAILURE';
 
 export function getTracks() {
     return (dispatch, getState) => {
@@ -28,7 +38,7 @@ export function addTrack(track) {
 
         return http.post('/v1/tracks', track).then((payload) => {
             dispatch({ type: TRACK_ADD_SUCCESS, payload });
-            dispatch(showNotification({ message: 'Сайт добавлен' }));
+            dispatch(pushToast('Сайт добавлен'));
         });
     };
 }
@@ -39,7 +49,7 @@ export function deleteTrack(trackId) {
 
         return http.delete(`/v1/tracks/${trackId}`).then((payload) => {
             dispatch({ type: TRACK_DELETE_SUCCESS, payload });
-            dispatch(showNotification({ message: 'Сайт удален' }));
+            dispatch(pushToast('Сайт удален'));
         });
     };
 }
@@ -50,7 +60,7 @@ export function updateTrack(track) {
 
         return http.put(`/v1/tracks/${track.id}`, track).then((payload) => {
             dispatch({ type: TRACK_UPDATE_SUCCESS, payload });
-            dispatch(showNotification({ message: 'Сайт обновлен' }));
+            dispatch(pushToast('Сайт обновлен'));
         });
     };
 }

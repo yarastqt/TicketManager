@@ -4,6 +4,7 @@ import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
 import tableMiddleware from 'middlewares/table';
+import modalMiddleware from 'middlewares/modal';
 import rootReducer from 'reducers';
 
 const loggerMiddleware = createLogger({
@@ -22,7 +23,8 @@ export default (browserHistory) => {
         reduxRouterMiddleware,
         thunkMiddleware,
         loggerMiddleware,
-        tableMiddleware
+        tableMiddleware,
+        modalMiddleware
     )(createStore);
 
     return createStoreWithMiddleware(rootReducer);

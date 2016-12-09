@@ -26,7 +26,7 @@ class TasksNewModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Новая заявка</div>
-                <form className="form" onSubmit={ this.props.handleSubmit(this.addTask) }>
+                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.addTask) }>
                     <Field name="name" type="text" label="Имя (ФИО / Компания)"
                         component={ Input }
                     />
@@ -100,8 +100,8 @@ TasksNewModal = reduxForm({
 export default connect(
     (state) => ({
         initialValues: {
-            date: DateUtil.currentDate(),
-            time: DateUtil.currentTime()
+            date: DateUtil.getCurrentDate(),
+            time: DateUtil.getCurrentTime()
         }
     }),
     { addTask }
