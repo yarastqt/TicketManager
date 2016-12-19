@@ -7,35 +7,34 @@ import Dashboard from 'containers/dashboard';
 import Auth from 'containers/auth';
 
 // Helper components
-import requireNotAuthentication from 'components/notAuthenticated';
-import requireAuthentication from 'components/authenticated';
+import RequireNotAuthentication from 'components/notAuthenticated';
+import RequireAuthentication from 'components/authenticated';
 
 // Views
 import RegisterView from 'views/auth/register';
 import LoginView from 'views/auth/login';
-import TasksView from 'views/tasks';
+import TicketsView from 'views/tickets';
 import UsersView from 'views/users';
 import ProfileView from 'views/profile';
 import ProfileCommonView from 'views/profile/common';
 import ProfileSecurityView from 'views/profile/security';
-import ReportsView from 'views/reports';
+// import StatisticsView from 'views/statistics';
 import TracksView from 'views/tracks';
 import NotFound from 'views/notfound';
 
 /**
  * Configure routes
- * @param <Object> store
  * @return <Object> routes
  */
-export default (store) => (
+export default () => (
     <Route component={ App }>
-        <Route path="/auth" component={ requireNotAuthentication(Auth) }>
+        <Route path="/auth" component={ RequireNotAuthentication(Auth) }>
             <Route path="login" component={ LoginView } />
             <Route path="register" component={ RegisterView } />
         </Route>
-        <Route path="/" component={ requireAuthentication(Dashboard) }>
-            <IndexRedirect to="/tasks" />
-            <Route path="tasks" component={ TasksView }>
+        <Route path="/" component={ RequireAuthentication(Dashboard) }>
+            <IndexRedirect to="/tickets" />
+            <Route path="tickets" component={ TicketsView }>
                 <Route path="page/:page" />
             </Route>
             <Route path="users" component={ UsersView } roles={ ['admin'] }>
@@ -45,7 +44,12 @@ export default (store) => (
                 <IndexRoute component={ ProfileCommonView } />
                 <Route path="security" component={ ProfileSecurityView } />
             </Route>
-            <Route path="reports" component={ ReportsView } />
+            {/*<Route path="statistics" component={ StatisticsView } />*/}
+            <Route path="statistics" getComponents={ (nexState, callback) => {
+                require.ensure([], (require) => {
+                    callback(null, require('views/statistics').default);
+                }, 'statistics');
+            } } />
             <Route path="tracks" component={ TracksView } />
         </Route>
         <Route path="*" component={ NotFound } />

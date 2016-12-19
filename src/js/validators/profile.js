@@ -1,8 +1,12 @@
-import { isEmpty } from 'utils';
+import { isEmpty, isEmptyObject } from 'utils';
 import { emailReg } from 'constants/validators';
 
-export function profileCommonForm(data = {}) {
+export function profileCommonForm(data) {
     const errors = {};
+
+    if (isEmptyObject(data)) {
+        return errors;
+    }
 
     if (isEmpty(data.username)) {
         errors.username = 'Укажите имя';

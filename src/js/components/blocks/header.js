@@ -4,22 +4,19 @@ import { Link } from 'react-router';
 import Portal from 'react-portal';
 
 import dict from 'constants/dict';
-import { logOut } from 'actions/auth';
+import { logout } from 'actions/session';
 import { toggleSidebar } from 'actions/sidebar';
 
 class Header extends Component {
-    state = {
-        popup: {
-            visible: false,
-            position: {
-                top: null,
-                left: null
-            }
-        }
-    };
-
     constructor() {
         super();
+        this.state = {
+            popup: {
+                visible: false, position: {
+                    top: null, left: null
+                }
+            }
+        };
         this.openPopup = this.openPopup.bind(this);
         this.closePopup = this.closePopup.bind(this);
     }
@@ -30,8 +27,7 @@ class Header extends Component {
 
         this.setState({
             popup: {
-                visible: true,
-                position: {
+                visible: true, position: {
                     top: targetRect.top - bodyRect.top + 48,
                     left: targetRect.right
                 }
@@ -71,7 +67,7 @@ class Header extends Component {
                                     <span className="popup__button-text">Профиль</span>
                                 </Link>
                                 <div className="popup__separator"></div>
-                                <div className="popup__button" onClick={ this.props.logOut }>
+                                <div className="popup__button" onClick={ this.props.logout }>
                                     <i className="icon icon_exit"></i>
                                     <span className="popup__button-text">Выйти</span>
                                 </div>
@@ -88,5 +84,5 @@ export default connect(
     (state) => ({
         user: state.session.user
     }),
-    { logOut, toggleSidebar }
+    { logout, toggleSidebar }
 )(Header);

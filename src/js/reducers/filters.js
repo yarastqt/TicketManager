@@ -28,5 +28,5 @@ export default createReducer({
         };
     }
 }, {
-    tasks: {}, statistics: {}
+    tickets: {}, statistics: {}
 });

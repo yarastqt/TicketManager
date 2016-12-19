@@ -1,7 +1,7 @@
 import { isEmpty } from 'utils';
 import { emailReg } from 'constants/validators';
 
-export function loginForm(data = {}) {
+export function loginForm(data) {
     const errors = {};
 
     if (isEmpty(data.email)) {

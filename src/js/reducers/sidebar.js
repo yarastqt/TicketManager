@@ -5,10 +5,8 @@ const sidebar = localStorage.getItem('sidebar');
 
 export default createReducer({
     [SIDEBAR_TOGGLE](state) {
-        return {
-            expanded: !state.expanded
-        };
+        return { expanded: !state.expanded };
     }
 }, {
-    expanded: sidebar ? JSON.parse(sidebar) : true
+    expanded: true
 });

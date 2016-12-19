@@ -17,6 +17,11 @@ export const filterData = createSelector(
             let matches = 0;
 
             for (const key in filters) {
+                if (key === 'period') {
+                    matches++;
+                    continue;
+                }
+
                 if (key === 'startDate' || key === 'endDate') {
                     const endDate = filters.endDate ? filters.endDate : filters.startDate;
 

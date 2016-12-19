@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Portal from 'react-portal';
-import shallowCompare from 'react-addons-shallow-compare';
 
 import { filterData, sortData, paginate } from 'selectors/table';
 import TableHeader from './tableHeader';
@@ -9,19 +8,15 @@ import TablePagination from './tablePagination';
 import { changeSort, changeRows, changePage } from 'actions/table';
 
 class Table extends Component {
-    state = {
-        popup: {
-            visible: false,
-            props: null,
-            position: {
-                top: null,
-                left: null
-            }
-        }
-    };
-
     constructor() {
         super();
+        this.state = {
+            popup: {
+                visible: false, props: null, position: {
+                    top: null, left: null
+                }
+            }
+        };
         this.openPopup = this.openPopup.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.changeSort = this.changeSort.bind(this);
@@ -29,27 +24,17 @@ class Table extends Component {
         this.changeRows = this.changeRows.bind(this);
     }
 
-    componentWillMount() {
-        // this.redirectIfEmpty(this.props);
+    componentDidMount() {
+        this.redirectToIndexIfEmpty(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-        // this.redirectIfEmpty(nextProps);
+        this.redirectToIndexIfEmpty(nextProps);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
-
-    redirectIfEmpty(props) {
+    redirectToIndexIfEmpty(props) {
         if (props.total > 0 && !props.data.length) {
-            let nextPage = 1;
-
-            if (props.page > 1) {
-                nextPage = props.page - 1;
-            }
-
-            this.changePage(nextPage)();
+            this.changePage(1)();
         }
     }
 
@@ -60,9 +45,7 @@ class Table extends Component {
 
             this.setState({
                 popup: {
-                    visible: true,
-                    props: id,
-                    position: {
+                    visible: true, props: id, position: {
                         top: targetRect.top - bodyRect.top,
                         left: targetRect.right
                     }
@@ -169,9 +152,11 @@ class Table extends Component {
 
         if (!data.length) {
             return (
-                <div className="empty-list">
-                    <i className="empty-list__icon" />
-                    <span className="empty-list__text">
+                <div className="content__message">
+                    <div className="content__message-icon">
+                    <i className={ isFilters ? 'icon icon_filter' : 'icon icon_box' }></i>
+                    </div>
+                    <span className="content__message-text">
                         { isFilters ? 'Совпадений не найдено' : 'Список пуст' }
                     </span>
                 </div>

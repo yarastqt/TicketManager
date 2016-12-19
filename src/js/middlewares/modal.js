@@ -9,12 +9,13 @@ export default function modalMiddleware({ dispatch, getState }) {
     return (next) => (action) => {
         if (action.type === MODAL_HIDE) {
             const { form } = getState();
-            const formKeys = Object.keys(form);
+            const forms = ['ticketAddForm', 'ticketEditForm', 'trackAddForm', 'trackEditForm'];
 
-            if (formKeys.length) {
-                const currentForm = formKeys[0];
-                dispatch(reset(currentForm));
-            }
+            Object.keys(form).map((formName) => {
+                if (forms.indexOf(formName) !== -1) {
+                    dispatch(reset(formName));
+                }
+            });
         }
 
         return next(action);

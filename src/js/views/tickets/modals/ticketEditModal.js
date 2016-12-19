@@ -2,24 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { taskForm as validate } from 'validators/task';
-import { getTaskById } from 'selectors/tasks';
+import { ticketForm as validate } from 'validators/ticket';
+import { getTicketById } from 'selectors/tickets';
 import { DateUtil } from 'utils';
 import { Input, Select, Textarea, Button, FormGroup, FormActions } from 'components/ui';
-import { updateTask } from 'actions/tasks';
+import { updateTicket } from 'actions/tickets';
 
-class TaskModal extends Component {
+class TicketEditModal extends Component {
     constructor() {
         super();
-        this.updateTask = this.updateTask.bind(this);
+        this.updateTicket = this.updateTicket.bind(this);
     }
 
-    updateTask(task) {
-        task = { ...task, date: DateUtil.toTS(task.date, task.time) };
-        delete task.createdBy;
-        delete task.time;
+    updateTicket(ticket) {
+        ticket = { ...ticket, date: DateUtil.toTS(ticket.date, ticket.time) };
+        delete ticket.createdBy;
+        delete ticket.time;
 
-        return this.props.updateTask(task).then(() => {
+        return this.props.updateTicket(ticket).then(() => {
             this.props.hideModal();
         });
     }
@@ -28,7 +28,7 @@ class TaskModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Редактировать заявку</div>
-                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.updateTask) }>
+                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.updateTicket) }>
                     <Field name="name" type="text" label="Имя (ФИО / Компания)"
                         component={ Input }
                     />
@@ -75,7 +75,7 @@ class TaskModal extends Component {
     }
 }
 
-TaskModal.defaultProps = {
+TicketEditModal.defaultProps = {
     options: {
         sources: [
             { value: 'Яндекс РСЯ', label: 'Яндекс РСЯ' },
@@ -103,19 +103,19 @@ TaskModal.defaultProps = {
     }
 };
 
-TaskModal = reduxForm({
-    form: 'updateTask',
+TicketEditModal = reduxForm({
+    form: 'ticketEditForm',
     enableReinitialize: true,
     validate
-})(TaskModal);
+})(TicketEditModal);
 
 function mapStateToProps(state, props) {
-    const task = getTaskById(state, props);
-    const TS = DateUtil.fromTS(task.date);
+    const ticket = getTicketById(state, props);
+    const TS = DateUtil.fromTS(ticket.date);
 
     return {
         initialValues: {
-            ...task,
+            ...ticket,
             date: TS.getDate(),
             time: TS.getTime()
         }
@@ -124,5 +124,5 @@ function mapStateToProps(state, props) {
 
 export default connect(
     mapStateToProps,
-    { updateTask }
-)(TaskModal);
+    { updateTicket }
+)(TicketEditModal);

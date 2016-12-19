@@ -29,7 +29,7 @@ export default {
                 test: /\.js$/,
                 plugins: ['transform-runtime'],
                 include: [
-                    path.resolve(__dirname, '..', 'src')
+                    path.resolve(__dirname, '../src')
                 ]
             }
         ]

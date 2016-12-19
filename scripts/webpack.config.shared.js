@@ -14,12 +14,13 @@ const postcssProcessors = [
 
 export default {
     entry: [
-        path.join(__dirname, '..', 'src', 'js', 'index.js'),
-        path.join(__dirname, '..', 'src', 'sass', 'index.sass')
+        path.join(__dirname, '../src/js/index.js'),
+        path.join(__dirname, '../src/sass/index.sass')
     ],
     output: {
-        path: path.join(__dirname, '..', 'build'),
-        public: '/assets/'
+        path: path.join(__dirname, '../build'),
+        public: '/assets/',
+        chunkFilename: '[name].chunk.[hash].js'
     },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin,
@@ -41,7 +42,7 @@ export default {
         colors: true
     },
     resolve: {
-        root: path.join(__dirname, '..', 'src', 'js')
+        root: path.join(__dirname, '../src/js')
     },
     postcss: postcssProcessors
 };

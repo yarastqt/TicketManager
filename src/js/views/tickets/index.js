@@ -5,8 +5,8 @@ import { DateUtil } from 'utils';
 import dict from 'constants/dict';
 import { Content, Loader } from 'components/blocks';
 import { Table, TableColumn, Button } from 'components/ui';
-import TaskTableFilters from './filters';
-import { getTasks, removeTask } from 'actions/tasks';
+import TicketsFilters from './filters';
+import { getTickets, removeTicket } from 'actions/tickets';
 import { showModal } from 'actions/modal';
 
 function StatusCell(value) {
@@ -25,31 +25,31 @@ function DateCell(value) {
     return DateUtil.fromTS(value).getDate(true);
 }
 
-class TasksView extends Component {
+class TicketsView extends Component {
     constructor() {
         super();
         this.state = { visibleFilters: false };
-        this.showTaskNewModal = this.showTaskNewModal.bind(this);
-        this.showTaskModal = this.showTaskModal.bind(this);
-        this.removeTask = this.removeTask.bind(this);
+        this.showTicketAddModal = this.showTicketAddModal.bind(this);
+        this.showTicketEditModal = this.showTicketEditModal.bind(this);
+        this.removeTicket = this.removeTicket.bind(this);
         this.toggleVisibleFilters = this.toggleVisibleFilters.bind(this);
     }
 
     componentDidMount() {
-        this.props.getTasks();
+        this.props.getTickets();
     }
 
-    showTaskNewModal() {
-        this.props.showModal('tasks/modals/taskNewModal');
+    showTicketAddModal() {
+        this.props.showModal('tickets/modals/ticketAddModal');
     }
 
-    showTaskModal(taskId) {
-        this.props.showModal('tasks/modals/taskModal', { taskId });
+    showTicketEditModal(ticketId) {
+        this.props.showModal('tickets/modals/ticketEditModal', { ticketId });
     }
 
-    removeTask(taskId) {
+    removeTicket(ticketId) {
         if (confirm('Вы действительно хотите удалить заявку?')) {
-            this.props.removeTask(taskId);
+            this.props.removeTicket(ticketId);
         }
     }
 
@@ -67,17 +67,17 @@ class TasksView extends Component {
                             onClick={ this.toggleVisibleFilters }
                         />
                         <Button type="button" view="action" icon="quick-add" text="Добавить заявку"
-                            onClick={ this.showTaskNewModal }
+                            onClick={ this.showTicketAddModal }
                         />
                     </div>
                 </div>
-                <TaskTableFilters
+                <TicketsFilters
                     visible={ this.state.visibleFilters }
                 />
-                <Loader fetching={ this.props.tasks.fetching }>
+                <Loader fetching={ this.props.tickets.fetching }>
                     <Table
-                        name="tasks" data={ this.props.tasks.list } page={ this.props.page }
-                        edit={ this.showTaskModal } remove={ this.removeTask }
+                        name="tickets" data={ this.props.tickets.list } page={ this.props.page }
+                        edit={ this.showTicketEditModal } remove={ this.removeTicket }
                     >
                         <TableColumn
                             name="id" width="8" title="ID"
@@ -123,8 +123,8 @@ class TasksView extends Component {
 export default connect(
     (state, props) => ({
         user: state.session.user,
-        tasks: state.tasks,
+        tickets: state.tickets,
         page: parseInt(props.params.page) || 1
     }),
-    { getTasks, removeTask, showModal }
-)(TasksView);
+    { getTickets, removeTicket, showModal }
+)(TicketsView);

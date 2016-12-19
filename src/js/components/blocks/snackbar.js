@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { toastExpires } from 'actions/toast';
 
-class Snackbar extends Component {    
+class SnackBar extends Component {    
     constructor() {
         super();
         this.hideToast = this.hideToast.bind(this);
@@ -35,7 +35,7 @@ class Snackbar extends Component {
     }
 }
 
-Snackbar.propTypes = {
+SnackBar.propTypes = {
     toast: PropTypes.shape({
         visible: PropTypes.bool,
         text: PropTypes.string,
@@ -48,4 +48,4 @@ export default connect(
         toast: state.toast
     }),
     { toastExpires }
-)(Snackbar);
+)(SnackBar);

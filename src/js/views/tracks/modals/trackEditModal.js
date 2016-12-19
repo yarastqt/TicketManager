@@ -7,7 +7,7 @@ import { getTrackById } from 'selectors/tracks';
 import { Input, Textarea, Button, FormActions } from 'components/ui';
 import { updateTrack } from 'actions/tracks';
 
-class TrackModal extends Component {
+class TrackEditModal extends Component {
     constructor() {
         super();
         this.updateTrack = this.updateTrack.bind(this);
@@ -51,16 +51,15 @@ class TrackModal extends Component {
     }
 }
 
-TrackModal = reduxForm({
-    form: 'updateTrack',
+TrackEditModal = reduxForm({
+    form: 'trackEditForm',
     enableReinitialize: true,
     validate
-})(TrackModal);
+})(TrackEditModal);
 
 export default connect(
     (state, props) => ({
-        // initialValues: getTrackById(state.tracks.list, props.trackId)
         initialValues: getTrackById(state, props)
     }),
     { updateTrack }
-)(TrackModal);
+)(TrackEditModal);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Header, Sidebar, Modal, Elevator, Snackbar } from 'components/blocks';
+import { Header, Sidebar, Modal, Elevator, SnackBar } from 'components/blocks';
 
 function Dashboard({ user, expandedSidebar, dispatch, children }) {
     return (
@@ -18,7 +18,7 @@ function Dashboard({ user, expandedSidebar, dispatch, children }) {
             </div>
             <Modal />
             <Elevator />
-            <Snackbar />
+            <SnackBar />
         </div>
     );
 }

@@ -6,7 +6,7 @@ import { trackForm as validate } from 'validators/track';
 import { Input, Button, FormActions } from 'components/ui';
 import { addTrack } from 'actions/tracks';
 
-class TrackNewModal extends Component {
+class TrackAddModal extends Component {
     constructor() {
         super();
         this.addTrack = this.addTrack.bind(this);
@@ -44,12 +44,12 @@ class TrackNewModal extends Component {
     }
 }
 
-TrackNewModal = reduxForm({
-    form: 'addTrack',
+TrackAddModal = reduxForm({
+    form: 'trackAddForm',
     validate
-})(TrackNewModal);
+})(TrackAddModal);
 
 export default connect(
     null,
     { addTrack }
-)(TrackNewModal);
+)(TrackAddModal);

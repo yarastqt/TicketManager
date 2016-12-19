@@ -12,6 +12,10 @@ export function isEmpty(value) {
     return !value || value.trim() === '';
 }
 
+export function isEmptyObject(object) {
+    return !Object.keys(object).length;
+}
+
 export function findInArray(source, key, value) {
     return source.filter((item) => item[key] === value);
 }
@@ -28,6 +32,13 @@ export function updateObjectInArray(source, key, replace) {
 
 export function deleteObjectFromArray(source, key, value) {
     return source.filter((item) => item[key] !== value);
+}
+
+export function normalizeErrors(errors) {
+    return errors.reduce((container, { field, message }) => {
+        container[field] = message;
+        return container;
+    }, {});
 }
 
 export function getRange(total, page, rows) {

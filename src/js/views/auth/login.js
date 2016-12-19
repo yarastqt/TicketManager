@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import { loginForm as validate } from 'validators/auth';
 import { Input, Button, FormActions } from 'components/ui';
-import { login } from 'actions/auth';
+import { login } from 'actions/session';
 
 class LoginView extends Component {
     constructor() {
@@ -44,7 +44,7 @@ class LoginView extends Component {
 }
 
 LoginView = reduxForm({
-    form: 'auth/login',
+    form: 'loginForm',
     validate
 })(LoginView);
 

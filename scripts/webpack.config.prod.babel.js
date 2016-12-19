@@ -29,7 +29,7 @@ export default {
             }
         }),
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, '..', 'src', 'index.prod.html'),
+            template: path.join(__dirname, '../src/index.prod.html'),
             minify: {
                 collapseBooleanAttributes: true,
                 collapseWhitespace: true,
@@ -58,7 +58,7 @@ export default {
                     { mode: 'wrap' }
                 ],
                 include: [
-                    path.resolve(__dirname, '..', 'src')
+                    path.resolve(__dirname, '../src')
                 ]
             }
         ]

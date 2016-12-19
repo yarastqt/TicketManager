@@ -1,8 +1,8 @@
 import jwtDecode from 'jwt-decode';
 import { SubmissionError } from 'redux-form';
 
-import { http } from 'utils';
-import { pushToast } from './toast';
+import { http, normalizeErrors } from 'utils';
+import { pushToast } from 'actions/toast';
 
 export const PROFILE_UPDATE_REQUEST = 'PROFILE_UPDATE_REQUEST';
 export const PROFILE_UPDATE_SUCCESS = 'PROFILE_UPDATE_SUCCESS';
@@ -20,9 +20,8 @@ export function updateProfile(data) {
                 dispatch({ type: PROFILE_UPDATE_SUCCESS, payload: { user } });
                 dispatch(pushToast('Профиль обновлен'));
             })
-            .catch((data) => {
-                const field = Object.keys(data.errors)[0];
-                throw new SubmissionError({ [field]: data.errors[field] });
+            .catch((errors) => {
+                throw new SubmissionError(normalizeErrors(errors));
             });
     };
 }

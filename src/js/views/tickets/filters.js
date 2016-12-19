@@ -7,10 +7,11 @@ import { DateUtil } from 'utils';
 import { Input, Button, Select, FormActions } from 'components/ui';
 import { setFilter, removeFilter, removeAllFilters } from 'actions/filters';
 
-class TaskTableFilters extends Component {
+const SOURCE = 'tickets';
+
+class TicketsFilters extends Component {
     constructor() {
         super();
-        this.target = 'tasks';
         this.setFilter = this.setFilter.bind(this);
         this.removeAllFilters = this.removeAllFilters.bind(this);
     }
@@ -23,25 +24,25 @@ class TaskTableFilters extends Component {
 
             this.props.setFilter({
                 [filter.name]: filter.value
-            }, this.target);
+            }, SOURCE);
         } else {
-            this.props.removeFilter(filter.name, this.target);
+            this.props.removeFilter(filter.name, SOURCE);
         }
     }
 
     removeAllFilters() {
         this.props.reset();
-        this.props.removeAllFilters(this.target);
+        this.props.removeAllFilters(SOURCE);
     }
 
     render() {
         return (
             <div className={ this.props.visible ? 'filters filters_visible' : 'filters' }>
                 <form className="form filters__form">
-                    <Field name="startDate" type="date" label="Начальная дата"
+                    <Field name="startDate" type="date" label="Дата от"
                         component={ Input } onChange={ this.setFilter }
                     />
-                    <Field name="endDate" type="date" label="Конечная дата"
+                    <Field name="endDate" type="date" label="Дата до"
                         component={ Input } onChange={ this.setFilter }
                     />
                     <Field name="source" label="Источник"
@@ -63,7 +64,7 @@ class TaskTableFilters extends Component {
                     <FormActions position="left">
                         <Button type="button" view="pseudo" icon="close"
                             onClick={ this.removeAllFilters }
-                            disabled={ this.props.resetSubmitting }
+                            disabled={ this.props.disabledReset }
                         />
                     </FormActions>
                 </form>
@@ -72,29 +73,28 @@ class TaskTableFilters extends Component {
     }
 }
 
-TaskTableFilters = reduxForm({
-    form: 'tasksFilters',
+TicketsFilters = reduxForm({
+    form: 'ticketsFiltersForm',
     enableReinitialize: true
-})(TaskTableFilters);
+})(TicketsFilters);
 
 function mapStateToprops(state) {
-    const activeFilters = state.filters['tasks'];
-    const startDate = activeFilters.startDate && DateUtil.fromTS(activeFilters.startDate).getDate();
-    const endDate = activeFilters.endDate && DateUtil.fromTS(activeFilters.endDate).getDate();
-    const resetSubmitting = Object.keys(activeFilters).length ? false : true;
+    const filters = state.filters[SOURCE];
+    const startDate = filters.startDate && DateUtil.fromTS(filters.startDate).getDate();
+    const endDate = filters.endDate && DateUtil.fromTS(filters.endDate).getDate();
 
     return {
         initialValues: {
-            ...activeFilters,
+            ...filters,
             startDate,
             endDate
         },
-        filtersList: getFilters(state),
-        resetSubmitting
+        disabledReset: Object.keys(filters).length ? false : true,
+        filtersList: getFilters(state)
     };
 }
 
 export default connect(
     mapStateToprops,
     { setFilter, removeFilter, removeAllFilters }
-)(TaskTableFilters);
+)(TicketsFilters);

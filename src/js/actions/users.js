@@ -6,14 +6,6 @@ export const USERS_LOAD_REQUEST = 'USERS_LOAD_REQUEST';
 export const USERS_LOAD_SUCCESS = 'USERS_LOAD_SUCCESS';
 export const USERS_LOAD_FAILURE = 'USERS_LOAD_FAILURE';
 
-export const USER_UPDATE_REQUEST = 'USER_UPDATE_REQUEST';
-export const USER_UPDATE_SUCCESS = 'USER_UPDATE_SUCCESS';
-export const USER_UPDATE_FAILURE = 'USER_UPDATE_FAILURE';
-
-export const USER_REMOVE_REQUEST = 'USER_REMOVE_REQUEST';
-export const USER_REMOVE_SUCCESS = 'USER_REMOVE_SUCCESS';
-export const USER_REMOVE_FAILURE = 'USER_REMOVE_FAILURE';
-
 export function getUsers() {
     return (dispatch, getState) => {
         const { users } = getState();
@@ -28,6 +20,10 @@ export function getUsers() {
     };
 }
 
+export const USER_UPDATE_REQUEST = 'USER_UPDATE_REQUEST';
+export const USER_UPDATE_SUCCESS = 'USER_UPDATE_SUCCESS';
+export const USER_UPDATE_FAILURE = 'USER_UPDATE_FAILURE';
+
 export function updateUser(user) {
     return (dispatch) => {
         dispatch({ type: USER_UPDATE_REQUEST });
@@ -38,6 +34,10 @@ export function updateUser(user) {
         });
     };
 }
+
+export const USER_REMOVE_REQUEST = 'USER_REMOVE_REQUEST';
+export const USER_REMOVE_SUCCESS = 'USER_REMOVE_SUCCESS';
+export const USER_REMOVE_FAILURE = 'USER_REMOVE_FAILURE';
 
 export function removeUser(userId) {
     return (dispatch) => {

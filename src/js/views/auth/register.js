@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import { registerForm as validate } from 'validators/auth';
 import { Input, Button, FormActions } from 'components/ui';
-import { register } from 'actions/auth';
+import { register } from 'actions/session';
 
 class RegisterView extends Component {
     constructor() {
@@ -54,7 +54,7 @@ class RegisterView extends Component {
 }
 
 RegisterView = reduxForm({
-    form: 'auth/register',
+    form: 'registerForm',
     validate
 })(RegisterView);
 

@@ -1,6 +1,4 @@
 export const SET_FILTER = 'SET_FILTER';
-export const REMOVE_FILTER = 'REMOVE_FILTER';
-export const REMOVE_ALL_FILTERS = 'REMOVE_ALL_FILTERS';
 
 export function setFilter(filter, target) {
     return {
@@ -11,6 +9,8 @@ export function setFilter(filter, target) {
     };
 }
 
+export const REMOVE_FILTER = 'REMOVE_FILTER';
+
 export function removeFilter(filterName, target) {
     return {
         type: REMOVE_FILTER,
@@ -19,6 +19,8 @@ export function removeFilter(filterName, target) {
         }
     };
 }
+
+export const REMOVE_ALL_FILTERS = 'REMOVE_ALL_FILTERS';
 
 export function removeAllFilters(target) {
     return {

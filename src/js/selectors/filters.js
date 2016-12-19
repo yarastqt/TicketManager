@@ -3,14 +3,14 @@ import { createSelector } from 'reselect';
 import dict from 'constants/dict';
 
 export const getFilters = createSelector(
-    (state) => state.tasks.list,
-    (list) => {
+    (state) => state.tickets.list,
+    (tickets) => {
         const filters = {
-            sources: [], statuses: [], managers: [], serviceTypes: []
+            sources: [], statuses: [], managers: [], serviceTypes: [], period: []
         };
 
-        if (list.length) {
-            list.forEach(({ source, status, createdBy, serviceType }) => {
+        if (tickets.length) {
+            tickets.forEach(({ source, status, createdBy, serviceType }) => {
                 if (filters.sources.indexOf(source) === -1) {
                     filters.sources.push(source);
                 }
@@ -40,6 +40,13 @@ export const getFilters = createSelector(
                 }, []);
             }
         }
+
+        filters.period = [
+            { value: 691200000, label: 'Неделя' },
+            { value: 2592000000, label: 'Месяц' },
+            { value: 15552000000, label: 'Пол года' },
+            { value: 31104000000, label: 'Год' }
+        ];
 
         return filters;
     }

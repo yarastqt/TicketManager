@@ -8,17 +8,15 @@ import { push } from 'react-router-redux';
  * @param <Object> component for wrapping
  * @return <Object> wrapped component
  */
-function requireNotAuthentication(ComposedComponent) {
+function RequireNotAuthentication(ComposedComponent) {
     class NotAuthenticatedComponent extends Component {
         componentWillMount() {
             this.checkAuthenticated();
         }
 
         checkAuthenticated() {
-            const { authenticated, dispatch } = this.props;
-
-            if (authenticated) {
-                dispatch(push('/'));
+            if (this.props.session.authenticated) {
+                this.props.push('/');
             }
         }
 
@@ -27,9 +25,12 @@ function requireNotAuthentication(ComposedComponent) {
         }
     }
 
-    return connect((state) => ({
-        authenticated: state.session.authenticated
-    }))(NotAuthenticatedComponent);
+    return connect(
+        (state) => ({
+            session: state.session
+        }),
+        { push }
+    )(NotAuthenticatedComponent);
 }
 
-export default requireNotAuthentication;
+export default RequireNotAuthentication;

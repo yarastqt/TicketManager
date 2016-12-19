@@ -2,22 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { taskForm as validate } from 'validators/task';
+import { ticketForm as validate } from 'validators/ticket';
 import { DateUtil } from 'utils';
 import { Input, Select, Textarea, Button, FormGroup, FormActions } from 'components/ui';
-import { addTask } from 'actions/tasks';
+import { addTicket } from 'actions/tickets';
 
-class TasksNewModal extends Component {
+class TicketAddModal extends Component {
     constructor() {
         super();
-        this.addTask = this.addTask.bind(this);
+        this.addTicket = this.addTicket.bind(this);
     }
 
-    addTask(task) {
-        task = { ...task, date: DateUtil.toTS(task.date, task.time) };
-        delete task.time;
+    addTicket(ticket) {
+        ticket = { ...ticket, date: DateUtil.toTS(ticket.date, ticket.time) };
+        delete ticket.time;
 
-        return this.props.addTask(task).then(() => {
+        return this.props.addTicket(ticket).then(() => {
             this.props.hideModal();
         });
     }
@@ -26,7 +26,7 @@ class TasksNewModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Новая заявка</div>
-                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.addTask) }>
+                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.addTicket) }>
                     <Field name="name" type="text" label="Имя (ФИО / Компания)"
                         component={ Input }
                     />
@@ -70,7 +70,7 @@ class TasksNewModal extends Component {
     }
 }
 
-TasksNewModal.defaultProps = {
+TicketAddModal.defaultProps = {
     options: {
         sources: [
             { value: 'Яндекс РСЯ', label: 'Яндекс РСЯ' },
@@ -92,10 +92,10 @@ TasksNewModal.defaultProps = {
     }
 };
 
-TasksNewModal = reduxForm({
-    form: 'addTask',
+TicketAddModal = reduxForm({
+    form: 'ticketAddForm',
     validate
-})(TasksNewModal);
+})(TicketAddModal);
 
 export default connect(
     (state) => ({
@@ -104,5 +104,5 @@ export default connect(
             time: DateUtil.getCurrentTime()
         }
     }),
-    { addTask }
-)(TasksNewModal);
+    { addTicket }
+)(TicketAddModal);

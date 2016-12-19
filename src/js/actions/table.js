@@ -1,7 +1,6 @@
 import { push } from 'react-router-redux';
 
 export const CHANGE_TABLE_SORT = 'CHANGE_TABLE_SORT';
-export const CHANGE_TABLE_ROWS = 'CHANGE_TABLE_ROWS';
 
 export function changeSort(key, table) {
     return {
@@ -11,6 +10,8 @@ export function changeSort(key, table) {
         }
     };
 }
+
+export const CHANGE_TABLE_ROWS = 'CHANGE_TABLE_ROWS';
 
 export function changeRows(rows, table) {
     return {

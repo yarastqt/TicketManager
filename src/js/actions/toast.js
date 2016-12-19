@@ -1,7 +1,6 @@
 export const TOAST_PUSH = 'TOAST_PUSH';
-export const TOAST_EXPIRES = 'TOAST_EXPIRES';
 
-export function pushToast(text, expires) {
+export function pushToast(text) {
     return {
         type: TOAST_PUSH,
         payload: {
@@ -9,6 +8,8 @@ export function pushToast(text, expires) {
         }
     };
 }
+
+export const TOAST_EXPIRES = 'TOAST_EXPIRES';
 
 export function toastExpires() {
     return {

@@ -14,7 +14,7 @@ class Select extends Component {
         const { value } = this.props.input;
 
         if (!!value) {
-            if (this.props.options.length && !this.props.options.some((option) => option.value === value)) {
+            if (this.props.options.length && !this.props.options.some((option) => option.value == value)) {
                 this.setState({ value, type: 'input' });
             } else {
                 this.setState({ value });

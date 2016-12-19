@@ -20,7 +20,7 @@ export default createReducer({
         };
     }
 }, {
-    tasks: {
+    tickets: {
         rows: 25, sort: {
             key: 'id', desc: true
         }

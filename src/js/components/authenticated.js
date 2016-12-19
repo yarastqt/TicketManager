@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
 
 import NotFound from 'views/notfound';
-import { loadUserProfile } from 'actions/auth';
+import { checkUserExpires } from 'actions/session';
 
 /**
  * Wrapper for dashboard component
@@ -11,11 +11,12 @@ import { loadUserProfile } from 'actions/auth';
  * @param <Object> component for wrapping
  * @return <Object> wrapped component
  */
-function requireAuthentication(ComposedComponent) {
+function RequireAuthentication(ComposedComponent) {
     class AuthenticatedComponent extends Component {
-        state = {
-            allowed: true
-        };
+        constructor() {
+            super();
+            this.state = { allowed: false };
+        }
 
         componentWillMount() {
             this.checkAuthenticated(this.props);
@@ -28,24 +29,22 @@ function requireAuthentication(ComposedComponent) {
         }
 
         checkAuthenticated(props) {
-            const { user, authenticated, dispatch, location } = props;
-
-            if (!user && authenticated) {
-                dispatch(loadUserProfile());
-            } else if (!authenticated) {
-                dispatch(replace({
+            if (this.props.session.user && this.props.session.authenticated) {
+                this.props.checkUserExpires();
+            } else if (!this.props.session.authenticated) {
+                this.props.replace({
                     pathname: '/auth/login',
                     state: {
-                        next: location.pathname
+                        next: this.props.location.pathname
                     }
-                }));
+                });
             }
         }
 
         checkAccess(props) {
             props.routes.map((route) => {
-                if (route.hasOwnProperty('roles') && props.user) {
-                    if (route.roles.indexOf(props.user.role) === -1) {
+                if (route.hasOwnProperty('roles') && props.session.user) {
+                    if (route.roles.indexOf(props.session.user.role) === -1) {
                         this.setState({ allowed: false });
                     }
                 } else {
@@ -55,7 +54,7 @@ function requireAuthentication(ComposedComponent) {
         }
 
         render() {
-            if (!this.props.user || !this.props.authenticated) {
+            if (!this.props.session.user || !this.props.session.authenticated) {
                 return null;
             } else if (!this.state.allowed) {
                 return <NotFound />;
@@ -65,10 +64,12 @@ function requireAuthentication(ComposedComponent) {
         }
     }
 
-    return connect((state) => ({
-        user: state.session.user,
-        authenticated: state.session.authenticated
-    }))(AuthenticatedComponent);
+    return connect(
+        (state) => ({
+            session: state.session
+        }),
+        { checkUserExpires, replace }
+    )(AuthenticatedComponent);
 }
 
-export default requireAuthentication;
+export default RequireAuthentication;

@@ -1,68 +1,34 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-class Sidebar extends Component {
-    renderMenuList() {
-        return this.props.menu.map(({ url, name, icon, roles }) => {
-            if (roles && roles.indexOf(this.props.user.role) === -1) {
-                return null;
-            }
+import menu from 'constants/menu';
 
-            return (
-                <div className="sidebar-menu__item" key={ name }>
-                    <Link to={ url } className="sidebar-menu__link" activeClassName="sidebar-menu__link_active" title={ name }>
-                        <i className={ `icon icon_${ icon }` }></i>
-                        <span className="sidebar-menu__text">{ name }</span>
-                    </Link>
-                </div>
-            );
-        });
-    }
-
-    render() {
-        return (
-            <div className={ this.props.expanded ? 'sidebar sidebar_expanded': 'sidebar' }>
-                <div className="sidebar-menu">
-                    { this.renderMenuList() }
-                </div>
+function Sidebar({ expanded, user }) {
+    return (
+        <div className={ expanded ? 'sidebar sidebar_expanded': 'sidebar' }>
+            <div className="sidebar-menu">
+                { menu.map(({ url, name, icon, roles }) => (
+                    roles && roles.indexOf(user.role) === -1 ? null : (
+                        <div className="sidebar-menu__item" key={ name }>
+                            <Link to={ url } className="sidebar-menu__link" activeClassName="sidebar-menu__link_active" title={ name }>
+                                <i className={ `icon icon_${ icon }` }></i>
+                                <span className="sidebar-menu__text">{ name }</span>
+                            </Link>
+                        </div>
+                    )
+                )) }
             </div>
-        );
-    }
+        </div>
+    );
 }
-
-Sidebar.defaultProps = {
-    menu: [
-        {
-            url: '/tasks',
-            name: 'Заявки',
-            icon: 'box'
-        },
-        {
-            url: '/users',
-            name: 'Пользователи',
-            icon: 'people',
-            roles: ['admin']
-        },
-        {
-            url: '/reports',
-            name: 'Статистика',
-            icon: 'chart'
-        },
-        {
-            url: '/tracks',
-            name: 'Отслеживание',
-            icon: 'code',
-            roles: ['admin']
-        }
-    ]
-};
 
 Sidebar.propTypes = {
     menu: PropTypes.arrayOf(
         PropTypes.shape({
             url: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
-            icon: PropTypes.string.isRequired
+            icon: PropTypes.string.isRequired,
+            roles: PropTypes.array
         })
     ),
     user: PropTypes.object.isRequired,

@@ -7,10 +7,11 @@ import { DateUtil } from 'utils';
 import { Input, Button, Select, FormActions } from 'components/ui';
 import { setFilter, removeFilter, removeAllFilters } from 'actions/filters';
 
-class ReportsFilters extends Component {
+const SOURCE = 'statistics';
+
+class StatisticsFilters extends Component {
     constructor() {
         super();
-        this.target = 'statistics';
         this.setFilter = this.setFilter.bind(this);
         this.removeAllFilters = this.removeAllFilters.bind(this);
     }
@@ -23,26 +24,24 @@ class ReportsFilters extends Component {
 
             this.props.setFilter({
                 [filter.name]: filter.value
-            }, this.target);
+            }, SOURCE);
         } else {
-            this.props.removeFilter(filter.name, this.target);
+            this.props.removeFilter(filter.name, SOURCE);
         }
     }
 
     removeAllFilters() {
         this.props.reset();
-        this.props.removeAllFilters(this.target);
+        this.props.removeAllFilters(SOURCE);
     }
 
     render() {
         return (
             <div className="filters filters_visible">
                 <form className="form filters__form">
-                    <Field name="startDate" type="date" label="Начальная дата"
-                        component={ Input } onChange={ this.setFilter }
-                    />
-                    <Field name="endDate" type="date" label="Конечная дата"
-                        component={ Input } onChange={ this.setFilter }
+                    <Field name="period" label="Период"
+                        component={ Select } options={ this.props.filtersList.period }
+                        onChange={ this.setFilter } clearable
                     />
                     <Field name="source" label="Источник"
                         component={ Select } options={ this.props.filtersList.sources }
@@ -58,8 +57,8 @@ class ReportsFilters extends Component {
                     />
                     <FormActions position="left">
                         <Button type="button" view="pseudo" icon="close"
-                            // onClick={ this.removeAllFilters }
-                            // disabled={ this.props.resetSubmitting }
+                            onClick={ this.removeAllFilters }
+                            disabled={ this.props.disabledReset }
                         />
                     </FormActions>
                 </form>
@@ -68,14 +67,16 @@ class ReportsFilters extends Component {
     }
 }
 
-ReportsFilters = reduxForm({
-    form: 'statistics/filters'
-})(ReportsFilters);
-
+StatisticsFilters = reduxForm({
+    form: 'statisticsFiltersForm',
+    enableReinitialize: true
+})(StatisticsFilters);
 
 export default connect(
     (state) => ({
+        initialValues: state.filters[SOURCE],
+        disabledReset: Object.keys(state.filters[SOURCE]).length ? false : true,
         filtersList: getFilters(state)
     }),
     { setFilter, removeFilter, removeAllFilters }
-)(ReportsFilters);
+)(StatisticsFilters);
