@@ -6,8 +6,6 @@
     flex-direction: column
     padding: 20px 0
     position: relative
-    opacity: 0
-    animation: visible-transform 1000ms $transition-function forwards
 
     &__logo
         background-image: url(/assets/i/logo.svg)
@@ -16,6 +14,10 @@
         width: 180px
         flex: 0 0 54px
         margin-bottom: 20px
+        opacity: 0
+        visibility: hidden
+        transform: translate3d(0, -20px, 0)
+        animation: visible-transform 400ms $transition-function 700ms forwards
 
     &__success
         font-size: 1.4rem
@@ -25,8 +27,7 @@
         width: 320px
         opacity: 0
         visibility: hidden
-        transform: translate3d(0, -20px, 0)
-        animation: visible-transform 400ms $transition-function 1000ms forwards
+        animation: visible-transform 400ms $transition-function 250ms forwards
 
     &__title
         font-size: 2.4rem
@@ -34,21 +35,44 @@
         text-align: center
 
     &__message
-        font-size: 1.6rem
+        margin: auto
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: space-between
+        user-select: none
+        cursor: default
+        pointer-events: none
+
+
+    &__message-icon
+        width: 120px
+        height: 120px
+        display: flex
+        justify-content: center
+        align-items: center
+        opacity: 0
+        visibility: hidden
+        animation: visible-transform 250ms $transition-function 250ms forwards
+
+        .icon
+            transition: none
+
+    &__message-text
+        font-size: 1.4rem
+        margin-top: 14px
+        color: rgba($color-base, .7)
         text-align: center
-        line-height: 2.4rem
+        opacity: 0
+        visibility: hidden
+        transform: translateY(-20px)
+        animation: visible-transform 250ms $transition-function 650ms forwards
 
     &__links
         margin-top: 20px
         opacity: 0
         transform: translate3d(0, 20px, 0)
-        animation: visible-transform 400ms $transition-function 1400ms forwards
+        animation: visible-transform 400ms $transition-function 1000ms forwards
 
     &__link
-        font-size: 1.4rem
-        color: $color-blue
-        text-decoration: none
-        transition: 250ms $transition-function
-
-        &:hover
-            color: $color-blue-hovered
+        +link

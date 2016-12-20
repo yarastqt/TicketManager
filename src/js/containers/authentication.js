@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router'
 
-function Auth({ children, location }) {
+function Authentication({ children, location }) {
     return (
         <div className="sign-container">
             <div className="sign-container__logo"></div>
@@ -17,4 +17,4 @@ function Auth({ children, location }) {
     );
 }
 
-export default Auth;
+export default Authentication;

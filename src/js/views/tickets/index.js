@@ -17,6 +17,16 @@ function StatusCell(value) {
     );
 }
 
+function TaskSourceCell(value, linkValue) {
+    if (linkValue === 'Заявка') {
+        return (
+            <a className="link" href={ value } target="_blank">{ value }</a>
+        );
+    }
+
+    return value;
+}
+
 function ManagerCell(value) {
     return value.username;
 }
@@ -101,6 +111,7 @@ class TicketsView extends Component {
                         />
                         <TableColumn
                             name="taskSource" width="16" title="Источник заявки"
+                            cell={ TaskSourceCell } link="taskType"
                         />
                         <TableColumn
                             name="createdBy" width="10" title="Менеджер"

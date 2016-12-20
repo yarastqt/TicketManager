@@ -1,4 +1,6 @@
-import { http } from 'utils';
+import { SubmissionError } from 'redux-form';
+
+import { http, normalizeErrors } from 'utils';
 import { hideModal } from './modal';
 import { pushToast } from './toast';
 
@@ -33,6 +35,8 @@ export function addTicket(data) {
         return http.post('/v1/tickets', data).then((payload) => {
             dispatch({ type: TICKET_ADD_SUCCESS, payload });
             dispatch(pushToast('Заявка добавлена'));
+        }).catch((errors) => {
+            throw new SubmissionError(normalizeErrors(errors));
         });
     };
 }
@@ -48,6 +52,8 @@ export function updateTicket(ticket) {
         return http.put(`/v1/tickets/${ticket.id}`, ticket).then((payload) => {
             dispatch({ type: TICKET_UPDATE_SUCCESS, payload });
             dispatch(pushToast('Заявка обновлена'));
+        }).catch((errors) => {
+            throw new SubmissionError(normalizeErrors(errors));
         });
     };
 }

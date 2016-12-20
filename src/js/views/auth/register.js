@@ -25,7 +25,12 @@ class RegisterView extends Component {
         return (
             <DocumentTitle title="Регистрация">
                 { this.state.successRegistration ? (
-                    <div className="sign-container__success">Регистрация прошла успешно.<br />Ожидайте подтверждения администратора</div>
+                    <div className="sign-container__message">
+                        <div className="sign-container__message-icon">
+                            <i className="icon icon_member"></i>
+                        </div>
+                        <span className="sign-container__message-text">Регистрация прошла успешно.<br />Ожидайте подтверждения администратора</span>
+                    </div>
                 ) : (
                     <div className="sign-container__in">
                         <div className="sign-container__title">Регистрация</div>

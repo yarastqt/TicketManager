@@ -98,14 +98,16 @@ class Table extends Component {
 
     renderCells(data) {
         return this.props.children.map((item, key) => {
-            const value = item.props.cell
-                ? item.props.cell(data[item.props.name])
-                : data[item.props.name];
+            let value = data[item.props.name];
+
+            if (item.props.cell && item.props.link && data[item.props.link]) {
+                value = item.props.cell(data[item.props.name], data[item.props.link]);
+            } else if (item.props.cell) {
+                value = item.props.cell(data[item.props.name]);
+            }
 
             return React.cloneElement(item, {
-                width: item.props.width,
-                key: item.props.name,
-                value
+                width: item.props.width, key: item.props.name, value
             });
         });
     }
@@ -137,10 +139,8 @@ class Table extends Component {
         return this.props.children.map((item) => {
             return (
                 <TableHeader
-                    { ...item.props }
-                    sort={ this.props.sort }
-                    changeSort={ this.changeSort }
-                    key={ item.props.name }
+                    { ...item.props } key={ item.props.name }
+                    sort={ this.props.sort } changeSort={ this.changeSort }
                 />
             );
         });
@@ -154,7 +154,7 @@ class Table extends Component {
             return (
                 <div className="content__message">
                     <div className="content__message-icon">
-                    <i className={ isFilters ? 'icon icon_filter' : 'icon icon_box' }></i>
+                        <i className={ isFilters ? 'icon icon_search' : 'icon icon_list' }></i>
                     </div>
                     <span className="content__message-text">
                         { isFilters ? 'Совпадений не найдено' : 'Список пуст' }
@@ -174,11 +174,8 @@ class Table extends Component {
                         { this.renderRows() }
                     </div>
                     <TablePagination
-                        changePage={ this.changePage }
-                        changeRows={ this.changeRows }
-                        total={ total }
-                        page={ page }
-                        rows={ rows }
+                        changePage={ this.changePage } changeRows={ this.changeRows }
+                        total={ total } page={ page } rows={ rows }
                     />
                 </div>
                 <Portal closeOnEsc closeOnOutsideClick isOpened={ visible } onClose={ this.closePopup }>
@@ -202,18 +199,20 @@ Table.propTypes = {
     changePage: PropTypes.func.isRequired,
     changeRows: PropTypes.func.isRequired,
     changeSort: PropTypes.func.isRequired,
-    edit: PropTypes.func,
-    remove: PropTypes.func,
     children: PropTypes.arrayOf(PropTypes.element).isRequired,
     data: PropTypes.array,
+    edit: PropTypes.func,
+    isFilters: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     page: PropTypes.number.isRequired,
+    remove: PropTypes.func,
     rows: PropTypes.number.isRequired,
-    total: PropTypes.number.isRequired,
     sort: PropTypes.shape({
         desc: PropTypes.bool.isRequired,
         key: PropTypes.string.isRequired
-    })
+    }),
+    total: PropTypes.number.isRequired,
+    user: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, props) {
@@ -235,10 +234,7 @@ function mapStateToProps(state, props) {
     return {
         data: processedData,
         user: state.session.user,
-        isFilters,
-        total,
-        rows,
-        sort
+        isFilters, total, rows, sort
     };
 }
 

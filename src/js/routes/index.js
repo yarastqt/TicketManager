@@ -2,9 +2,9 @@ import React from 'react';
 import { IndexRedirect, IndexRoute, Route } from 'react-router';
 
 // Base containers
-import App from 'containers/app';
+import Application from 'containers/application';
 import Dashboard from 'containers/dashboard';
-import Auth from 'containers/auth';
+import Authentication from 'containers/authentication';
 
 // Helper components
 import RequireNotAuthentication from 'components/notAuthenticated';
@@ -18,7 +18,7 @@ import UsersView from 'views/users';
 import ProfileView from 'views/profile';
 import ProfileCommonView from 'views/profile/common';
 import ProfileSecurityView from 'views/profile/security';
-// import StatisticsView from 'views/statistics';
+import StatisticsView from 'views/statistics';
 import TracksView from 'views/tracks';
 import NotFound from 'views/notfound';
 
@@ -27,8 +27,8 @@ import NotFound from 'views/notfound';
  * @return <Object> routes
  */
 export default () => (
-    <Route component={ App }>
-        <Route path="/auth" component={ RequireNotAuthentication(Auth) }>
+    <Route component={ Application }>
+        <Route path="/auth" component={ RequireNotAuthentication(Authentication) }>
             <Route path="login" component={ LoginView } />
             <Route path="register" component={ RegisterView } />
         </Route>
@@ -44,12 +44,7 @@ export default () => (
                 <IndexRoute component={ ProfileCommonView } />
                 <Route path="security" component={ ProfileSecurityView } />
             </Route>
-            {/*<Route path="statistics" component={ StatisticsView } />*/}
-            <Route path="statistics" getComponents={ (nexState, callback) => {
-                require.ensure([], (require) => {
-                    callback(null, require('views/statistics').default);
-                }, 'statistics');
-            } } />
+            <Route path="statistics" component={ StatisticsView } />
             <Route path="tracks" component={ TracksView } />
         </Route>
         <Route path="*" component={ NotFound } />

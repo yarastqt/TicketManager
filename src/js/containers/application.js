@@ -1,11 +1,11 @@
 import React, { Children, PropTypes } from 'react';
 
-function App({ children }) {
+function Application({ children }) {
     return Children.only(children);
 }
 
-App.propTypes = {
+Application.propTypes = {
     children: PropTypes.element.isRequired
 };
 
-export default App;
+export default Application;

@@ -1,4 +1,6 @@
-import { http } from 'utils';
+import { SubmissionError } from 'redux-form';
+
+import { http, normalizeErrors } from 'utils';
 import { hideModal } from './modal';
 import { pushToast } from './toast';
 
@@ -31,6 +33,8 @@ export function updateUser(user) {
         return http.put(`/v1/users/${user.id}`, user).then((payload) => {
             dispatch({ type: USER_UPDATE_SUCCESS, payload });
             dispatch(pushToast('Профиль пользователя обновлен'));
+        }).catch((errors) => {
+            throw new SubmissionError(normalizeErrors(errors));
         });
     };
 }

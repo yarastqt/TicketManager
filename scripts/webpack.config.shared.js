@@ -19,8 +19,7 @@ export default {
     ],
     output: {
         path: path.join(__dirname, '../build'),
-        public: '/assets/',
-        chunkFilename: '[name].chunk.[hash].js'
+        public: '/assets/'
     },
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin,

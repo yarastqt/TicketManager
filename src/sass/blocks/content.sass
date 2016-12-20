@@ -76,23 +76,35 @@
 
     &__message
         margin: auto
-        height: 120px
         display: flex
         flex-direction: column
         align-items: center
         justify-content: space-between
         user-select: none
         cursor: default
-        opacity: .5
         pointer-events: none
+        opacity: 0
+        visibility: hidden
+        animation: visible-transform 250ms $transition-function 250ms forwards
 
     &__message-icon
+        width: 120px
+        height: 120px
+        display: flex
+        justify-content: center
+        align-items: center
+
         .icon
-            width: 84px
-            height: 84px
+            transition: none
 
     &__message-text
         font-size: 1.4rem
+        margin-top: 14px
+        color: rgba($color-base, .7)
+        opacity: 0
+        visibility: hidden
+        transform: translateY(-20px)
+        animation: visible-transform 250ms $transition-function 650ms forwards
 
 .footer
     text-align: center
@@ -101,4 +113,4 @@
 
     &__developer
         font-size: 1.2rem
-        color: rgba($color-base, .5)
+        color: rgba($color-base, .7)

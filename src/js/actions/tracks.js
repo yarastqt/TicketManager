@@ -1,4 +1,6 @@
-import { http } from 'utils';
+import { SubmissionError } from 'redux-form';
+
+import { http, normalizeErrors } from 'utils';
 import { hideModal } from './modal';
 import { pushToast } from './toast';
 
@@ -31,6 +33,8 @@ export function addTrack(track) {
         return http.post('/v1/tracks', track).then((payload) => {
             dispatch({ type: TRACK_ADD_SUCCESS, payload });
             dispatch(pushToast('Сайт добавлен'));
+        }).catch((errors) => {
+            throw new SubmissionError(normalizeErrors(errors));
         });
     };
 }
@@ -46,7 +50,9 @@ export function updateTrack(track) {
         return http.put(`/v1/tracks/${track.id}`, track).then((payload) => {
             dispatch({ type: TRACK_UPDATE_SUCCESS, payload });
             dispatch(pushToast('Сайт обновлен'));
-        });
+        }).catch((errors) => {
+            throw new SubmissionError(normalizeErrors(errors));
+        });;
     };
 }
 
