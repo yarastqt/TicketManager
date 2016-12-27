@@ -1,11 +1,7 @@
-import { isEmpty, isEmptyObject } from 'utils';
+import { isEmpty } from 'utils';
 
 export function ticketForm(data) {
     const errors = {};
-
-    if (isEmptyObject(data)) {
-        return errors;
-    }
 
     if (isEmpty(data.name)) {
         errors.name = 'Укажите ФИО или компанию';

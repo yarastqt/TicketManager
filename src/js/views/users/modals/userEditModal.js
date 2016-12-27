@@ -7,7 +7,7 @@ import { getUserById } from 'selectors/users';
 import { Input, Select, Button, FormActions } from 'components/ui';
 import { updateUser } from 'actions/users';
 
-class UserModal extends Component {
+class UserEditModal extends Component {
     constructor() {
         super();
         this.updateUser = this.updateUser.bind(this);
@@ -51,7 +51,7 @@ class UserModal extends Component {
     }
 }
 
-UserModal.defaultProps = {
+UserEditModal.defaultProps = {
     options: {
         statuses: [
             { value: false, label: 'Активен' },
@@ -65,15 +65,15 @@ UserModal.defaultProps = {
     }
 };
 
-UserModal = reduxForm({
+UserEditModal = reduxForm({
     form: 'updateUser',
     enableReinitialize: true,
     validate
-})(UserModal);
+})(UserEditModal);
 
 export default connect(
     (state, props) => ({
         initialValues: getUserById(state, props)
     }),
     { updateUser }
-)(UserModal);
+)(UserEditModal);

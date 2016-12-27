@@ -41,7 +41,7 @@ class UsersView extends Component {
     }
 
     showUserModal(userId) {
-        this.props.showModal('users/modals/userModal', { userId });
+        this.props.showModal('UserEditModal', { userId });
     }
 
     removeUser(userId) {

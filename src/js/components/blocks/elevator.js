@@ -1,47 +1,69 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 
 class Elevator extends Component {
-    state = {
-        visible: false
-    };
-
     constructor() {
         super();
+        this.state = { visible: false };
         this.onScroll = this.onScroll.bind(this);
+        this.scrollToTop = this.scrollToTop.bind(this);
+        this.content = null;
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.onScroll, false);
+        this.content = document.querySelector('.content');
+        this.content.addEventListener('scroll', this.onScroll, false);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.onScroll, false);
+        this.content.removeEventListener('scroll', this.onScroll, false);
     }
 
     onScroll() {
-        const offsetTop = window.pageYOffset;
-        const winHeight = window.innerHeight + offsetTop;
-        const docHeight = document.body.offsetHeight;
+        const contentOffsetTop = this.content.scrollTop;
+        const contentHeight = this.content.clientHeight + contentOffsetTop;
+        const contentScroll = this.content.scrollHeight;
 
-        if (offsetTop > 600 && winHeight < docHeight - 100) {
-            this.setState({ visible: true });
-        } else {
-            this.setState({ visible: false });
-        }
+        this.setState({ visible: contentOffsetTop > 600 && contentHeight < contentScroll - 92 });
     }
 
     scrollToTop() {
-        window.scrollTo(0, 0);
+        let scrollCount = null;
+        let prevTS = performance.now();
+
+        const cosParameter = this.content.scrollTop / 2;
+        const scroll = (nextTS) => {
+            scrollCount += Math.PI / (this.props.scrollDuration / (nextTS - prevTS));
+
+            if (scrollCount >= Math.PI) {
+                this.content.scrollTop = 0;
+            }
+
+            if (this.content.scrollTop !== 0) {
+                this.content.scrollTop = Math.round(cosParameter + cosParameter * Math.cos(scrollCount));
+
+                prevTS = nextTS;
+                requestAnimationFrame(scroll);
+            }
+        };
+
+        requestAnimationFrame(scroll);
     }
 
     render() {
         const elevatorClasses = classnames('elevator', {
-            'elevator_visible': this.state.visible
+            'elevator_visible': this.state.visible, 'elevator_shifted': this.props.isActiveSnackBar
         });
 
-        return <div className={ elevatorClasses } onClick={ this.scrollToTop } />;
+        return (
+            <div className={ elevatorClasses } onClick={ this.scrollToTop }></div>
+        );
     }
 }
 
-export default Elevator;
+export default connect(
+    (state) => ({
+        isActiveSnackBar: state.toast.visible
+    })
+)(Elevator);

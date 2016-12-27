@@ -1,11 +1,7 @@
-import { isEmpty, isEmptyObject } from 'utils';
+import { isEmpty } from 'utils';
 
 export function userForm(data) {
     const errors = {};
-
-    if (isEmptyObject(data)) {
-        return errors;
-    }
 
     if (typeof data.blocked === 'string') {
         try {

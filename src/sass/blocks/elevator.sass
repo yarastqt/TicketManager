@@ -1,7 +1,7 @@
 .elevator
     position: fixed
     right: 20px
-    bottom: 30px
+    bottom: 20px
     width: 56px
     height: 56px
     background-color: $color-blue
@@ -15,11 +15,17 @@
     visibility: hidden
     pointer-events: none
 
+    +bp(min, 768px)
+        bottom: 30px
+
     &_visible
         opacity: 1
         visibility: visible
         transform: translate3d(0, 0, 0)
         pointer-events: all
+
+    &_shifted
+        transform: translateY(-48px)
 
     &:before
         content: ''

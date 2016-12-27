@@ -1,29 +1,53 @@
 .sidebar
-    position: fixed
-    z-index: 100
-    top: 60px
-    bottom: 0
-    width: 87px
-    left: 0
-    background-color: #fff
-    border-right: 1px solid $color-gray
-    transition: 150ms $transition-function
-    transform: translate3d(0, 0, 0)
-    box-shadow: 2px 0 10px -1px rgba($color-base, .1)
-    overflow-x: hidden
+    $block: &
 
     &_expanded
-        width: 200px
+        #{$block}__menu
+            max-width: 400px
+            visibility: visible
+            transform: translateX(0)
 
-        .sidebar-menu__text
+            +bp(min, 1024px)
+                max-width: 200px
+
+        #{$block}__menu-text
             opacity: 1
             visibility: visible
             transform: translateX(0)
 
-    &-menu__item
+        #{$block}__overlay
+            opacity: 1
+            visibility: visible
+
+            +bp(min, 1024px)
+                opacity: 0
+                visibility: hidden
+
+    &__menu
+        position: fixed
+        z-index: 100
+        top: 60px
+        bottom: 0
+        width: 90%
+        max-width: 87px
+        left: 0
+        background-color: #fff
+        border-right: 1px solid $color-gray
+        transition: 150ms $transition-function
+        transform: translate3d(0, 0, 0)
+        box-shadow: 2px 0 10px -1px rgba($color-base, .1)
+        overflow-x: hidden
+        transform: translateX(-100%)
+        visibility: hidden
+
+        +bp(min, 1024px)
+            visibility: visible
+            transform: translateX(0)
+
+    &__menu-item
         position: relative
     
-    &-menu__link
+    &__menu-link
         text-decoration: none
         font-size: 1.4rem
         padding: 0 3.1rem
@@ -67,10 +91,16 @@
         .icon
             top: -1px
 
-    &-menu__text
+    &__menu-text
         margin-left: 1.4rem !important
         display: inline-block
         transition: 250ms $transition-function
-        opacity: 0
-        visibility: hidden
-        transform: translateX(10px)
+
+        +bp(min, 1024px)
+            opacity: 0
+            visibility: hidden
+            transform: translateX(10px)
+
+    &__overlay
+        +overlay
+        z-index: 90

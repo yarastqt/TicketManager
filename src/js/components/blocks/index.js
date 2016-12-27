@@ -1,17 +1,8 @@
-import Content from './content';
-import Elevator from './elevator';
-import Header from './header';
-import Loader from './loader';
-import Modal from './modal';
-import SnackBar from './snackbar';
-import Sidebar from './sidebar';
-
-export {
-    Content,
-    Elevator,
-    Header,
-    Loader,
-    Modal,
-    SnackBar,
-    Sidebar
-};
+export Content from './content';
+export Elevator from './elevator';
+export SnowFlakes from './snowflakes';
+export Header from './header';
+export Loader from './loader';
+export Modal from './modal';
+export SnackBar from './snackbar';
+export Sidebar from './sidebar';

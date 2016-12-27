@@ -18,7 +18,7 @@ import UsersView from 'views/users';
 import ProfileView from 'views/profile';
 import ProfileCommonView from 'views/profile/common';
 import ProfileSecurityView from 'views/profile/security';
-import StatisticsView from 'views/statistics';
+// import StatisticsView from 'views/statistics';
 import TracksView from 'views/tracks';
 import NotFound from 'views/notfound';
 
@@ -44,7 +44,12 @@ export default () => (
                 <IndexRoute component={ ProfileCommonView } />
                 <Route path="security" component={ ProfileSecurityView } />
             </Route>
-            <Route path="statistics" component={ StatisticsView } />
+            {/*<Route path="statistics" component={ StatisticsView } />*/}
+            <Route path="statistics" getComponents={ (nextState, callback) => {
+                require.ensure([], (require) => {
+                    callback(null, require('views/statistics').default);
+                }, 'statistics');
+            } } />
             <Route path="tracks" component={ TracksView } />
         </Route>
         <Route path="*" component={ NotFound } />

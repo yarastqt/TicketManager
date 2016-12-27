@@ -7,3 +7,11 @@ export function toggleSidebar() {
         dispatch({ type: SIDEBAR_TOGGLE });
     };
 }
+
+export const SIDEBAR_HIDE = 'SIDEBAR_HIDE';
+
+export function hideSidebar() {
+    return {
+        type: SIDEBAR_HIDE
+    };
+}

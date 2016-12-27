@@ -1,0 +1,33 @@
+@keyframes snowing
+    0%
+        fill-opacity: 1
+
+    100%
+        fill-opacity: 0
+        transform: translateY(60px)
+
+.snow-flakes
+    position: absolute
+    top: 0
+    left: 0
+    height: 100%
+    width: 100%
+    pointer-events: none
+
+    &__flake
+        fill: $color-blue
+        animation: snowing 3000ms ease-out infinite
+
+        &:nth-child(2n)
+            animation-delay: 1500ms
+
+        &:nth-child(3n)
+            animation-delay: 2300ms
+            animation-duration: 3300ms
+
+        &:nth-child(4n)
+            animation-delay: 800ms
+            animation-duration: 3200ms
+
+        &:nth-child(5n)
+            animation-delay: 2800ms

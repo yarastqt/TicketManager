@@ -1,12 +1,8 @@
-import { isEmpty, isEmptyObject } from 'utils';
+import { isEmpty } from 'utils';
 import { urlReg } from 'constants/validators';
 
 export function trackForm(data) {
     const errors = {};
-
-    if (isEmptyObject(data)) {
-        return errors;
-    }
 
     if (isEmpty(data.name)) {
         errors.name = 'Укажите название сайта';

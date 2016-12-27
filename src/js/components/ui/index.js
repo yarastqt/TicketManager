@@ -1,23 +1,10 @@
-import Table from './table/table';
-import TableColumn from './table/tableColumn';
+export Table from './table/table';
+export TableColumn from './table/tableColumn';
 
-import FormGroup from './form/formGroup';
-import FormActions from './form/formActions';
+export FormGroup from './form/formGroup';
+export FormActions from './form/formActions';
 
-import Input from './controls/input';
-import Select from './controls/select';
-import Textarea from './controls/textarea';
-import Button from './controls/button';
-
-export {
-    Table,
-    TableColumn,
-
-    FormGroup,
-    FormActions,
-
-    Input,
-    Select,
-    Textarea,
-    Button
-};
+export Input from './controls/input';
+export Select from './controls/select';
+export Textarea from './controls/textarea';
+export Button from './controls/button';

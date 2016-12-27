@@ -3,14 +3,20 @@ import { routerMiddleware } from 'react-router-redux';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
-import tableMiddleware from 'middlewares/table';
-import modalMiddleware from 'middlewares/modal';
+import { tableMiddleware, modalMiddleware, sidebarMiddleware } from 'middlewares';
 import rootReducer from 'reducers/root';
 
 const loggerMiddleware = createLogger({
-    level: 'info',
-    collapsed: true
+    level: 'info', collapsed: true
 });
+
+const middlewares = [
+    thunkMiddleware,
+    loggerMiddleware,
+    tableMiddleware,
+    modalMiddleware,
+    sidebarMiddleware
+];
 
 /**
  * configureStore for development
@@ -19,13 +25,15 @@ const loggerMiddleware = createLogger({
  */
 export default (browserHistory, initialState) => {
     const reduxRouterMiddleware = routerMiddleware(browserHistory);
-    const createStoreWithMiddleware = applyMiddleware(
-        reduxRouterMiddleware,
-        thunkMiddleware,
-        loggerMiddleware,
-        tableMiddleware,
-        modalMiddleware
-    )(createStore);
+    const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware, ...middlewares)(createStore);
+    const store = createStoreWithMiddleware(rootReducer, initialState, window.devToolsExtension());
 
-    return createStoreWithMiddleware(rootReducer, initialState);
+    if (module.hot) {
+        module.hot.accept('reducers/root', () => {
+            const { default: nextRootReducer } = require('reducers/root');
+            store.replaceReducer(nextRootReducer);
+        });
+    }
+
+    return store;
 };

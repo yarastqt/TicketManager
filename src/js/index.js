@@ -3,20 +3,18 @@ import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
-import debounce from 'lodash/debounce';
 
-import { loadState, saveState } from 'utils/store';
+import { loadState, persistStore } from 'utils/store';
 import configureStore from 'store';
-import configureRoutes from 'routes'
+import configureRoutes from 'routes';
 
 const persistedState = loadState();
 const store = configureStore(browserHistory, persistedState);
 const history = syncHistoryWithStore(browserHistory, store);
 
-store.subscribe(debounce(() => {
-    const { session, sidebar } = store.getState();
-    saveState({ session, sidebar });
-}, 1000));
+persistStore(store, {
+    whiteList: ['session', 'sidebar']
+});
 
 render((
     <Provider store={ store }>

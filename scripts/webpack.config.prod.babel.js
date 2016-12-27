@@ -9,7 +9,8 @@ export default {
     ...config,
     output: {
         ...config.output,
-        filename: '/assets/js/bundle.[hash].js'
+        filename: '/assets/js/bundle.[hash].js',
+        chunkFilename: '/assets/js/[name].chunk.[hash].js'
     },
     plugins: [
         ...config.plugins,

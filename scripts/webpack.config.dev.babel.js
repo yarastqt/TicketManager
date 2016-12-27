@@ -13,11 +13,12 @@ export default {
     ],
     output: {
         ...config.output,
-        filename: 'assets/js/bundle.js'
+        filename: 'assets/js/bundle.js',
+        chunkFilename: 'assets/js/[name].chunk.js'
     },
     plugins: [
         ...config.plugins,
-        new webpack.HotModuleReplacementPlugin,
+        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new ExtractTextPlugin('assets/css/bundle.css')
     ],

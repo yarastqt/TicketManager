@@ -1,18 +1,21 @@
 .snackbar
     position: fixed
     z-index: 9100
-    bottom: 20px
-    left: 20px
+    bottom: 0
+    left: 0
+    right: 0
     pointer-events: none
+
+    +bp(min, 768px)
+        bottom: 20px
+        left: 20px
+        right: auto
 
 .toast
     pointer-events: none
     background-color: rgba(#010101, .85)
-    border-radius: 2px
-    min-height: 48px
+    height: 48px
     padding: 14px 24px
-    min-width: 288px
-    max-width: 568px
     transition: 250ms $transition-function
     display: flex
     justify-content: space-between
@@ -20,6 +23,11 @@
     transform: translateY(100%)
     opacity: 0
     visibility: hidden
+
+    +bp(min, 768px)
+        min-width: 288px
+        border-radius: 2px
+        max-width: 568px
 
     &_visible
         transform: translateY(0)

@@ -4,8 +4,3 @@
 node_modules
 build
 stats.json
-
-src/js/views/statistics/index.js
-
-public/css
-public/js

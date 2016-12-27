@@ -1,0 +1,12 @@
+=bp($break, $viewport: null)
+    @if $break == min
+        @media screen and (min-width: $viewport)
+            @content
+
+    @else if $break == max
+        @media screen and (max-width: $viewport)
+            @content
+
+    @else
+        @media screen and (min-width: $break) and (max-width: $viewport)
+            @content

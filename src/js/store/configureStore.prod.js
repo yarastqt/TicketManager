@@ -2,8 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
 
-import tableMiddleware from 'middlewares/table';
-import modalMiddleware from 'middlewares/modal';
+import { tableMiddleware, modalMiddleware, sidebarMiddleware } from 'middlewares';
 import rootReducer from 'reducers/root';
 
 // Remove react dev tools from google chrome extension
@@ -13,6 +12,13 @@ if (typeof (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) === 'object') {
     });
 }
 
+const middlewares = [
+    thunkMiddleware,
+    tableMiddleware,
+    modalMiddleware,
+    sidebarMiddleware
+];
+
 /**
  * configureStore for production
  * @param <Object> browserHistory
@@ -20,12 +26,8 @@ if (typeof (window.__REACT_DEVTOOLS_GLOBAL_HOOK__) === 'object') {
  */
 export default (browserHistory, initialState) => {
     const reduxRouterMiddleware = routerMiddleware(browserHistory);
-    const createStoreWithMiddleware = applyMiddleware(
-        reduxRouterMiddleware,
-        thunkMiddleware,
-        tableMiddleware,
-        modalMiddleware
-    )(createStore);
+    const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware, ...middlewares)(createStore);
+    const store = createStoreWithMiddleware(rootReducer, initialState);
 
-    return createStoreWithMiddleware(rootReducer, initialState);
+    return store;
 };

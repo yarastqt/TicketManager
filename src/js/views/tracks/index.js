@@ -19,11 +19,11 @@ class TracksView extends Component {
     }
 
     showTrackNewModal() {
-        this.props.showModal('tracks/modals/trackAddModal');
+        this.props.showModal('TrackAddModal');
     }
 
     showTrackModal(trackId) {
-        this.props.showModal('tracks/modals/trackEditModal', { trackId });
+        this.props.showModal('TrackEditModal', { trackId });
     }
 
     deleteTrack(trackId) {

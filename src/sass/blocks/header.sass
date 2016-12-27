@@ -31,10 +31,10 @@
             opacity: 1
 
     &__logo
-        background-image: url(/assets/i/logo.svg)
+        background-image: url(/assets/i/logo_s.svg)
         background-size: 100%
         background-repeat: no-repeat
-        width: 180px
+        width: 54px
         height: 54px
         position: absolute
         top: 0
@@ -43,11 +43,15 @@
         bottom: 0
         margin: auto
 
+        +bp(min, 768px)
+            background-image: url(/assets/i/logo_m.svg)
+            width: 180px
+
     &__user
         position: relative
         display: flex
         align-items: center
-        padding: 2px 2px 2px 24px
+        padding: 2px
         border-radius: 23px
         cursor: pointer
         user-select: none
@@ -56,9 +60,16 @@
         &_active, &:hover
             background-color: rgba($color-gray, .25)
 
+        +bp(min, 768px)
+            padding-left: 24px
+
     &__user-meta
         margin-right: 1.4rem
         font-size: 1.2rem
+        display: none
+
+        +bp(min, 768px)
+            display: block
 
     &__user-role
         color: rgba($color-base, .75)

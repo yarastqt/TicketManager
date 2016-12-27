@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 
 import { Header, Sidebar, Modal, Elevator, SnackBar } from 'components/blocks';
 
-function Dashboard({ user, expandedSidebar, dispatch, children }) {
+function Dashboard({ user, expandedSidebar, children }) {
     return (
         <div className="main">
             <Header />
-            <Sidebar
-                user={ user } expanded={ expandedSidebar }
-            />
+            <Sidebar user={ user } expanded={ expandedSidebar } />
             <div className={ expandedSidebar ? 'content content_expanded' : 'content' }>
                 { children }
                 <div className="footer">
@@ -17,7 +15,7 @@ function Dashboard({ user, expandedSidebar, dispatch, children }) {
                 </div>
             </div>
             <Modal />
-            <Elevator />
+            <Elevator scrollDuration={ 400 } />
             <SnackBar />
         </div>
     );

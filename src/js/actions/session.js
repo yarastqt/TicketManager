@@ -1,4 +1,4 @@
-import jwtDecode from 'jwt-decode';
+import JWTDecode from 'jwt-decode';
 import { push } from 'react-router-redux';
 import { SubmissionError } from 'redux-form';
 
@@ -22,8 +22,9 @@ export function login(data, redirectAfterLogin) {
         dispatch({ type: LOGIN_REQUEST });
 
         return http.post('/v1/auth/login', data).then((data) => {
-            const user = jwtDecode(data);
+            const user = JWTDecode(data);
             localStorage.setItem('token', data);
+
             dispatch(loginSuccess(user));
             dispatch(push(redirectAfterLogin));
         }).catch((errors) => {
@@ -64,6 +65,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export function logout() {
     return (dispatch) => {
         localStorage.removeItem('token');
+
         dispatch({ type: LOGOUT_SUCCESS });
         dispatch(push('/auth/login'));
     };

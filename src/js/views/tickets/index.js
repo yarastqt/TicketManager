@@ -50,11 +50,11 @@ class TicketsView extends Component {
     }
 
     showTicketAddModal() {
-        this.props.showModal('tickets/modals/ticketAddModal');
+        this.props.showModal('TicketAddModal');
     }
 
     showTicketEditModal(ticketId) {
-        this.props.showModal('tickets/modals/ticketEditModal', { ticketId });
+        this.props.showModal('TicketEditModal', { ticketId });
     }
 
     removeTicket(ticketId) {

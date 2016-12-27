@@ -1,8 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 
 import { hideModal } from 'actions/modal';
+
+import TicketAddModal from 'views/tickets/modals/ticketAddModal';
+import TicketEditModal from 'views/tickets/modals/ticketEditModal';
+import TrackAddModal from 'views/tracks/modals/trackAddModal';
+import TrackEditModal from 'views/tracks/modals/trackEditModal';
+import UserEditModal from 'views/users/modals/userEditModal';
+
+const modals = {
+    TicketAddModal, TicketEditModal, TrackAddModal, TrackEditModal, UserEditModal
+};
 
 class Modal extends Component {
     constructor() {
@@ -28,8 +37,9 @@ class Modal extends Component {
         const { modal: { view, props }, hideModal } = this.props;
         const modalProps = { ...props, hideModal };
 
+
         if (view) {
-            const { default: ModalContent } = require(`views/${view}`);
+            const ModalContent = modals[view];
 
             return (
                 <ModalContent
@@ -40,12 +50,8 @@ class Modal extends Component {
     }
 
     render() {
-        const modalClasses = classnames('modal', {
-            'modal_visible': this.props.modal.visible
-        });
-
         return (
-            <div className={ modalClasses }>
+            <div className={ this.props.modal.visible ? 'modal modal_visible' : 'modal' }>
                 <div className="modal__container">
                     { this.renderContent() }
                 </div>

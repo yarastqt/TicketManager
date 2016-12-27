@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Portal from 'react-portal';
 
+import { SnowFlakes } from 'components/blocks';
 import dict from 'constants/dict';
 import { logout } from 'actions/session';
 import { toggleSidebar } from 'actions/sidebar';
@@ -74,6 +75,7 @@ class Header extends Component {
                             </div>
                         </Portal>
                     </div>
+                    <SnowFlakes />
                 </div>
             </div>
         );

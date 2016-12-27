@@ -15,6 +15,18 @@
     &:hover
         color: $color-blue-hovered
 
+=overlay
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background-color: rgba($color-base, .1)
+    z-index: 100
+    opacity: 0
+    visibility: hidden
+    transition: 250ms $transition-function
+
 =control-error
     color: $color-pink
     cursor: default

@@ -1,5 +1,6 @@
 .sign-container
     height: 100vh
+    overflow-y: scroll
     display: flex
     justify-content: space-between
     align-items: center
@@ -8,7 +9,7 @@
     position: relative
 
     &__logo
-        background-image: url(/assets/i/logo.svg)
+        background-image: url(/assets/i/logo_m.svg)
         background-size: 100%
         background-repeat: no-repeat
         width: 180px
@@ -24,7 +25,9 @@
         text-align: center
 
     &__in
-        width: 320px
+        max-width: 340px
+        padding: 0 20px
+        width: 100%
         opacity: 0
         visibility: hidden
         animation: visible-transform 400ms $transition-function 250ms forwards

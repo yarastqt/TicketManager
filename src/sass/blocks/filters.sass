@@ -5,12 +5,17 @@
     &_visible
         display: block
 
-    &__form
-        max-width: 100% !important
-        display: flex
-        align-items: flex-end
+    +bp(min, 768px)
+        &__form
+            max-width: 100% !important
+            display: flex
+            align-items: flex-end
 
-        .form__field
-            flex: 1 0 0
-            margin-right: 14px
-            margin-bottom: 0
+            .form__field
+                flex: 1 0 0
+                margin-right: 14px
+                margin-bottom: 0
+
+    +bp(max, 768px)
+        .button
+            width: 100%

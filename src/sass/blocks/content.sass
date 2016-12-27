@@ -1,10 +1,12 @@
 .content
-    margin-left: 87px
     overflow: auto
     height: calc(100vh - 60px)
 
-    &_expanded
-        margin-left: 200px
+    +bp(min, 1024px)
+        margin-left: 87px
+
+        &_expanded
+            margin-left: 200px
 
     &__in
         position: relative
@@ -27,6 +29,13 @@
 
         .button + .button
             margin-left: 14px
+
+        +bp(max, 768px)
+            .button
+                min-width: auto
+
+            .button__text
+                display: none
 
     &__navigation
         display: flex
