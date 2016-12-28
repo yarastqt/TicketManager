@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import { trackForm as validate } from 'validators/track';
 import { getTrackById } from 'selectors/tracks';
-import { Input, Textarea, Button, FormActions } from 'components/ui';
+import { Input, Textarea, Button, Form, FormActions } from 'components/ui';
 import { updateTrack } from 'actions/tracks';
 
 class TrackEditModal extends Component {
@@ -23,7 +23,7 @@ class TrackEditModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Редактировать сайт</div>
-                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.updateTrack) }>
+                <Form onSubmit={ this.props.handleSubmit(this.updateTrack) } submitting={ this.props.submitting }>
                     <Field name="name" type="text" label="Название сайта"
                         component={ Input }
                     />
@@ -45,7 +45,7 @@ class TrackEditModal extends Component {
                             disabled={ this.props.pristine || this.props.submitting }
                         />
                     </FormActions>
-                </form>
+                </Form>
             </div>
         );
     }

@@ -19,6 +19,5 @@ export default createReducer({
         return { authenticated: true, user };
     }
 }, {
-    authenticated: localStorage.getItem('token') ? true : false,
-    user: null
+    authenticated: false, user: null
 });

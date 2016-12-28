@@ -3,10 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#000000">
     <title></title>
     <link type="image/png" rel="icon" href="/assets/i/favicons/favicon.png" sizes="192x192">
 </head>
 <body class="page">
     <div id="react-root"></div>
+    <script>
+        if ('ontouchstart' in window || navigator.MaxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
+            document.documentElement.classList.add('is-touch');
+        } else {
+            document.documentElement.classList.add('is-desktop');
+        }
+    </script>
 </body>
 </html>

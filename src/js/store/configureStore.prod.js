@@ -22,6 +22,7 @@ const middlewares = [
 /**
  * configureStore for production
  * @param <Object> browserHistory
+ * @param <Object> initialState
  * @return <Object> store
  */
 export default (browserHistory, initialState) => {

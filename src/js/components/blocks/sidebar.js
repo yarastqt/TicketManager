@@ -40,6 +40,6 @@ Sidebar.propTypes = {
 };
 
 export default connect(
-    null,
-    { hideSidebar }
+    null, { hideSidebar },
+    null, { pure: false }
 )(Sidebar);

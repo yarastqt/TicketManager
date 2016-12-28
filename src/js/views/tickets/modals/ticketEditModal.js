@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import { ticketForm as validate } from 'validators/ticket';
 import { getTicketById } from 'selectors/tickets';
 import { DateUtil } from 'utils';
-import { Input, Select, Textarea, Button, FormGroup, FormActions } from 'components/ui';
+import { Input, Select, Textarea, Button, Form, FormGroup, FormActions } from 'components/ui';
 import { updateTicket } from 'actions/tickets';
 
 class TicketEditModal extends Component {
@@ -28,7 +28,7 @@ class TicketEditModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Редактировать заявку</div>
-                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.updateTicket) }>
+                <Form onSubmit={ this.props.handleSubmit(this.updateTicket) } submitting={ this.props.submitting }>
                     <Field name="name" type="text" label="Имя (ФИО / Компания)"
                         component={ Input }
                     />
@@ -69,7 +69,7 @@ class TicketEditModal extends Component {
                             disabled={ this.props.pristine || this.props.submitting }
                         />
                     </FormActions>
-                </form>
+                </Form>
             </div>
         );
     }

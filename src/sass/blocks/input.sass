@@ -43,6 +43,7 @@
         width: 100%
         font: inherit
         font-size: 1.4rem
+        line-height: 3.8rem
         transition: 250ms $transition-function
         color: $color-base
         appearance: none
@@ -50,6 +51,23 @@
         &::placeholder
             transition: 400ms $transition-function
             color: rgba($color-base, .5)
+
+        &::-webkit-inner-spin-button
+            margin: auto 2px
+
+        &::-webkit-calendar-picker-indicator
+            opacity: 1
+            color: transparent
+            cursor: pointer
+            padding: 0
+            background-repeat: no-repeat
+            background-size: 100%
+            background-position: 0 50%
+            +icon('arrow-down', 20px, 20px)
+
+            &:hover
+                background-color: transparent
+                +icon('arrow-down', 20px, 20px, $color-blue)
 
         &:focus
             border-color: $color-blue

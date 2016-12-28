@@ -1,4 +1,4 @@
-import { isEmpty } from 'utils';
+import { isEmpty, isEmptyObject } from 'utils';
 import { urlReg } from 'constants/validators';
 
 export function trackForm(data) {

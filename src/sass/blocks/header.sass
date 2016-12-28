@@ -11,11 +11,14 @@
     &__in
         position: relative
         min-width: 320px
-        padding: 0 20px
+        padding: 0 20px 0 6px
         height: 100%
         display: flex
         justify-content: space-between
         align-items: center
+
+        +bp(min, 1024px)
+            padding: 0 20px
 
     &__menu-toggle
         width: 46px
@@ -27,7 +30,9 @@
         opacity: .5
         transition: 250ms $transition-function
 
-        &:hover
+        .is-desktop &:focus,
+        .is-desktop &:hover,
+        .is-touch &:active
             opacity: 1
 
     &__logo

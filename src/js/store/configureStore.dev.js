@@ -21,12 +21,13 @@ const middlewares = [
 /**
  * configureStore for development
  * @param <Object> browserHistory
+ * @param <Object> initialState
  * @return <Object> store
  */
 export default (browserHistory, initialState) => {
     const reduxRouterMiddleware = routerMiddleware(browserHistory);
     const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware, ...middlewares)(createStore);
-    const store = createStoreWithMiddleware(rootReducer, initialState, window.devToolsExtension());
+    const store = createStoreWithMiddleware(rootReducer, initialState, window.devToolsExtension && window.devToolsExtension());
 
     if (module.hot) {
         module.hot.accept('reducers/root', () => {

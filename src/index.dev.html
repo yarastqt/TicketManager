@@ -9,6 +9,13 @@
 </head>
 <body class="page">
     <div id="react-root"></div>
+    <script>
+        if ('ontouchstart' in window || navigator.MaxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
+            document.documentElement.classList.add('is-touch');
+        } else {
+            document.documentElement.classList.add('is-desktop');
+        }
+    </script>
     <script src="/assets/js/bundle.js"></script>
 </body>
 </html>

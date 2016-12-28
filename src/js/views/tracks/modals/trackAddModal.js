@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
 import { trackForm as validate } from 'validators/track';
-import { Input, Button, FormActions } from 'components/ui';
+import { Input, Button, Form, FormActions } from 'components/ui';
 import { addTrack } from 'actions/tracks';
 
 class TrackAddModal extends Component {
@@ -22,7 +22,7 @@ class TrackAddModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Новый сайт</div>
-                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.addTrack) }>
+                <Form onSubmit={ this.props.handleSubmit(this.addTrack) } submitting={ this.props.submitting }>
                     <Field name="name" type="text" label="Название сайта"
                         component={ Input }
                     />
@@ -38,7 +38,7 @@ class TrackAddModal extends Component {
                             disabled={ this.props.pristine || this.props.submitting }
                         />
                     </FormActions>
-                </form>
+                </Form>
             </div>
         );
     }

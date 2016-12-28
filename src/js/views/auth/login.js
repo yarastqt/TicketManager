@@ -4,7 +4,7 @@ import DocumentTitle from 'react-document-title';
 import { Field, reduxForm } from 'redux-form';
 
 import { loginForm as validate } from 'validators/auth';
-import { Input, Button, FormActions } from 'components/ui';
+import { Input, Button, Form, FormActions } from 'components/ui';
 import { login } from 'actions/session';
 
 class LoginView extends Component {
@@ -23,7 +23,7 @@ class LoginView extends Component {
             <DocumentTitle title="Авторизация">
                 <div className="sign-container__in">
                     <div className="sign-container__title">Авторизация</div>
-                    <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.login) }>
+                    <Form onSubmit={ this.props.handleSubmit(this.login) } submitting={ this.props.submitting }>
                         <Field name="email" type="text" label="E-Mail"
                             component={ Input }
                         />
@@ -36,7 +36,7 @@ class LoginView extends Component {
                                 disabled={ this.props.submitting }
                             />
                         </FormActions>
-                    </form>
+                    </Form>
                 </div>
             </DocumentTitle>
         );

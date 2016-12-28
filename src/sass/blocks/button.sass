@@ -19,7 +19,9 @@
             background-color: $color-blue
             color: #fff
 
-            &:focus, &:hover
+            .is-desktop &:focus,
+            .is-desktop &:hover,
+            .is-touch &:active
                 background-color: $color-blue-hovered
                 color: rgba(#fff, .9)
 
@@ -28,7 +30,9 @@
             border: 1px solid #e0e0e0
             color: $color-base
 
-            &:focus, &:hover
+            .is-desktop &:focus,
+            .is-desktop &:hover,
+            .is-touch &:active
                 background-color: rgba(#d4d8df, .2)
 
     &_active
@@ -36,23 +40,29 @@
             background-color: $color-light-blue
             border-color: $color-blue
 
-            &:focus, &:hover
+            .is-desktop &:focus,
+            .is-desktop &:hover,
+            .is-touch &:active
                 background-color: darken($color-light-blue, 2.5)
 
             .icon_filter
-                +icon('filter', 20px, 20px, $color-blue)
+                +icon('filter', 15px, 15px, $color-blue)
 
     &_disabled
         cursor: default
         opacity: .5
 
         &.button_view_action
-            &:focus, &:hover
+            .is-desktop &:focus,
+            .is-desktop &:hover,
+            .is-touch &:active
                 background-color: $color-blue
                 color: #fff
 
         &.button_view_pseudo
-            &:focus, &:hover
+            .is-desktop &:focus,
+            .is-desktop &:hover,
+            .is-touch &:active
                 background-color: transparent
 
     &__in

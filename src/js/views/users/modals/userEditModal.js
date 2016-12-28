@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import { userForm as validate } from 'validators/user';
 import { getUserById } from 'selectors/users';
-import { Input, Select, Button, FormActions } from 'components/ui';
+import { Input, Select, Button, Form, FormActions } from 'components/ui';
 import { updateUser } from 'actions/users';
 
 class UserEditModal extends Component {
@@ -23,7 +23,7 @@ class UserEditModal extends Component {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Редактировать профиль пользователя</div>
-                <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.updateUser) }>
+                <Form onSubmit={ this.props.handleSubmit(this.updateUser) } submitting={ this.props.submitting }>
                     <Field name="username" type="text" label="Имя"
                         component={ Input } readonly
                     />
@@ -45,7 +45,7 @@ class UserEditModal extends Component {
                             disabled={ this.props.pristine || this.props.submitting }
                         />
                     </FormActions>
-                </form>
+                </Form>
             </div>
         );
     }

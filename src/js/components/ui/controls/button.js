@@ -8,7 +8,7 @@ function Button({ onClick, type, icon, text, view, active, disabled }) {
     });
 
     return (
-        <button type={ type } className={ buttonClasses } style={{ minWidth: !text && '24px' }} onClick={ onClick } disabled={ disabled }>
+        <button type={ type } className={ buttonClasses } style={{ minWidth: !text && '38px' }} onClick={ onClick } disabled={ disabled }>
             <span className="button__in">
                 { icon && <i className={ `icon icon_${icon}` }></i> }
                 { text && <span className="button__text">{ text }</span> }

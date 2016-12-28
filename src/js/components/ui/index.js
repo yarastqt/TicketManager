@@ -1,6 +1,7 @@
 export Table from './table/table';
 export TableColumn from './table/tableColumn';
 
+export Form from './form/form';
 export FormGroup from './form/formGroup';
 export FormActions from './form/formActions';
 
