@@ -1,3 +1,14 @@
+export const TOGGLE_VISIBLE_FILTERS = 'TOGGLE_VISIBLE_FILTERS';
+
+export function toggleVisibleFilters(target) {
+    return {
+        type: TOGGLE_VISIBLE_FILTERS,
+        payload: {
+            target
+        }
+    };
+}
+
 export const SET_FILTER = 'SET_FILTER';
 
 export function setFilter(filter, target) {

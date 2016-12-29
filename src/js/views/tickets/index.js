@@ -6,6 +6,7 @@ import dict from 'constants/dict';
 import { Content, Loader } from 'components/blocks';
 import { Table, TableColumn, Button } from 'components/ui';
 import TicketsFilters from './filters';
+import { toggleVisibleFilters } from 'actions/filters';
 import { getTickets, removeTicket } from 'actions/tickets';
 import { showModal } from 'actions/modal';
 
@@ -38,7 +39,6 @@ function DateCell(value) {
 class TicketsView extends Component {
     constructor() {
         super();
-        this.state = { visibleFilters: false };
         this.showTicketAddModal = this.showTicketAddModal.bind(this);
         this.showTicketEditModal = this.showTicketEditModal.bind(this);
         this.removeTicket = this.removeTicket.bind(this);
@@ -64,7 +64,7 @@ class TicketsView extends Component {
     }
 
     toggleVisibleFilters() {
-        this.setState({ visibleFilters: !this.state.visibleFilters });
+        this.props.toggleVisibleFilters('tickets');
     }
 
     render() {
@@ -73,7 +73,7 @@ class TicketsView extends Component {
                 <div className="content__header">
                     <div className="content__heading">Заявки</div>
                     <div className="content__actions">
-                        <Button type="button" view="pseudo" icon="filter" active={ this.state.visibleFilters }
+                        <Button type="button" view="pseudo" icon="filter" active={ this.props.visibleFilters }
                             onClick={ this.toggleVisibleFilters }
                         />
                         <Button type="button" view="action" icon="quick-add" text="Добавить заявку"
@@ -82,7 +82,7 @@ class TicketsView extends Component {
                     </div>
                 </div>
                 <TicketsFilters
-                    visible={ this.state.visibleFilters }
+                    visible={ this.props.visibleFilters }
                 />
                 <Loader fetching={ this.props.tickets.fetching }>
                     <Table
@@ -133,9 +133,9 @@ class TicketsView extends Component {
 
 export default connect(
     (state, props) => ({
-        user: state.session.user,
+        visibleFilters: state.filters.tickets.visible,
         tickets: state.tickets,
         page: parseInt(props.params.page) || 1
     }),
-    { getTickets, removeTicket, showModal }
+    { getTickets, removeTicket, showModal, toggleVisibleFilters }
 )(TicketsView);

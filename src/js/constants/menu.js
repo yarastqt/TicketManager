@@ -5,15 +5,15 @@ export default [
         icon: 'box'
     },
     {
+        url: '/statistics',
+        name: 'Статистика',
+        icon: 'chart'
+    },
+    {
         url: '/users',
         name: 'Пользователи',
         icon: 'people',
         roles: ['admin']
-    },
-    {
-        url: '/statistics',
-        name: 'Статистика',
-        icon: 'chart'
     },
     {
         url: '/tracks',

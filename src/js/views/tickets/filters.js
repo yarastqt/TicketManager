@@ -40,26 +40,26 @@ class TicketsFilters extends Component {
             <div className={ this.props.visible ? 'filters filters_visible' : 'filters' }>
                 <form className="form filters__form">
                     <Field name="startDate" type="date" label="Дата от"
-                        component={ Input } onChange={ this.setFilter }
+                        component={ Input } xOnChange={ this.setFilter }
                     />
                     <Field name="endDate" type="date" label="Дата до"
-                        component={ Input } onChange={ this.setFilter }
+                        component={ Input } xOnChange={ this.setFilter }
                     />
                     <Field name="source" label="Источник"
                         component={ Select } options={ this.props.filtersList.sources }
-                        onChange={ this.setFilter } clearable
+                        xOnChange={ this.setFilter } clearable
                     />
                     <Field name="status" label="Статус"
                         component={ Select } options={ this.props.filtersList.statuses }
-                        onChange={ this.setFilter } clearable
+                        xOnChange={ this.setFilter } clearable
                     />
                     <Field name="createdBy" label="Менеджер"
                         component={ Select } options={ this.props.filtersList.managers }
-                        onChange={ this.setFilter } clearable
+                        xOnChange={ this.setFilter } clearable
                     />
                     <Field name="serviceType" label="Вид услуги"
                         component={ Select } options={ this.props.filtersList.serviceTypes }
-                        onChange={ this.setFilter } clearable
+                        xOnChange={ this.setFilter } clearable
                     />
                     <FormActions position="left">
                         <Button type="button" view="pseudo" icon="close"
@@ -79,7 +79,7 @@ TicketsFilters = reduxForm({
 })(TicketsFilters);
 
 function mapStateToprops(state) {
-    const filters = state.filters[SOURCE];
+    const filters = state.filters[SOURCE].list;
     const startDate = filters.startDate && DateUtil.fromTS(filters.startDate).getDate();
     const endDate = filters.endDate && DateUtil.fromTS(filters.endDate).getDate();
 

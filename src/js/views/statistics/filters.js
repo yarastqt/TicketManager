@@ -41,19 +41,19 @@ class StatisticsFilters extends Component {
                 <form className="form filters__form">
                     <Field name="period" label="Период"
                         component={ Select } options={ this.props.filtersList.period }
-                        onChange={ this.setFilter } clearable
+                        xOnChange={ this.setFilter } clearable
                     />
                     <Field name="source" label="Источник"
                         component={ Select } options={ this.props.filtersList.sources }
-                        onChange={ this.setFilter } clearable
+                        xOnChange={ this.setFilter } clearable
                     />
                     <Field name="createdBy" label="Менеджер"
                         component={ Select } options={ this.props.filtersList.managers }
-                        onChange={ this.setFilter } clearable
+                        xOnChange={ this.setFilter } clearable
                     />
                     <Field name="serviceType" label="Вид услуги"
                         component={ Select } options={ this.props.filtersList.serviceTypes }
-                        onChange={ this.setFilter } clearable
+                        xOnChange={ this.setFilter } clearable
                     />
                     <FormActions position="left">
                         <Button type="button" view="pseudo" icon="close"
@@ -74,8 +74,8 @@ StatisticsFilters = reduxForm({
 
 export default connect(
     (state) => ({
-        initialValues: state.filters[SOURCE],
-        disabledReset: Object.keys(state.filters[SOURCE]).length ? false : true,
+        initialValues: state.filters[SOURCE].list,
+        disabledReset: Object.keys(state.filters[SOURCE].list).length ? false : true,
         filtersList: getFilters(state)
     }),
     { setFilter, removeFilter, removeAllFilters }

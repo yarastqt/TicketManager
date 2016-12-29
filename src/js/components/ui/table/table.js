@@ -217,7 +217,7 @@ Table.propTypes = {
 
 function mapStateToProps(state, props) {
     const { name, data, page } = props;
-    const filters = state.filters[name];
+    const filters = state.filters[name].list;
     const { rows, sort } = state.table[name];
     const isFilters = filters && Object.keys(filters).length ? true : false;
 

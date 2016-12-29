@@ -34,7 +34,7 @@ class Select extends Component {
             setTimeout(() => this.refs.input.focus(), 0);
         } else {
             this.setState({ value: event.target.value });
-            this.props.onChange && this.props.onChange({
+            this.props.xOnChange && this.props.xOnChange({
                 name: event.target.name,
                 value: event.target.value
             });
@@ -44,7 +44,7 @@ class Select extends Component {
 
     clearSelect() {
         this.setState({ value: '' });
-        this.props.onChange && this.props.onChange({
+        this.props.xOnChange && this.props.xOnChange({
             name: this.refs.input.name,
             value: ''
         });
