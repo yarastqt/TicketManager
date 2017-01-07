@@ -38,7 +38,7 @@ class RegisterView extends Component {
                             <Field name="username" type="text" label="Имя" placeholder="Marvin"
                                 component={ Input }
                             />
-                            <Field name="email" type="text" label="E-Mail" placeholder="example@domain.com"
+                            <Field name="email" type="email" label="E-Mail" placeholder="example@domain.com"
                                 component={ Input }
                             />
                             <Field name="password" type="password" label="Пароль"

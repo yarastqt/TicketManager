@@ -1,4 +1,4 @@
-<p><img src="http://prom.jetmix.su/assets/i/logo.svg" width="250"></p>
+<p><img src="http://prom.jetmix.su/assets/i/logo_m.svg" width="250"></p>
 
 ## About
 This client-side application work with this API: [JM.API](https://github.com/yarastqt/api)

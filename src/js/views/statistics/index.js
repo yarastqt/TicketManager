@@ -5,6 +5,8 @@ import { Line, defaults as chartSettings } from 'react-chartjs-2';
 import { defaultSettings, chartOptions } from 'constants/chart';
 import { getChartPoints } from 'selectors/statistics';
 import { Content, Loader } from 'components/blocks';
+import { Button } from 'components/ui';
+import { toggleVisibleFilters } from 'actions/filters';
 import { getTickets } from 'actions/tickets';
 import StatisticsFilters from './filters';
 
@@ -13,8 +15,17 @@ chartSettings.global = {
 };
 
 class StatisticsView extends Component {
+    constructor() {
+        super();
+        this.toggleVisibleFilters = this.toggleVisibleFilters.bind(this);
+    }
+
     componentDidMount() {
         this.props.getTickets();
+    }
+
+    toggleVisibleFilters() {
+        this.props.toggleVisibleFilters('statistics');
     }
 
     render() {
@@ -22,8 +33,13 @@ class StatisticsView extends Component {
             <Content title="Статистика">
                 <div className="content__header">
                     <div className="content__heading">Статистика</div>
+                    <div className="content__actions">
+                        <Button type="button" view="pseudo" icon="filter" active={ this.props.visibleFilters }
+                            onClick={ this.toggleVisibleFilters }
+                        />
+                    </div>
                 </div>
-                <StatisticsFilters />
+                <StatisticsFilters visible={ this.props.visibleFilters } />
                 <Loader fetching={ this.props.tickets.fetching }>
                     { Object.keys(this.props.data).length ? (
                         <div className="paper">
@@ -45,8 +61,9 @@ class StatisticsView extends Component {
 
 export default connect(
     (state) => ({
-        data: getChartPoints(state, state.filters['statistics']),
+        visibleFilters: state.filters.statistics.visible,
+        data: getChartPoints(state),
         tickets: state.tickets
     }),
-    { getTickets }
+    { getTickets, toggleVisibleFilters }
 )(StatisticsView);

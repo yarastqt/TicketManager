@@ -173,11 +173,11 @@ class Table extends Component {
                     <div className="table__body">
                         { this.renderRows() }
                     </div>
-                    <TablePagination
-                        changePage={ this.changePage } changeRows={ this.changeRows }
-                        total={ total } page={ page } rows={ rows }
-                    />
                 </div>
+                <TablePagination
+                    changePage={ this.changePage } changeRows={ this.changeRows }
+                    total={ total } page={ page } rows={ rows }
+                />
                 <Portal closeOnEsc closeOnOutsideClick isOpened={ visible } onClose={ this.closePopup }>
                     <div className="popup" style={{ left: position.left, top: position.top }}>
                         <div className="popup__button" onClick={ this.handleEdit(props) }>

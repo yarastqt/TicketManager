@@ -81,9 +81,7 @@ class TicketsView extends Component {
                         />
                     </div>
                 </div>
-                <TicketsFilters
-                    visible={ this.props.visibleFilters }
-                />
+                <TicketsFilters visible={ this.props.visibleFilters } />
                 <Loader fetching={ this.props.tickets.fetching }>
                     <Table
                         name="tickets" data={ this.props.tickets.list } page={ this.props.page }

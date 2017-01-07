@@ -37,7 +37,7 @@ class StatisticsFilters extends Component {
 
     render() {
         return (
-            <div className="filters filters_visible">
+            <div className={ this.props.visible ? 'filters filters_visible' : 'filters' }>
                 <form className="form filters__form">
                     <Field name="period" label="Период"
                         component={ Select } options={ this.props.filtersList.period }

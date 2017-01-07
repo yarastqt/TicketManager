@@ -5,19 +5,19 @@ import { filterData } from 'selectors/table';
 
 export const getChartPoints = createSelector(
     (state) => state.tickets.list,
-    (state, filters) => filters,
-    (tickets, simpleFilters) => {
-        if (!tickets.length || !simpleFilters.period) {
+    (state) => state.filters.statistics.list,
+    (tickets, rawFilters) => {
+        if (!tickets.length || !rawFilters.period) {
             return {};
         }
 
         const statuses = ['pending', 'failure', 'done', 'canceled'];
         const endDate = new Date().setHours(0, 0, 0, 0) + 86400000;
-        const startDate = new Date(endDate - simpleFilters.period).setHours(0, 0, 0, 0);
+        const startDate = new Date(endDate - rawFilters.period).setHours(0, 0, 0, 0);
 
         // It is necessary to extend our filters
         const filters = {
-            ...simpleFilters, startDate, endDate
+            ...rawFilters, startDate, endDate
         };
 
         const filteredData = filterData(tickets, filters);

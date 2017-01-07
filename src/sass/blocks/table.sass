@@ -1,8 +1,25 @@
 .table
-    border-radius: 2px
-    border: 1px solid rgba($color-gray, .5)
+    $block: &
+
     animation: main 400ms $transition-function
     box-shadow: 0 2px 10px -1px rgba($color-base, .1)
+    border: 1px solid rgba($color-gray, .5)
+    border-width: 1px 0
+    margin: 0 -20px 0 -20px
+
+    +bp(min, 1024px)
+        margin: 0
+        border-width: 1px
+        border-radius: 2px
+
+    &__in
+        +bp(max, 1023px)
+            overflow-x: scroll
+            -webkit-overflow-scrolling: touch
+
+    &__header, &__body
+        +bp(max, 1023px)
+            width: 1300px
 
     &__header
         display: flex
@@ -46,7 +63,6 @@
     &__row
         display: flex
         padding: 12px 14px
-        // padding: 18px 14px
         background-color: #fff
         height: 54px
         position: relative
@@ -79,13 +95,6 @@
 
             .table__row-action
                 opacity: 1
-
-        // &_expanded
-        //     height: auto
-
-        //     .table__row-cell
-        //         white-space: initial
-        //         overflow: auto
 
     &__header-action,
     &__row-action
@@ -126,17 +135,26 @@
         background-color: #fff
         display: flex
         align-items: center
-        justify-content: flex-end
+        justify-content: space-between
         padding: 0 24px
         border-top: 1px solid rgba($color-gray, .5)
+
+        +bp(min, 768px)
+            justify-content: flex-end
 
     &__pagination-rows
         display: flex
         align-items: center
 
+        +bp(320px, 768px - 1px)
+            span
+                display: none
+
     &__pagination-select
-        margin-left: 25px
         position: relative
+
+        +bp(min, 768px)
+            margin-left: 25px
 
         &:after
             content: ''
@@ -147,6 +165,9 @@
             bottom: 0
             margin: auto
             pointer-events: none
+
+        &:hover:after
+            +icon('arrow-dropdown', 24px, 24px, $color-blue)
 
     &__pagination-select-control
         cursor: pointer
@@ -160,16 +181,26 @@
         padding-right: 25px
 
     &__pagination-counter
-        margin-left: 32px
+        +bp(min, 768px)
+            margin-left: 32px
 
     &__pagination-controls
         width: 72px
         display: flex
         justify-content: space-between
-        margin-left: 32px
+
+        +bp(min, 768px)
+            margin-left: 32px
 
     &__pagination-control
         cursor: pointer
+
+        &:not(&_disabled):hover
+            .icon_arrow-left
+                +icon('arrow-left', 24px, 24px, $color-blue)
+
+            .icon_arrow-right
+                +icon('arrow-right', 24px, 24px, $color-blue)
 
         &_disabled
             cursor: default

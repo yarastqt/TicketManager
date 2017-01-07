@@ -7,6 +7,7 @@
     height: 60px
     background-color: #fff
     border-bottom: 1px solid $color-gray
+    box-shadow: 0 2px 10px -1px rgba($color-base, .1)
 
     &__in
         position: relative
@@ -56,7 +57,7 @@
         position: relative
         display: flex
         align-items: center
-        padding: 2px
+        padding: 2px 2px 2px 24px
         border-radius: 23px
         cursor: pointer
         user-select: none
@@ -65,16 +66,15 @@
         &_active, &:hover
             background-color: rgba($color-gray, .25)
 
-        +bp(min, 768px)
-            padding-left: 24px
+        +bp(max, 768px - 1px)
+            display: none
+
+        +bp(max, 1024px - 1px)
+            pointer-events: none
 
     &__user-meta
         margin-right: 1.4rem
         font-size: 1.2rem
-        display: none
-
-        +bp(min, 768px)
-            display: block
 
     &__user-role
         color: rgba($color-base, .75)

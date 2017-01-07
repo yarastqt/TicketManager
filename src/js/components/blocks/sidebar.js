@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import menu from 'constants/menu';
+import { logout } from 'actions/session';
 import { hideSidebar } from 'actions/sidebar';
 
-function Sidebar({ hideSidebar, expanded, user }) {
+function Sidebar({ logout, hideSidebar, expanded, user }) {
     return (
         <div className={ expanded ? 'sidebar sidebar_expanded': 'sidebar' }>
             <div className="sidebar__menu">
@@ -19,6 +20,21 @@ function Sidebar({ hideSidebar, expanded, user }) {
                         </div>
                     )
                 )) }
+                <div className="sidebar__menu-mobile">
+                    <div className="sidebar__menu-separator"></div>
+                    <div className="sidebar__menu-item">
+                        <Link to="/profile" className="sidebar__menu-link" activeClassName="sidebar__menu-link_active" title="Профиль">
+                            <i className="icon icon_person"></i>
+                            <span className="sidebar__menu-text">Профиль</span>
+                        </Link>
+                    </div>
+                    <div className="sidebar__menu-item">
+                        <div className="sidebar__menu-link" title="Выйти" onClick={ logout }>
+                            <i className="icon icon_exit"></i>
+                            <span className="sidebar__menu-text">Выйти</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="sidebar__overlay" onClick={ hideSidebar }></div>
         </div>
@@ -40,6 +56,6 @@ Sidebar.propTypes = {
 };
 
 export default connect(
-    null, { hideSidebar },
+    null, { logout, hideSidebar },
     null, { pure: false }
 )(Sidebar);
