@@ -41,19 +41,19 @@ class StatisticsFilters extends Component {
                 <form className="form filters__form">
                     <Field name="period" label="Период"
                         component={ Select } options={ this.props.filtersList.period }
-                        xOnChange={ this.setFilter } clearable
+                        _onChange={ this.setFilter } clearable
                     />
                     <Field name="source" label="Источник"
                         component={ Select } options={ this.props.filtersList.sources }
-                        xOnChange={ this.setFilter } clearable
+                        _onChange={ this.setFilter } clearable
                     />
                     <Field name="createdBy" label="Менеджер"
                         component={ Select } options={ this.props.filtersList.managers }
-                        xOnChange={ this.setFilter } clearable
+                        _onChange={ this.setFilter } clearable
                     />
                     <Field name="serviceType" label="Вид услуги"
                         component={ Select } options={ this.props.filtersList.serviceTypes }
-                        xOnChange={ this.setFilter } clearable
+                        _onChange={ this.setFilter } clearable
                     />
                     <FormActions position="left">
                         <Button type="button" view="pseudo" icon="close"

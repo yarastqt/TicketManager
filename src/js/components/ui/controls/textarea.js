@@ -11,14 +11,14 @@ class Textarea extends Component {
     }
 
     render() {
-        const { input, name, label, placeholder, readonly, autoselect, meta: { active } } = this.props;
+        const { input, label, placeholder, readonly, autoselect, meta: { active } } = this.props;
 
         return (
             <div className="form__field">
-                <label htmlFor={ name } className={ active ? 'label label_active' : 'label' }>
+                <label htmlFor={ input.name } className={ active ? 'label label_active' : 'label' }>
                     { label }
                 </label>
-                <textarea id={ name } placeholder={ placeholder } className="textarea" ref="input"
+                <textarea id={ input.name } placeholder={ placeholder } className="textarea" ref="input"
                     readOnly={ readonly } { ...input } onClick={ autoselect && this.selectValue }
                 />
             </div>

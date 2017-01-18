@@ -40,26 +40,26 @@ class TicketsFilters extends Component {
             <div className={ this.props.visible ? 'filters filters_visible' : 'filters' }>
                 <form className="form filters__form">
                     <Field name="startDate" type="date" label="Дата от"
-                        component={ Input } xOnChange={ this.setFilter }
+                        component={ Input } _onChange={ this.setFilter }
                     />
                     <Field name="endDate" type="date" label="Дата до"
-                        component={ Input } xOnChange={ this.setFilter }
+                        component={ Input } _onChange={ this.setFilter }
                     />
                     <Field name="source" label="Источник"
                         component={ Select } options={ this.props.filtersList.sources }
-                        xOnChange={ this.setFilter } clearable
+                        _onChange={ this.setFilter } clearable
                     />
                     <Field name="status" label="Статус"
                         component={ Select } options={ this.props.filtersList.statuses }
-                        xOnChange={ this.setFilter } clearable
+                        _onChange={ this.setFilter } clearable
                     />
                     <Field name="createdBy" label="Менеджер"
                         component={ Select } options={ this.props.filtersList.managers }
-                        xOnChange={ this.setFilter } clearable
+                        _onChange={ this.setFilter } clearable
                     />
                     <Field name="serviceType" label="Вид услуги"
                         component={ Select } options={ this.props.filtersList.serviceTypes }
-                        xOnChange={ this.setFilter } clearable
+                        _onChange={ this.setFilter } clearable
                     />
                     <FormActions position="left">
                         <Button type="button" view="pseudo" icon="close"

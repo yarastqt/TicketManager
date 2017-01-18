@@ -12,7 +12,8 @@ export const getChartPoints = createSelector(
         }
 
         const statuses = ['pending', 'failure', 'done', 'canceled'];
-        const endDate = new Date().setHours(0, 0, 0, 0) + 86400000;
+        const ONE_DAY = 86400000;
+        const endDate = new Date().setHours(0, 0, 0, 0) + ONE_DAY;
         const startDate = new Date(endDate - rawFilters.period).setHours(0, 0, 0, 0);
 
         // It is necessary to extend our filters

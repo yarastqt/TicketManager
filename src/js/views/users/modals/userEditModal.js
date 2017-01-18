@@ -25,10 +25,10 @@ class UserEditModal extends Component {
                 <div className="modal__heading">Редактировать профиль пользователя</div>
                 <Form onSubmit={ this.props.handleSubmit(this.updateUser) } submitting={ this.props.submitting }>
                     <Field name="username" type="text" label="Имя"
-                        component={ Input } readonly
+                        component={ Input }
                     />
                     <Field name="email" type="text" label="E-Mail"
-                        component={ Input } readonly
+                        component={ Input }
                     />
                     <Field name="blocked" label="Состояние"
                         component={ Select } options={ this.props.options.statuses }

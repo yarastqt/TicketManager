@@ -22,9 +22,7 @@ class TableHeader extends Component {
 
         return (
             <div className={ headerCellClasses } style={{ width: `${width}%` }} onClick={ sorted && changeSort(name) }>
-                <span>
-                    { title }
-                </span>
+                <span>{ title }</span>
                 { sorted && this.renderSortedIcon() }
             </div>
         );

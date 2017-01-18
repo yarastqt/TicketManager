@@ -15,7 +15,7 @@ class Input extends Component {
 
     changeValue(event) {
         this.setState({ value: event.target.value });
-        this.props.onChange && this.props.onChange({
+        this.props._onChange && this.props._onChange({
             name: event.target.name,
             value: event.target.value
         });
@@ -58,16 +58,16 @@ class Input extends Component {
 
     render() {
         const { type } = this.state;
-        const { input, name, label, placeholder, readonly, meta: { active } } = this.props;
+        const { input, label, placeholder, readonly, meta: { active } } = this.props;
 
         return (
             <div className="form__field">
-                <label htmlFor={ name } className={ active ? 'label label_active' : 'label' }>
+                <label htmlFor={ input.name } className={ active ? 'label label_active' : 'label' }>
                     { label }
                 </label>
                 <div className="input">
                     { this.renderSecurityControl() }
-                    <input id={ name } type={ type } placeholder={ placeholder } className="input__control" ref="input"
+                    <input id={ input.name } type={ type } placeholder={ placeholder } className="input__control" ref="input"
                         readOnly={ readonly } { ...input } onChange={ this.changeValue }
                     />
                     { this.renderError() }

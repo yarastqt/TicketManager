@@ -1,5 +1,9 @@
 <ifModule mod_rewrite.c>
     RewriteEngine On
+
+    RewriteCond %{HTTPS} =on 
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [QSA,L]
+
     RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
     RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
     RewriteRule ^ - [L]

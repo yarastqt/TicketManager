@@ -4,7 +4,7 @@ import classnames from 'classnames';
 class Select extends Component {
     constructor() {
         super();
-        this.state = { value: '', type: 'select' };
+        this.state = { value: '', type: 'select', id: Math.floor(performance.now()) };
         this.changeOption = this.changeOption.bind(this);
         this.clearSelect = this.clearSelect.bind(this);
         this.returnSelectControl = this.returnSelectControl.bind(this);
@@ -34,7 +34,7 @@ class Select extends Component {
             setTimeout(() => this.refs.input.focus(), 0);
         } else {
             this.setState({ value: event.target.value });
-            this.props.xOnChange && this.props.xOnChange({
+            this.props._onChange && this.props._onChange({
                 name: event.target.name,
                 value: event.target.value
             });
@@ -44,7 +44,7 @@ class Select extends Component {
 
     clearSelect() {
         this.setState({ value: '' });
-        this.props.xOnChange && this.props.xOnChange({
+        this.props._onChange && this.props._onChange({
             name: this.refs.input.name,
             value: ''
         });
@@ -78,7 +78,8 @@ class Select extends Component {
     }
 
     renderSelect() {
-        const { input, name, placeholder, options, custom, clearable, meta: { active } } = this.props;
+        const { id } = this.state;
+        const { input, placeholder, options, custom, clearable, meta: { active } } = this.props;
         const selectClasses = classnames('select', {
             'select_focused': active, 'select_clearable': clearable
         });
@@ -86,7 +87,7 @@ class Select extends Component {
         return (
             <div className={ selectClasses }>
                 { this.renderClearControl() }
-                <select id={ name } className="select__control" ref="input" { ...input } onChange={ this.changeOption }>
+                <select id={ input.name + id } className="select__control" ref="input" { ...input } onChange={ this.changeOption }>
                     <option value="" disabled></option>
                     { options && options.map(({ value, label }, key) => (
                         <option value={ value } key={ key }>{ label }</option>
@@ -99,26 +100,27 @@ class Select extends Component {
     }
 
     renderInput() {
-        const { input, name, placeholder } = this.props;
+        const { id } = this.state;
+        const { input, placeholder } = this.props;
 
         return (
             <div className="input">
                 <span className="input__cancel" onClick={ this.returnSelectControl }>
                     <i className="icon icon_close"></i>
                 </span>
-                <input id={ name } type="text" placeholder={ placeholder } className="input__control" ref="input" { ...input } />
+                <input id={ input.name + id } type="text" placeholder={ placeholder } className="input__control" ref="input" { ...input } />
                 { this.renderError('input') }
             </div>
         );
     }
 
     render() {
-        const { type } = this.state;
-        const { name, label, meta: { active } } = this.props;
+        const { type, id } = this.state;
+        const { input, label, meta: { active } } = this.props;
 
         return (
             <div className="form__field">
-                <label htmlFor={ name } className={ active ? 'label label_active' : 'label' }>
+                <label htmlFor={ input.name + id } className={ active ? 'label label_active' : 'label' }>
                     { label }
                 </label>
                 { type === 'select' ? this.renderSelect() : this.renderInput() }

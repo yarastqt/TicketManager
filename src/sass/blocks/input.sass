@@ -77,9 +77,11 @@
                 color: rgba($color-base, .25)
 
         &:-webkit-autofill
-            -webkit-text-fill-color: $color-base
             box-shadow: inset 0 0 0 1000px #fcfcfc
             transition: background-color 5000s $transition-function 0s
+
+            &:focus
+                box-shadow: inset 0 0 0 1000px $color-light-blue
 
     &__control[type="password"]
         padding-right: 44px

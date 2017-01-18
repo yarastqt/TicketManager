@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class SnowFlakes extends Component {
+class SnowFlakes extends PureComponent {
     getRandom(min, max) {
         return Math.random() * (max - min) + min;
     }

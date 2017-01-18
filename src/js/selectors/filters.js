@@ -29,15 +29,17 @@ export const getFilters = createSelector(
             });
 
             for (const key in filters) {
-                filters[key] = filters[key].reduce((container, value) => {
-                    if (key === 'statuses') {
-                        container.push({ value, label: dict.statuses[value] });
-                    } else {
-                        container.push({ value, label: value });
-                    }
+                if (filters.hasOwnProperty(key)) {
+                    filters[key] = filters[key].reduce((container, value) => {
+                        if (key === 'statuses') {
+                            container.push({ value, label: dict.statuses[value] });
+                        } else {
+                            container.push({ value, label: value });
+                        }
 
-                    return container;
-                }, []);
+                        return container;
+                    }, []);
+                }
             }
         }
 

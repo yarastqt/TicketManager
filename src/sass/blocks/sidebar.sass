@@ -63,12 +63,13 @@
         font-size: 1.4rem
         padding: 0 3.1rem
         color: $color-base
-        transition: 250ms $transition-function
+        transition: background-color 250ms $transition-function
         height: 50px
         display: block
         line-height: 50px
         white-space: nowrap
         user-select: none
+        cursor: pointer
 
         &:before
             content: ''
@@ -80,7 +81,9 @@
             right: 100%
             transition: 250ms $transition-function
 
-        &:hover, &_active
+        .is-desktop &:hover,
+        .is-touch &:active,
+        &_active
             color: $color-blue
             background-color: $color-light-blue
 
@@ -99,8 +102,16 @@
             .icon_code
                 +icon('code', 24px, 24px, $color-blue)
 
+            .icon_person
+                +icon('person', 24px, 24px, $color-blue)
+
+            .icon_exit
+                +icon('exit', 24px, 24px, $color-blue)
+
         .icon
             top: -1px
+            width: 24px
+            height: 24px
 
     &__menu-text
         margin-left: 1.4rem !important
