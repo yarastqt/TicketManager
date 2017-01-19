@@ -1,12 +1,12 @@
 import { isEmpty } from 'utils';
-import { emailReg } from 'constants/validators';
+import { emailRegExp } from 'constants/validators';
 
 export function loginForm(data) {
     const errors = {};
 
     if (isEmpty(data.email)) {
         errors.email = 'Введите email';
-    } else if (!emailReg.test(data.email)) {
+    } else if (!emailRegExp.test(data.email)) {
         errors.email = 'Некорректный email';
     }
 
@@ -26,7 +26,7 @@ export function registerForm(data) {
 
     if (isEmpty(data.email)) {
         errors.email = 'Введите email';
-    } else if (!emailReg.test(data.email)) {
+    } else if (!emailRegExp.test(data.email)) {
         errors.email = 'Некорректный email';
     }
 

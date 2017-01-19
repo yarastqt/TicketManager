@@ -1,5 +1,5 @@
 import { isEmpty, isEmptyObject } from 'utils';
-import { emailReg } from 'constants/validators';
+import { emailRegExp } from 'constants/validators';
 
 export function profileCommonForm(data) {
     const errors = {};
@@ -14,7 +14,7 @@ export function profileCommonForm(data) {
 
     if (isEmpty(data.email)) {
         errors.email = 'Укажите email';
-    } else if (!emailReg.test(data.email)) {
+    } else if (!emailRegExp.test(data.email)) {
         errors.email = 'Некорректный email';
     }
 
