@@ -32,12 +32,22 @@
     cursor: default
     font-size: 1.2rem
     padding: 0 4px
-    background-color: #fff
-    background-image: linear-gradient(to bottom, #fcfcfc 0%, #fcfcfc 50%, #fff 50%, #fff 100%);
     position: absolute
+    z-index: 200
     right: 5px
     bottom: -7px
     user-select: none
     opacity: 0
     transform: translate3d(0, 12px, 0)
     animation: visible-transform 250ms $transition-function forwards
+
+    &:before
+        content: ''
+        position: absolute
+        z-index: -1
+        left: 0
+        right: 0
+        height: 1px
+        background-color: #fff
+        display: block
+        bottom: 7px

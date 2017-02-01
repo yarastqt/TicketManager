@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classnames from 'classnames';
+import CN from 'classnames';
 
 class Select extends Component {
     constructor() {
@@ -28,33 +28,39 @@ class Select extends Component {
         }
     }
 
+    setFocus() {
+        setTimeout(() => this.refs.input.focus(), 0);
+    }
+
     changeOption(event) {
         if (event.target.value === 'custom') {
             this.setState({ value: this.props.input.value || '', type: 'input' });
-            setTimeout(() => this.refs.input.focus(), 0);
+            this.setFocus();
         } else {
             this.setState({ value: event.target.value });
-            this.props._onChange && this.props._onChange({
-                name: event.target.name,
-                value: event.target.value
-            });
+
+            if (this.props._onChange) {
+                this.props._onChange({ name: event.target.name, value: event.target.value });
+            }
+
             this.props.input.onChange(event.target.value);
         }
     }
 
     clearSelect() {
         this.setState({ value: '' });
-        this.props._onChange && this.props._onChange({
-            name: this.refs.input.name,
-            value: ''
-        });
+
+        if (this.props._onChange) {
+            this.props._onChange({ name: this.refs.input.name, value: '' });
+        }
+
         this.props.input.onChange('');
-        setTimeout(() => this.refs.input.focus(), 0);
+        this.setFocus();
     }
 
     returnSelectControl() {
         this.setState({ value: '', type: 'select' });
-        setTimeout(() => this.refs.input.focus(), 0);
+        this.setFocus();
     }
 
     renderError(controlName) {
@@ -80,8 +86,10 @@ class Select extends Component {
     renderSelect() {
         const { id } = this.state;
         const { input, placeholder, options, custom, clearable, meta: { active } } = this.props;
-        const selectClasses = classnames('select', {
-            'select_focused': active, 'select_clearable': clearable
+        const selectClasses = CN({
+            'select': true,
+            'select_focused': active,
+            'select_clearable': clearable 
         });
 
         return (
@@ -117,10 +125,14 @@ class Select extends Component {
     render() {
         const { type, id } = this.state;
         const { input, label, meta: { active } } = this.props;
+        const labelClasses = CN({
+            'label': true,
+            'label_active': active
+        });
 
         return (
             <div className="form__field">
-                <label htmlFor={ input.name + id } className={ active ? 'label label_active' : 'label' }>
+                <label htmlFor={ input.name + id } className={ labelClasses }>
                     { label }
                 </label>
                 { type === 'select' ? this.renderSelect() : this.renderInput() }

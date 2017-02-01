@@ -2,12 +2,13 @@ import webpack from 'webpack';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
+const iconsPath = process.env.NODE_ENV === 'production' ? '../public/assets/i/icons/' : 'public/assets/i/icons/';
 const postcssProcessors = [
     require('autoprefixer')({
         browsers: ['last 2 versions']
     }),
     require('postcss-svg')({
-        paths: ['public/assets/i/icons/'],
+        paths: [iconsPath],
         svgo: true
     })
 ];
@@ -33,7 +34,7 @@ export default {
         loaders: [
             {
                 test: /\.sass$/,
-                loader: ExtractTextPlugin.extract('style', 'css!postcss!sass!import-glob')
+                loader: ExtractTextPlugin.extract('style', 'css!csso!postcss!sass!import-glob')
             }
         ]
     },

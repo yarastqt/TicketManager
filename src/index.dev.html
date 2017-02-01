@@ -3,18 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="JetMix TM">
     <title></title>
-    <link type="image/png" rel="icon" href="/assets/i/favicons/favicon.png" sizes="192x192">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/assets/i/screens/ios/192x192.png">
+    <link type="image/png" rel="icon" href="/assets/i/favicon.png" sizes="192x192">
     <link rel="stylesheet" href="/assets/css/bundle.css">
 </head>
 <body class="page">
     <div id="react-root"></div>
     <script>
-        if ('ontouchstart' in window || navigator.MaxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
-            document.documentElement.classList.add('is-touch');
-        } else {
-            document.documentElement.classList.add('is-desktop');
-        }
+        window.addEventListener('load', function () {
+            if ('serviceWorker' in navigator && document.location.search === '?sw=1') {
+                navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then(function () {
+                    console.log('SW registered');
+                });
+            }
+
+            if ('ontouchstart' in window || navigator.MaxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
+                document.documentElement.classList.add('is-touch');
+            } else {
+                document.documentElement.classList.add('is-desktop');
+            }
+        });
     </script>
     <script src="/assets/js/bundle.js"></script>
 </body>

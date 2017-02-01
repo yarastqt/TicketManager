@@ -55,10 +55,7 @@ function mapStateToProps(state) {
     const user = state.session.user;
 
     return {
-        initialValues: {
-            ...user,
-            role: dict.roles[user.role]
-        }
+        initialValues: { ...user, role: dict.roles[user.role] }
     };
 }
 

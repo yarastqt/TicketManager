@@ -1,9 +1,15 @@
 .input
+    $block: &
+
     position: relative
 
     &_disabled
         opacity: .5
         cursor: default
+
+    &_opened
+        #{$block}__control
+            border-radius: 2px 2px 0 0
 
     &__security, &__cancel
         position: absolute
@@ -91,3 +97,39 @@
 
     &__error
         +control-error
+
+    &__suggest
+        display: none
+        background-color: #fff
+        border: 1px solid $color-blue
+        border-top: none
+        border-radius: 0 0 2px 2px
+        min-width: 184px
+        width: 100%
+        position: absolute
+        z-index: 100
+        top: 100%
+        padding: 9px 0
+
+        &_visible
+            display: block
+
+        &-in
+            overflow-y: scroll
+            max-height: 135px
+
+        &-item
+            cursor: pointer
+            user-select: none
+            line-height: 30px
+            padding: 0 12px
+            font-size: 1.4rem
+            white-space: nowrap
+            text-overflow: ellipsis
+            overflow: hidden
+
+            &_focused
+                background-color: rgba($color-gray, .25)
+
+            &:hover
+                background-color: rgba($color-gray, .15)

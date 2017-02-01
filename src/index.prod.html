@@ -8,18 +8,27 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="JetMix TM">
     <title></title>
-    <link rel="manifest" href="/assets/manifest.json">
-    <link type="image/png" rel="icon" href="/assets/i/favicons/favicon.png" sizes="192x192">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/assets/i/screens/ios/192x192.png">
+    <link type="image/png" rel="icon" href="/assets/i/favicon.png" sizes="192x192">
 </head>
 <body class="page">
     <div id="react-root"></div>
     <script src="//cdn.polyfill.io/v2/polyfill.min.js"></script>
     <script>
-        if ('ontouchstart' in window || navigator.MaxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
-            document.documentElement.classList.add('is-touch');
-        } else {
-            document.documentElement.classList.add('is-desktop');
-        }
+        window.addEventListener('load', function () {
+            if ('serviceWorker' in navigator && document.location.search === '?sw=1') {
+                navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then(function () {
+                    console.log('SW registered');
+                });
+            }
+
+            if ('ontouchstart' in window || navigator.MaxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
+                document.documentElement.classList.add('is-touch');
+            } else {
+                document.documentElement.classList.add('is-desktop');
+            }
+        });
     </script>
 </body>
 </html>

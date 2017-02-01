@@ -97,7 +97,7 @@ class Table extends Component {
     }
 
     renderCells(data) {
-        return this.props.children.map((item, key) => {
+        return this.props.children.map((item) => {
             let value = data[item.props.name];
 
             if (item.props.cell && item.props.link && data[item.props.link]) {
@@ -126,9 +126,7 @@ class Table extends Component {
     }
 
     renderActions(data) {
-        if (this.props.user.role !== 'manager' || this.props.user.role === 'manager'
-            && this.props.user.id === data.createdBy.id
-        ) {
+        if (this.props.user.role !== 'manager' || this.props.user.role === 'manager' && this.props.user.id === data.createdBy.id) {
             return (
                 <div className="table__row-button" onClick={ this.openPopup(data.id) }></div>
             );
@@ -138,10 +136,7 @@ class Table extends Component {
     renderHeaders() {
         return this.props.children.map((item) => {
             return (
-                <TableHeader
-                    { ...item.props } key={ item.props.name }
-                    sort={ this.props.sort } changeSort={ this.changeSort }
-                />
+                <TableHeader { ...item.props } key={ item.props.name } sort={ this.props.sort } changeSort={ this.changeSort } />
             );
         });
     }

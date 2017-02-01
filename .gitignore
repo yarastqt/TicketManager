@@ -118,3 +118,4 @@ dist
 .idea
 build
 stats.json
+scripts/ftp.config.js

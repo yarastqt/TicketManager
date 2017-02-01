@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 
 import { ticketForm as validate } from 'validators/ticket';
+import { getSuggests } from 'selectors/suggests';
 import { DateUtil } from 'utils';
 import { Input, Select, Textarea, Button, Form, FormGroup, FormActions } from 'components/ui';
 import { addTicket } from 'actions/tickets';
@@ -22,13 +23,24 @@ class TicketAddModal extends Component {
         });
     }
 
+    getTaskSourceSuggests() {
+        switch (this.props.taskType) {
+            case 'Заявка':
+                return this.props.suggests.taskSource.ticket;
+            case 'Звонок':
+                return this.props.suggests.taskSource.call;
+            case 'Почта':
+                return this.props.suggests.taskSource.mail;
+        }
+    }
+
     render() {
         return (
             <div className="modal__in">
                 <div className="modal__heading">Новая заявка</div>
                 <Form onSubmit={ this.props.handleSubmit(this.addTicket) } submitting={ this.props.submitting }>
                     <Field name="name" type="text" label="Имя (ФИО / Компания)"
-                        component={ Input }
+                        component={ Input } suggests={ this.props.suggests.name }
                     />
                     <FormGroup>
                         <Field name="date" type="date" label="Дата"
@@ -46,7 +58,8 @@ class TicketAddModal extends Component {
                             component={ Select } options={ this.props.options.taskTypes } custom
                         />
                         <Field name="taskSource" type="text" label="Источник заявки"
-                            component={ Input }
+                            component={ Input } suggests={ this.getTaskSourceSuggests() }
+                            disabled={ this.props.taskType ? false : true }
                         />
                     </FormGroup>
                     <Field name="serviceType" label="Вид услуги"
@@ -102,12 +115,16 @@ TicketAddModal = reduxForm({
     validate
 })(TicketAddModal);
 
+const formSelector = formValueSelector('ticketAddForm');
+
 export default connect(
     (state) => ({
         initialValues: {
             date: DateUtil.getCurrentDate(),
             time: DateUtil.getCurrentTime()
-        }
+        },
+        suggests: getSuggests(state),
+        taskType: formSelector(state, 'taskType')
     }),
     { addTicket }
 )(TicketAddModal);

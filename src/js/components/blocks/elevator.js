@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
+import CN from 'classnames';
 
 class Elevator extends Component {
     constructor() {
@@ -8,7 +8,6 @@ class Elevator extends Component {
         this.state = { visible: false };
         this.onScroll = this.onScroll.bind(this);
         this.scrollToTop = this.scrollToTop.bind(this);
-        this.content = null;
     }
 
     componentDidMount() {
@@ -25,7 +24,7 @@ class Elevator extends Component {
         const contentHeight = this.content.clientHeight + contentOffsetTop;
         const contentScroll = this.content.scrollHeight;
 
-        this.setState({ visible: contentOffsetTop > 600 && contentHeight < contentScroll - 92 });
+        this.setState({ visible: contentOffsetTop > 200 && contentHeight < contentScroll - 92 });
     }
 
     scrollToTop() {
@@ -52,8 +51,10 @@ class Elevator extends Component {
     }
 
     render() {
-        const elevatorClasses = classnames('elevator', {
-            'elevator_visible': this.state.visible, 'elevator_shifted': this.props.isActiveSnackBar
+        const elevatorClasses = CN({
+            'elevator': true,
+            'elevator_visible': this.state.visible,
+            'elevator_shifted': this.props.isActiveSnackBar
         });
 
         return (
