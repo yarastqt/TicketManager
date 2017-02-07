@@ -16,7 +16,9 @@ export function getTracks() {
             dispatch({ type: TRACKS_LOAD_REQUEST });
 
             return http.get('/v1/tracks').then((payload) => {
-                dispatch({ type: TRACKS_LOAD_SUCCESS, payload }); 
+                dispatch({ type: TRACKS_LOAD_SUCCESS, payload });
+            }).catch((error) => {
+                dispatch({ type: TRACKS_LOAD_FAILURE });
             });
         }
     };
@@ -34,6 +36,7 @@ export function addTrack(track) {
             dispatch({ type: TRACK_ADD_SUCCESS, payload });
             dispatch(pushToast('Сайт добавлен'));
         }).catch((errors) => {
+            dispatch({ type: TRACK_ADD_FAILURE });
             throw new SubmissionError(normalizeErrors(errors));
         });
     };
@@ -51,6 +54,7 @@ export function updateTrack(track) {
             dispatch({ type: TRACK_UPDATE_SUCCESS, payload });
             dispatch(pushToast('Сайт обновлен'));
         }).catch((errors) => {
+            dispatch({ type: TRACK_UPDATE_FAILURE });
             throw new SubmissionError(normalizeErrors(errors));
         });;
     };

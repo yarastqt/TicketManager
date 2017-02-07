@@ -18,7 +18,7 @@ export function getTickets() {
             return http.get('/v1/tickets').then((payload) => {
                 dispatch({ type: TICKETS_LOAD_SUCCESS, payload });
             }).catch((error) => {
-                // console.log(error);
+                dispatch({ type: TICKETS_LOAD_FAILURE });
             });
         }
     };
@@ -36,6 +36,7 @@ export function addTicket(data) {
             dispatch({ type: TICKET_ADD_SUCCESS, payload });
             dispatch(pushToast('Заявка добавлена'));
         }).catch((errors) => {
+            dispatch({ type: TICKET_ADD_FAILURE });
             throw new SubmissionError(normalizeErrors(errors));
         });
     };
@@ -53,6 +54,7 @@ export function updateTicket(ticket) {
             dispatch({ type: TICKET_UPDATE_SUCCESS, payload });
             dispatch(pushToast('Заявка обновлена'));
         }).catch((errors) => {
+            dispatch({ type: TICKET_UPDATE_FAILURE });
             throw new SubmissionError(normalizeErrors(errors));
         });
     };

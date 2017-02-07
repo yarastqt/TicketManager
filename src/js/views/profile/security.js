@@ -33,7 +33,7 @@ class ProfileSecurityView extends Component {
                     />
                     <FormActions position="right">
                         <Button type="submit" view="action" icon="update"
-                            text={ this.props.submitting ? 'Обновление...' : 'Обновить пароль' }
+                            text={ this.props.submitting ? 'Обработка...' : 'Изменить пароль' }
                             disabled={ this.props.pristine || this.props.submitting }
                         />
                     </FormActions>

@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import CN from 'classnames';
 
 import { toastExpires } from 'actions/toast';
 
-class SnackBar extends Component {    
+class SnackBar extends Component {
     constructor() {
         super();
         this.hideToast = this.hideToast.bind(this);
@@ -24,10 +25,16 @@ class SnackBar extends Component {
     }
 
     render () {
+        const { toast: { visible, text } } = this.props;
+        const toastClasses = CN({
+            'toast': true,
+            'toast_visible': visible
+        });
+
         return (
             <div className="snackbar">
-                <div className={ this.props.toast.visible ? 'toast toast_visible' : 'toast' }>
-                    <div className="toast__text">{ this.props.toast.text }</div>
+                <div className={ toastClasses }>
+                    <div className="toast__text">{ text }</div>
                     <div className="toast__action" onClick={ this.hideToast }>Закрыть</div>
                 </div>
             </div>

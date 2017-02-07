@@ -57,10 +57,14 @@ function RequireAuthentication(ComposedComponent) {
             if (!this.props.session.user || !this.props.session.authenticated) {
                 return null;
             } else if (!this.state.allowed) {
-                return <NotFound />;
+                return (
+                    <NotFound />
+                );
             }
 
-            return <ComposedComponent { ...this.props } />;
+            return (
+                <ComposedComponent { ...this.props } />
+            );
         }
     }
 

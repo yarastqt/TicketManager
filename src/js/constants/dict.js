@@ -5,6 +5,7 @@ export default {
         'admin': 'Администратор'
     },
     statuses: {
+        new: 'Новая',
         pending: 'В процессе',
         failure: 'Отказ',
         done: 'Выполнено',

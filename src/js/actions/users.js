@@ -17,6 +17,8 @@ export function getUsers() {
 
             return http.get('/v1/users').then((payload) => {
                 dispatch({ type: USERS_LOAD_SUCCESS, payload });
+            }).catch((error) => {
+                dispatch({ type: USERS_LOAD_FAILURE });
             });
         }
     };
@@ -34,6 +36,7 @@ export function updateUser(user) {
             dispatch({ type: USER_UPDATE_SUCCESS, payload });
             dispatch(pushToast('Профиль пользователя обновлен'));
         }).catch((errors) => {
+            dispatch({ type: USER_UPDATE_FAILURE });
             throw new SubmissionError(normalizeErrors(errors));
         });
     };

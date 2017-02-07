@@ -35,7 +35,7 @@ class ProfileCommonView extends Component {
                     />
                     <FormActions position="right">
                         <Button type="submit" view="action" icon="update"
-                            text={ this.props.submitting ? 'Обновление...' : 'Обновить' }
+                            text={ this.props.submitting ? 'Обработка...' : 'Обновить данные' }
                             disabled={ this.props.pristine || this.props.submitting }
                         />
                     </FormActions>

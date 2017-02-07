@@ -28,7 +28,6 @@ export const getSuggests = createSelector(
                     break;
             }
 
-
             return acc;
         }, { name: [], taskSource: { ticket: [], call: [], mail: [] } });
 

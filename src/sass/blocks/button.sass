@@ -1,13 +1,13 @@
 .button
     border: none
     cursor: pointer
-    min-width: 184px
+    min-width: 195px
     display: inline-block
     user-select: none
     transition: 250ms $transition-function
     font-size: 1.4rem
     border-radius: 2px
-    height: 38px
+    height: 40px
     padding: 0 8px
 
     &_type
@@ -49,8 +49,7 @@
                 +icon('filter', 15px, 15px, $color-blue)
 
     &_disabled
-        cursor: default
-        opacity: .5
+        +disabled
 
         &.button_view_action
             .is-desktop &:focus,

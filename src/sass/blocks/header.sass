@@ -4,7 +4,7 @@
     right: 0
     top: 0
     z-index: 500
-    height: 60px
+    height: 56px
     background-color: #fff
     border-bottom: 1px solid $color-gray
     box-shadow: 0 2px 10px -1px rgba($color-base, .1)
@@ -36,12 +36,36 @@
         .is-touch &:active
             opacity: 1
 
+    &__menu-icon
+        width: 18px
+        height: 2px
+        background-color: $color-base
+        position: relative
+        top: -5px
+
+        &:before, &:after
+            content: ''
+            background-color: inherit
+            height: inherit
+            width: 18px
+            position: absolute
+            transition: 150ms $transition-function
+
+        &:before
+            top: 5px
+
+        &:after
+            top: 10px
+
+        &_opened:before
+            width: 9px
+
     &__logo
         background-image: url(/assets/i/logo_s.svg)
         background-size: 100%
         background-repeat: no-repeat
-        width: 54px
-        height: 54px
+        width: 50px
+        height: 50px
         position: absolute
         top: 0
         left: 0
@@ -51,7 +75,7 @@
 
         +bp(min, 768px)
             background-image: url(/assets/i/logo_m.svg)
-            width: 180px
+            width: 170px
 
     &__user
         position: relative
@@ -72,6 +96,14 @@
         +bp(max, 1024px - 1px)
             pointer-events: none
 
+        &_online
+            .header__user-avatar:before
+                background-color: $color-green
+
+        &_offline
+            .header__user-avatar:before
+                background-color: $color-yellow
+
     &__user-meta
         margin-right: 1.4rem
         font-size: 1.2rem
@@ -80,8 +112,8 @@
         color: rgba($color-base, .75)
 
     &__user-avatar
-        width: 42px
-        height: 42px
+        width: 44px
+        height: 44px
         position: relative
 
         &:before
@@ -89,7 +121,6 @@
             width: 10px
             height: 10px
             border-radius: 50%
-            background-color: $color-green
             position: absolute
             top: 0
             right: 0
@@ -99,3 +130,18 @@
             width: 100%
             height: 100%
             border-radius: 50%
+
+    &__popup
+        transition: 250ms $transition-function
+        transform: translateY(10px)
+        opacity: 0
+        visibility: hidden
+        top: 120%
+        right: 0
+        pointer-events: none
+
+        &_opened
+            transform: translateY(0)
+            opacity: 1
+            visibility: visible
+            pointer-events: all

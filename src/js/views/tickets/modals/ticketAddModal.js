@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 
 import { ticketForm as validate } from 'validators/ticket';
+import { ticketSelectOptions } from 'constants/select';
 import { getSuggests } from 'selectors/suggests';
 import { DateUtil } from 'utils';
 import { Input, Select, Textarea, Button, Form, FormGroup, FormActions } from 'components/ui';
@@ -50,6 +51,9 @@ class TicketAddModal extends Component {
                             component={ Input }
                         />
                     </FormGroup>
+                    <Field name="status" label="Статус"
+                        component={ Select } options={ this.props.options.statuses }
+                    />
                     <Field name="source" label="Источник"
                         component={ Select } options={ this.props.options.sources } custom
                     />
@@ -84,30 +88,7 @@ class TicketAddModal extends Component {
 }
 
 TicketAddModal.defaultProps = {
-    options: {
-        sources: [
-            { value: 'Яндекс РСЯ', label: 'Яндекс РСЯ' },
-            { value: 'Яндекс Реклама', label: 'Яндекс Реклама' },
-            { value: 'Яндекс Поиск', label: 'Яндекс Поиск' },
-            { value: 'Google КМС', label: 'Google КМС' },
-            { value: 'Google Реклама', label: 'Google Реклама' },
-            { value: 'Google Поиск', label: 'Google Поиск' },
-            { value: 'Неизвестно', label: 'Неизвестно' }
-        ],
-        taskTypes: [
-            { value: 'Заявка', label: 'Заявка' },
-            { value: 'Звонок', label: 'Звонок' },
-            { value: 'Почта', label: 'Почта' }
-        ],
-        serviceTypes: [
-            { value: 'Переезд квартиры', label: 'Переезд квартиры' },
-            { value: 'Переезд офиса', label: 'Переезд офиса' },
-            { value: 'Переезд за город', label: 'Переезд за город' },
-            { value: 'Перевозка мебели', label: 'Перевозка мебели' },
-            { value: 'Междугородний переезд', label: 'Междугородний переезд' },
-            { value: 'Грузоперевозки', label: 'Грузоперевозки' }
-        ]
-    }
+    ...ticketSelectOptions
 };
 
 TicketAddModal = reduxForm({
@@ -121,7 +102,8 @@ export default connect(
     (state) => ({
         initialValues: {
             date: DateUtil.getCurrentDate(),
-            time: DateUtil.getCurrentTime()
+            time: DateUtil.getCurrentTime(),
+            status: 'pending'
         },
         suggests: getSuggests(state),
         taskType: formSelector(state, 'taskType')

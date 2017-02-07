@@ -21,6 +21,7 @@ export function updateProfile(data) {
                 dispatch(pushToast('Профиль обновлен'));
             })
             .catch((errors) => {
+                dispatch({ type: PROFILE_UPDATE_FAILURE });
                 throw new SubmissionError(normalizeErrors(errors));
             });
     };

@@ -47,7 +47,7 @@ class Table extends Component {
                 popup: {
                     visible: true, props: id, position: {
                         top: targetRect.top - bodyRect.top,
-                        left: targetRect.right
+                        left: targetRect.right - 168
                     }
                 }
             });

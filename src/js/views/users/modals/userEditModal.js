@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
 import { userForm as validate } from 'validators/user';
+import { userSelectOptions } from 'constants/select';
 import { getUserById } from 'selectors/users';
 import { Input, Select, Button, Form, FormActions } from 'components/ui';
 import { updateUser } from 'actions/users';
@@ -52,17 +53,7 @@ class UserEditModal extends Component {
 }
 
 UserEditModal.defaultProps = {
-    options: {
-        statuses: [
-            { value: false, label: 'Активен' },
-            { value: true, label: 'Заблокирован' },
-        ],
-        roles: [
-            { value: 'manager', label: 'Менеджер' },
-            { value: 'senior manager', label: 'Старшый менеджер' },
-            { value: 'admin', label: 'Администратор' }
-        ]
-    }
+    ...userSelectOptions
 };
 
 UserEditModal = reduxForm({

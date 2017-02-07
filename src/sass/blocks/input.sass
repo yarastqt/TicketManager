@@ -4,8 +4,7 @@
     position: relative
 
     &_disabled
-        opacity: .5
-        cursor: default
+        +disabled
 
     &_opened
         #{$block}__control
@@ -40,12 +39,12 @@
             +icon('close', 24px, 24px, $color-blue)
 
     &__control
-        height: 38px
+        height: 40px
         padding: 0 12px
         background-color: #fcfcfc
         border: 1px solid #e0e0e0
         border-radius: 2px
-        min-width: 184px
+        min-width: 195px
         width: 100%
         font: inherit
         font-size: 1.4rem

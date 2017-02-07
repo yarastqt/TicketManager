@@ -21,7 +21,9 @@ function RequireNotAuthentication(ComposedComponent) {
         }
 
         render() {
-            return <ComposedComponent { ...this.props } />;
+            return (
+                <ComposedComponent { ...this.props } />
+            );
         }
     }
 

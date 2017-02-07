@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import CN from 'classnames';
 
 import { hideModal } from 'actions/modal';
 
@@ -42,20 +43,24 @@ class Modal extends Component {
             const ModalContent = modals[view];
 
             return (
-                <ModalContent
-                    { ...modalProps }
-                />
+                <ModalContent { ...modalProps } />
             );
         }
     }
 
     render() {
+        const { modal: { visible }, hideModal } = this.props;
+        const modalClasses = CN({
+            'modal': true,
+            'modal_visible': visible
+        });
+
         return (
-            <div className={ this.props.modal.visible ? 'modal modal_visible' : 'modal' }>
+            <div className={ modalClasses }>
                 <div className="modal__container">
                     { this.renderContent() }
                 </div>
-                <div className="modal__overlay" onClick={ this.props.hideModal }></div>
+                <div className="modal__overlay" onClick={ hideModal }></div>
             </div>
         );
     }

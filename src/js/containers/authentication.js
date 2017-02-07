@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router'
 
-function Authentication({ children, location }) {
+function Authentication({ location, children }) {
     return (
         <div className="sign-container">
             <div className="sign-container__logo"></div>
@@ -16,5 +16,10 @@ function Authentication({ children, location }) {
         </div>
     );
 }
+
+Authentication.propTypes = {
+    location: PropTypes.object.isRequired,
+    children: PropTypes.element.isRequired
+};
 
 export default Authentication;

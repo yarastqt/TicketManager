@@ -23,14 +23,13 @@ function request(url, options) {
         fetch(endpoint, advancedOptions)
             .then((response) => {
                 if (response.ok) {
-                    parseJSON(response).then(
-                        (response) => resolve(response)
-                    );
+                    parseJSON(response).then((response) => resolve(response));
                 } else {
-                    parseJSON(response).then(
-                        (response) => reject(response)
-                    );
+                    parseJSON(response).then((response) => reject(response));
                 }
+            })
+            .catch((error) => {
+                reject(error);
             });
     });
 }

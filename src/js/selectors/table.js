@@ -46,7 +46,7 @@ export const filterData = createSelector(
             }
         });
 
-        return result;        
+        return result;
     }
 );
 

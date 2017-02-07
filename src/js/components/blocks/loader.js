@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Children, PropTypes } from 'react';
 
 function Loader({ fetching, children }) {
     if (fetching) {
@@ -11,7 +11,7 @@ function Loader({ fetching, children }) {
         );
     }
 
-    return React.Children.only(children);
+    return Children.only(children);
 }
 
 Loader.propTypes = {

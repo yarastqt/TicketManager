@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import CN from 'classnames';
 
 import { Header, Sidebar, Modal, Elevator, SnackBar } from 'components/blocks';
 
 function Dashboard({ user, expandedSidebar, children }) {
+    const contentClasses = CN({
+        'content': true,
+        'content_expanded': expandedSidebar
+    });
+
     return (
         <div className="main">
-            <Header />
-            <Sidebar user={ user } expanded={ expandedSidebar } />
-            <div className={ expandedSidebar ? 'content content_expanded' : 'content' }>
+            <Header expandedSidebar={ expandedSidebar } />
+            <Sidebar user={ user } expandedSidebar={ expandedSidebar } />
+            <div className={ contentClasses }>
                 { children }
                 <div className="footer">
                     <div className="footer__developer">Разработано и спроектировано в JetMix &copy; { new Date().getFullYear() }</div>
@@ -20,6 +26,12 @@ function Dashboard({ user, expandedSidebar, children }) {
         </div>
     );
 }
+
+Dashboard.propTypes = {
+    user: PropTypes.object.isRequired,
+    expandedSidebar: PropTypes.bool.isRequired,
+    children: PropTypes.element.isRequired
+};
 
 export default connect((state) => ({
     user: state.session.user,

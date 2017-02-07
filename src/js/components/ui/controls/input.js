@@ -59,12 +59,15 @@ class Input extends Component {
         this.setState({ hoveredSuggests: false });
     }
 
-    getFilteredSuggests(filterValue) {
-        const result = this.props.suggests ? this.props.suggests.filter((suggest) => {
-            return suggest.toLowerCase().indexOf(filterValue.toLowerCase()) > -1;
-        }) : [];
+    getFilteredSuggests(value) {
+        if (this.props.suggests) {
+            const filterValue = value.toLowerCase();
+            return this.props.suggests.filter((suggest) => {
+                return suggest.toLowerCase().includes(filterValue);
+            });
+        }
 
-        return result;
+        return [];
     }
 
     selectSuggest(suggest) {
@@ -77,7 +80,7 @@ class Input extends Component {
     setVisibleSuggest() {
         const suggests = this.getFilteredSuggests(this.state.value);
 
-        if (suggests.length === 1 && suggests[0] === this.state.value) {
+        if (!suggests.length || suggests.length === 1 && suggests[0] === this.state.value) {
             this.setState({ suggests: [], suggestsVisible: false });
         } else {
             this.setState({ suggests, suggestsVisible: true });
@@ -98,33 +101,33 @@ class Input extends Component {
     }
 
     scrollList(direction) {
+        const suggestHeight = 30;
+        const offset = this.state.focusedSuggest * suggestHeight;
+        const scrollTop = this.refs.wrapper && offset - this.refs.wrapper.scrollTop;
+
         switch (direction) {
             case 'up':
-                const offset = this.state.focusedSuggest * 30;
-
-                if (offset - 15 === this.refs.wrapper.scrollTop) {
-                    this.refs.wrapper.scrollTop -= 15;
-                } else if (offset === this.refs.wrapper.scrollTop) {
-                    this.refs.wrapper.scrollTop -= 30;
+                if (scrollTop < 0 || offset === scrollTop) {
+                    this.refs.wrapper.scrollTop = offset - suggestHeight;
+                } else if (scrollTop === suggestHeight / 2) {
+                    this.refs.wrapper.scrollTop -= suggestHeight / 2;
+                } else if (scrollTop === 0) {
+                    this.refs.wrapper.scrollTop -= suggestHeight;
                 }
                 break;
 
             case 'down':
-                // TODO: так же можно рассчитать и для скрола вверх
-                const calc = (this.state.focusedSuggest * 30) - this.refs.wrapper.scrollTop;
-
-                if (this.state.focusedSuggest === 3) {
-                    this.refs.wrapper.scrollTop += 15;
+                if (offset < this.refs.wrapper.scrollTop || scrollTop > suggestHeight * 4) {
+                    if (this.state.focusedSuggest === -1) {
+                        this.refs.wrapper.scrollTop = 0;
+                    } else {
+                        this.refs.wrapper.scrollTop = offset + suggestHeight;
+                    }
+                } else if ((this.state.focusedSuggest === 3 && scrollTop > suggestHeight * 2) || scrollTop === suggestHeight * 3) {
+                    this.refs.wrapper.scrollTop += suggestHeight / 2;
+                } else if (scrollTop > suggestHeight * 3) {
+                    this.refs.wrapper.scrollTop += suggestHeight;
                 }
-
-                else if (this.refs.wrapper.scrollTop - this.state.focusedSuggest * 30 === -90) {
-                    this.refs.wrapper.scrollTop += 15;
-                }
-
-                else if (calc > 90) {
-                    this.refs.wrapper.scrollTop += 30;
-                }
-
                 break;
 
             case 'top':
@@ -136,11 +139,13 @@ class Input extends Component {
     }
 
     handleKeyDown(event) {
+        const prevState = { suggestsVisible: false, focusedSuggest: -1 };
+
         switch (event.keyCode) {
             case 9: // tab
             case 27: // escp
                 this.scrollList('top');
-                this.setState({ suggestsVisible: false, focusedSuggest: -1 });
+                this.setState(prevState);
                 break;
 
             case 38: // up
@@ -164,13 +169,12 @@ class Input extends Component {
             case 13: // enter
                 if (this.state.focusedSuggest > -1) {
                     event.preventDefault();
-
                     const focusedSuggest = this.state.suggests[this.state.focusedSuggest];
 
-                    this.setState({ suggestsVisible: false, focusedSuggest: -1, value: focusedSuggest });
+                    this.setState({ ...prevState, value: focusedSuggest });
                     this.props.input.onChange(focusedSuggest);
                 } else {
-                    this.setState({ suggestsVisible: false, focusedSuggest: -1 });
+                    this.setState(prevState);
                 }
                 break;
         }
@@ -178,14 +182,19 @@ class Input extends Component {
 
     changeValue(event) {
         const suggests = this.getFilteredSuggests(event.target.value);
+        const prevState = { focusedSuggest: -1, value: event.target.value };
 
-        this.scrollList('top');
-        this.setState({ suggests, suggestsVisible: true, focusedSuggest: -1, value: event.target.value });
+        if (!suggests.length) {
+            this.setState({ suggests: [], suggestsVisible: false, ...prevState });
+        } else {
+            this.setState({ suggests, suggestsVisible: true, ...prevState });
+        }
 
         if (this.props._onChange) {
             this.props._onChange({ name: event.target.name, value: event.target.value });
         }
 
+        this.scrollList('top');
         this.props.input.onChange(event.target.value);
     }
 
@@ -259,7 +268,8 @@ class Input extends Component {
         });
         const labelClasses = CN({
             'label': true,
-            'label_active': active
+            'label_active': active,
+            'label_disabled': disabled
         });
 
         return (
