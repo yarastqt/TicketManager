@@ -24,34 +24,38 @@ export const defaultSettings = {
 export const chartOptions = {
     // animation: false,
     scales: {
-        yAxes: [{
-            scaleLabel: {
-                display: true,
-                labelString: 'Заявки'
+        yAxes: [
+            {
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Заявки'
+                }
             }
-        }],
-        xAxes: [{
-            ticks: {
-                beginAtZero:true,
-            },
-            gridLines: {
-                drawOnChartArea: false
-            },
-            type: 'time',
-            time: {
-                displayFormats: {
-                    'millisecond': 'DD.MM.YY',
-                    'second': 'DD.MM.YY',
-                    'minute': 'DD.MM.YY',
-                    'hour': 'DD.MM.YY',
-                    'day': 'DD.MM.YY',
-                    'week': 'DD.MM.YY',
-                    'month': 'DD.MM.YY',
-                    'quarter': 'DD.MM.YY',
-                    'year': 'DD.MM.YY'
+        ],
+        xAxes: [
+            {
+                ticks: {
+                    beginAtZero:true,
                 },
-            },
-      }]
+                gridLines: {
+                    drawOnChartArea: false
+                },
+                type: 'time',
+                time: {
+                    displayFormats: {
+                        'millisecond': 'DD.MM.YY',
+                        'second': 'DD.MM.YY',
+                        'minute': 'DD.MM.YY',
+                        'hour': 'DD.MM.YY',
+                        'day': 'DD.MM.YY',
+                        'week': 'DD.MM.YY',
+                        'month': 'DD.MM.YY',
+                        'quarter': 'DD.MM.YY',
+                        'year': 'DD.MM.YY'
+                    }
+                }
+            }
+        ]
     }
 };
 

@@ -11,7 +11,7 @@ export default function modalMiddleware({ dispatch, getState }) {
             const { form } = getState();
             const forms = ['ticketAddForm', 'ticketEditForm', 'trackAddForm', 'trackEditForm'];
 
-            Object.keys(form).map((formName) => {
+            Object.keys(form).forEach((formName) => {
                 if (forms.indexOf(formName) !== -1) {
                     dispatch(reset(formName));
                 }

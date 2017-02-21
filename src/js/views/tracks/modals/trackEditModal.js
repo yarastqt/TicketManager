@@ -30,7 +30,7 @@ class TrackEditModal extends Component {
                     <Field name="url" type="text" label="URL сайта"
                         component={ Input }
                     />
-                    <Field name="token" type="text" label="Token"
+                    <Field name="token" type="text" label="API Token"
                         component={ Input } readonly
                     />
                     <Field name="config" label="PHP конфигурация"

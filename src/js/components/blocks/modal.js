@@ -50,8 +50,7 @@ class Modal extends Component {
 
     render() {
         const { modal: { visible }, hideModal } = this.props;
-        const modalClasses = CN({
-            'modal': true,
+        const modalClasses = CN('modal', {
             'modal_visible': visible
         });
 

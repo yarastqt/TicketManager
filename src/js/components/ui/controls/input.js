@@ -204,15 +204,18 @@ class Input extends Component {
     }
 
     renderSecurityControl() {
-        const iconClasses = CN({
-            'icon': true,
+        const iconClasses = CN('icon', {
             'icon_eye-close': this.state.type === 'password',
             'icon_eye-open': this.state.type !== 'password'
         });
 
         if (this.props.type === 'password') {
+            const inputSecurityClasses = CN('input__security', {
+                'input__security_visible': this.props.input.value
+            });
+
             return (
-                <span className="input__security" onClick={ this.changeInputType }>
+                <span className={ inputSecurityClasses } onClick={ this.changeInputType }>
                     <i className={ iconClasses }></i>
                 </span>
             );
@@ -220,7 +223,7 @@ class Input extends Component {
     }
 
     renderError() {
-        if (this.props.meta.touched && this.props.meta.error) {
+        if (this.props.meta.touched && this.props.meta.error && !this.props.disabled) {
             return (
                 <div className="input__error">
                     { this.props.meta.error }
@@ -231,8 +234,7 @@ class Input extends Component {
 
     renderSuggestsList() {
         const list = this.state.suggests.map((suggest, key) => {
-            const suggestItemClasses = CN({
-                'input__suggest-item': true,
+            const suggestItemClasses = CN('input__suggest-item', {
                 'input__suggest-item_focused': this.state.focusedSuggest === key
             });
 
@@ -242,8 +244,7 @@ class Input extends Component {
                 </div>
             );
         });
-        const suggestClasses = CN({
-            'input__suggest': true,
+        const suggestClasses = CN('input__suggest', {
             'input__suggest_visible': this.state.suggestsVisible
         });
 
@@ -259,15 +260,13 @@ class Input extends Component {
     }
 
     render() {
-        const { suggestsVisible, type } = this.state;
+        const { suggests, suggestsVisible, type } = this.state;
         const { input, label, placeholder, readonly, disabled, meta: { active } } = this.props;
-        const inputClasses = CN({
-            'input': true,
+        const inputClasses = CN('input', {
             'input_opened': suggestsVisible,
             'input_disabled': disabled
         });
-        const labelClasses = CN({
-            'label': true,
+        const labelClasses = CN('label', {
             'label_active': active,
             'label_disabled': disabled
         });
@@ -287,7 +286,7 @@ class Input extends Component {
                         className="input__control"
                         { ...input }
                         onChange={ this.changeValue }
-                        onKeyDown={ this.handleKeyDown }
+                        onKeyDown={ suggests.length && this.handleKeyDown }
                         onFocus={ this.setVisibleSuggest }
                         onBlur={ this.setInsivibleSuggest }
                         readOnly={ readonly }

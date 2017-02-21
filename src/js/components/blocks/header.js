@@ -51,18 +51,15 @@ class Header extends Component {
     render() {
         const { expandedSidebar, user, toggleSidebar, logout } = this.props;
         const { popupOpened, position } = this.state;
-        const headerUserClasses = CN({
-            'header__user': true,
+        const headerUserClasses = CN('header__user', {
             'header__user_active': popupOpened,
             'header__user_online': navigator.onLine,
             'header__user_offline': !navigator.onLine
         });
-        const headerPopupClasses = CN({
-            'popup popup_tail header__popup': true,
+        const headerPopupClasses = CN('popup popup_tail header__popup', {
             'header__popup_opened': popupOpened
         });
-        const headerMenuIconClasses = CN({
-            'header__menu-icon': true,
+        const headerMenuIconClasses = CN('header__menu-icon', {
             'header__menu-icon_opened': !expandedSidebar
         });
 

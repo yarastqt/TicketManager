@@ -1,8 +1,22 @@
 .label
     font-size: 1.2rem
-    display: inline-block
-    margin-bottom: 6px
     transition: 250ms $transition-function
+    position: relative
+    top: 8px
+    z-index: 1
+    padding: 0 4px
+    left: 8px
+    color: rgba($color-base, .8)
+
+    &:before
+        content: ''
+        position: absolute
+        left: 0
+        top: 8px
+        right: 0
+        z-index: -1
+        height: 1px
+        background-color: #fff
 
     &_active
         color: $color-blue

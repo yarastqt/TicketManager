@@ -10,6 +10,12 @@
         #{$block}__control
             border-radius: 2px 2px 0 0
 
+        #{$block}__error
+            z-index: 1100
+
+        #{$block}__suggest
+            z-index: 1000
+
     &__security, &__cancel
         position: absolute
         right: 12px
@@ -26,6 +32,15 @@
         .icon
             width: 20px
             height: 20px
+
+    &__security
+        opacity: 0
+        visibility: visible
+        transition: 250ms $transition-function
+
+        &_visible
+            opacity: 1
+            visibility: visible
 
     &__security:hover
         .icon_eye-close
