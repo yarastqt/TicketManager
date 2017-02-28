@@ -22,7 +22,6 @@ export const defaultSettings = {
 };
 
 export const chartOptions = {
-    // animation: false,
     scales: {
         yAxes: [
             {
@@ -60,6 +59,15 @@ export const chartOptions = {
 };
 
 export const graphics = {
+    new: {
+        ...graphicsBaseSettings,
+        label: 'Заявки новые',
+        backgroundColor: 'rgba(39, 49, 49, 0.1)',
+        borderColor: 'rgba(39, 49, 49, 1)',
+        pointBorderColor: 'rgba(39, 49, 49, 1)',
+        pointHoverBackgroundColor: 'rgba(39, 49, 49, 1)',
+        pointHoverBorderColor: 'rgba(39, 49, 49, 1)'
+    },
     pending: {
         ...graphicsBaseSettings,
         label: 'Заявки в процессе',

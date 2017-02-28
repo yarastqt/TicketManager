@@ -11,7 +11,7 @@ export const getChartPoints = createSelector(
             return {};
         }
 
-        const statuses = ['pending', 'failure', 'done', 'canceled'];
+        const statuses = ['new', 'pending', 'failure', 'done', 'canceled'];
         const ONE_DAY = 86400000;
         const endDate = new Date().setHours(0, 0, 0, 0) + ONE_DAY;
         const startDate = new Date(endDate - rawFilters.period).setHours(0, 0, 0, 0);
@@ -29,7 +29,11 @@ export const getChartPoints = createSelector(
         // Default chart points
         const defaultPoints = [0, 0, 0, 0, 0, 0, 0];
         const pointsChart = {
-            pending: [...defaultPoints], failure: [...defaultPoints], done: [...defaultPoints], canceled: [...defaultPoints]
+            new: defaultPoints,
+            pending: defaultPoints,
+            failure: defaultPoints,
+            done: defaultPoints,
+            canceled: defaultPoints
         };
 
         // Create labels
@@ -45,7 +49,7 @@ export const getChartPoints = createSelector(
                 let startEdge = filters.startDate + section * i;
                 let endEdge = filters.startDate + section * (i + 1);
 
-                if (data.date > startEdge && data.date <= endEdge && statuses.indexOf(data.status) !== -1) {
+                if (data.date > startEdge && data.date <= endEdge && statuses.includes(data.status)) {
                     pointsChart[data.status][i]++;
                 }
             }
