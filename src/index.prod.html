@@ -17,9 +17,9 @@
     <script src="//cdn.polyfill.io/v2/polyfill.min.js"></script>
     <script>
         window.addEventListener('load', function () {
-            if ('serviceWorker' in navigator && document.location.search === '?sw=1') {
-                navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then(function () {
-                    console.log('SW registered');
+            if (navigator.serviceWorker && document.location.search === '?sw=1') {
+                navigator.serviceWorker.register('/service-worker.js', {
+                    scope: '/'
                 });
             }
 
