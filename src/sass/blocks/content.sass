@@ -34,7 +34,7 @@
 
         +bp(max, 768px)
             .button
-                min-width: auto
+                min-width: 40px
 
             .button__text
                 display: none
@@ -54,6 +54,7 @@
         transition: 250ms $transition-function
         position: relative
         user-select: none
+        touch-action: manipulation
 
         &:last-child
             margin-right: 0
@@ -69,21 +70,16 @@
             opacity: 0
             transition: 250ms $transition-function
 
-        &:hover, &_active
-            color: $color-blue
+        +tohch-hover
+            +active-navigation-link
 
-            &:before
-                opacity: 1
+        &_active
+            +active-navigation-link
 
         &_disabled
             cursor: default
             opacity: .5
-
-            &:hover
-                color: $color-base
-
-                &:before
-                    opacity: 0
+            pointer-events: none
 
     &__message
         margin: auto

@@ -67,6 +67,7 @@
         transition: 250ms $transition-function
         color: $color-base
         appearance: none
+        touch-action: manipulation
 
         &::placeholder
             transition: 400ms $transition-function
@@ -145,5 +146,5 @@
             &_focused
                 background-color: rgba($color-gray, .25)
 
-            &:hover
+            +tohch-hover
                 background-color: rgba($color-gray, .15)

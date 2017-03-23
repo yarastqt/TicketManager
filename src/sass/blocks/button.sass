@@ -9,6 +9,7 @@
     border-radius: 2px
     height: 40px
     padding: 0 8px
+    touch-action: manipulation
 
     &_type
         &_link
@@ -19,9 +20,7 @@
             background-color: $color-blue
             color: #fff
 
-            .is-desktop &:focus,
-            .is-desktop &:hover,
-            .is-touch &:active
+            +tohch-hover
                 background-color: $color-blue-hovered
                 color: rgba(#fff, .9)
 
@@ -30,9 +29,7 @@
             border: 1px solid #e0e0e0
             color: $color-base
 
-            .is-desktop &:focus,
-            .is-desktop &:hover,
-            .is-touch &:active
+            +tohch-hover
                 background-color: rgba(#d4d8df, .2)
 
     &_active
@@ -40,9 +37,7 @@
             background-color: $color-light-blue
             border-color: $color-blue
 
-            .is-desktop &:focus,
-            .is-desktop &:hover,
-            .is-touch &:active
+            +tohch-hover
                 background-color: darken($color-light-blue, 2.5)
 
             .icon_filter
@@ -52,16 +47,12 @@
         +disabled
 
         &.button_view_action
-            .is-desktop &:focus,
-            .is-desktop &:hover,
-            .is-touch &:active
+            +tohch-hover
                 background-color: $color-blue
                 color: #fff
 
         &.button_view_pseudo
-            .is-desktop &:focus,
-            .is-desktop &:hover,
-            .is-touch &:active
+            +tohch-hover
                 background-color: transparent
 
     &__in

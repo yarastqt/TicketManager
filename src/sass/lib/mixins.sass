@@ -11,8 +11,9 @@
     color: $color-blue
     text-decoration: none
     transition: 250ms $transition-function
+    touch-action: manipulation
 
-    &:hover
+    +tohch-hover
         color: $color-blue-hovered
 
 =overlay
@@ -55,3 +56,15 @@
     opacity: .5
     cursor: default
     user-select: none
+
+=tohch-hover
+    .is-desktop &:focus,
+    .is-desktop &:hover,
+    .is-touch &:active
+        @content
+
+=active-navigation-link
+    color: $color-blue
+
+    &:before
+        opacity: 1

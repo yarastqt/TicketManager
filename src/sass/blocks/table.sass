@@ -46,8 +46,9 @@
             & + .icon
                 margin-left: 6px
 
-        &_sorted:hover
-            color: $color-blue
+        &_sorted
+            +tohch-hover
+                color: $color-blue
 
         &_active
             color: $color-blue
@@ -86,7 +87,7 @@
             opacity: 0
             visibility: hidden
 
-        &:hover
+        +tohch-hover
             background-color: #fafafa
 
             &:before
@@ -167,8 +168,9 @@
             margin: auto
             pointer-events: none
 
-        &:hover:after
-            +icon('arrow-dropdown', 24px, 24px, $color-blue)
+        +tohch-hover
+            &:after
+                +icon('arrow-dropdown', 24px, 24px, $color-blue)
 
     &__pagination-select-control
         cursor: pointer
@@ -196,12 +198,13 @@
     &__pagination-control
         cursor: pointer
 
-        &:not(&_disabled):hover
-            .icon_arrow-left
-                +icon('arrow-left', 24px, 24px, $color-blue)
+        &:not(&_disabled)
+            +tohch-hover
+                .icon_arrow-left
+                    +icon('arrow-left', 24px, 24px, $color-blue)
 
-            .icon_arrow-right
-                +icon('arrow-right', 24px, 24px, $color-blue)
+                .icon_arrow-right
+                    +icon('arrow-right', 24px, 24px, $color-blue)
 
         &_disabled
             cursor: default
