@@ -40,26 +40,26 @@ class TicketsFilters extends Component {
             <div className={ this.props.visible ? 'filters filters_visible' : 'filters' }>
                 <form className="form filters__form">
                     <Field name="startDate" type="date" label="Дата от"
-                        component={ Input } _onChange={ this.setFilter }
+                        component={ Input } _onChange={ this.setFilter } highlight
                     />
                     <Field name="endDate" type="date" label="Дата до"
-                        component={ Input } _onChange={ this.setFilter }
+                        component={ Input } _onChange={ this.setFilter } highlight
                     />
                     <Field name="source" label="Источник"
                         component={ Select } options={ this.props.filtersList.sources }
-                        _onChange={ this.setFilter } clearable
+                        _onChange={ this.setFilter } clearable highlight
                     />
                     <Field name="status" label="Статус"
                         component={ Select } options={ this.props.filtersList.statuses }
-                        _onChange={ this.setFilter } clearable
+                        _onChange={ this.setFilter } clearable highlight
                     />
                     <Field name="createdBy" label="Менеджер"
                         component={ Select } options={ this.props.filtersList.managers }
-                        _onChange={ this.setFilter } clearable
+                        _onChange={ this.setFilter } clearable highlight
                     />
                     <Field name="serviceType" label="Вид услуги"
                         component={ Select } options={ this.props.filtersList.serviceTypes }
-                        _onChange={ this.setFilter } clearable
+                        _onChange={ this.setFilter } clearable highlight
                     />
                     <FormActions position="left">
                         <Button type="button" view="pseudo" icon="close"

@@ -85,17 +85,19 @@ class Select extends Component {
 
     renderSelect() {
         const { id } = this.state;
-        const { input, placeholder, options, custom, clearable, meta: { active } } = this.props;
-        const selectClasses = CN({
-            'select': true,
+        const { input, placeholder, options, custom, clearable, highlight, meta: { active } } = this.props;
+        const selectClasses = CN('select', {
             'select_focused': active,
             'select_clearable': clearable 
+        });
+        const selectControlClasses = CN('select__control', {
+            'select__control_active': highlight && input.value
         });
 
         return (
             <div className={ selectClasses }>
                 { this.renderClearControl() }
-                <select id={ input.name + id } className="select__control" ref="input" { ...input } onChange={ this.changeOption }>
+                <select id={ input.name + id } className={ selectControlClasses } ref="input" { ...input } onChange={ this.changeOption }>
                     <option value="" disabled></option>
                     { options && options.map(({ value, label }, key) => (
                         <option value={ value } key={ key }>{ label }</option>
