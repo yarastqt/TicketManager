@@ -74,8 +74,7 @@ class TicketsFilters extends Component {
 }
 
 TicketsFilters = reduxForm({
-    form: 'ticketsFiltersForm',
-    enableReinitialize: true
+    form: 'ticketsFiltersForm'
 })(TicketsFilters);
 
 function mapStateToprops(state) {
