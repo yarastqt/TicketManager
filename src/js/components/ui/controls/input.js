@@ -261,7 +261,7 @@ class Input extends Component {
 
     render() {
         const { suggests, suggestsVisible, type } = this.state;
-        const { input, label, placeholder, readonly, disabled, meta: { active } } = this.props;
+        const { input, label, placeholder, readonly, disabled, highlight, meta: { active } } = this.props;
         const inputClasses = CN('input', {
             'input_opened': suggestsVisible,
             'input_disabled': disabled
@@ -269,6 +269,9 @@ class Input extends Component {
         const labelClasses = CN('label', {
             'label_active': active,
             'label_disabled': disabled
+        });
+        const inputControlClasses = CN('input__control', {
+            'input__control_active': highlight && input.value
         });
 
         return (
@@ -283,7 +286,7 @@ class Input extends Component {
                         id={ input.name }
                         type={ type }
                         placeholder={ placeholder }
-                        className="input__control"
+                        className={ inputControlClasses }
                         { ...input }
                         onChange={ this.changeValue }
                         onKeyDown={ suggests.length && this.handleKeyDown }

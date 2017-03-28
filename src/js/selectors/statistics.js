@@ -1,67 +1,27 @@
 import { createSelector } from 'reselect';
 
-import { graphics } from 'constants/chart';
 import { filterData } from 'selectors/table';
+import { DateUtil } from 'utils';
 
-export const getChartPoints = createSelector(
+export const getStatistics = createSelector(
     (state) => state.tickets.list,
     (state) => state.filters.statistics.list,
-    (tickets, rawFilters) => {
-        if (!tickets.length || !rawFilters.period) {
-            return {};
+    (tickets, filters) => {
+        if (!filters.startDate && !filters.endDate) {
+            return [];
         }
 
-        const statuses = ['new', 'pending', 'failure', 'done', 'canceled'];
-        const ONE_DAY = 86400000;
-        const endDate = new Date().setHours(0, 0, 0, 0) + ONE_DAY;
-        const startDate = new Date(endDate - rawFilters.period).setHours(0, 0, 0, 0);
-
-        // It is necessary to extend our filters
-        const filters = {
-            ...rawFilters, startDate, endDate
-        };
-
+        const initialData = { new: 0, pending: 0, failure: 0, done: 0, canceled: 0 };
         const filteredData = filterData(tickets, filters);
+        const result = filteredData.reduce((acc, { date, status }) => {
+            const currentDate = DateUtil.fromTS(date).getDate();
+            const data = acc[currentDate] || initialData;
+            acc[currentDate] = { date: currentDate, ...data, [status]: data[status] + 1 };
 
-        // Step for comparison
-        const section = filters.period / 7;
+            return acc;
+        }, {});
+        const normalizedResult = Object.keys(result).map((key) => result[key]);
 
-        // Default chart points
-        const defaultPoints = [0, 0, 0, 0, 0, 0, 0];
-        const pointsChart = {
-            new: defaultPoints,
-            pending: defaultPoints,
-            failure: defaultPoints,
-            done: defaultPoints,
-            canceled: defaultPoints
-        };
-
-        // Create labels
-        const labels = [];
-
-        for (let i = 7; i >= 0; i--) {
-            labels.push(+new Date(filters.endDate - section * i));
-        }
-
-        // Fill chart points
-        filteredData.forEach((data) => {
-            for (let i = 0; i < 7; i++) {
-                let startEdge = filters.startDate + section * i;
-                let endEdge = filters.startDate + section * (i + 1);
-
-                if (data.date > startEdge && data.date <= endEdge && statuses.includes(data.status)) {
-                    pointsChart[data.status][i]++;
-                }
-            }
-        });
-
-        // Create dataset
-        const datasets = [];
-
-        statuses.map((status) => {
-            datasets.push({ ...graphics[status], data: pointsChart[status] });
-        });
-
-        return { labels, datasets };
+        return normalizedResult;
     }
 );
