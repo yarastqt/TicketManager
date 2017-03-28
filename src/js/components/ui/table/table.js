@@ -12,11 +12,8 @@ class Table extends Component {
         super();
         this.state = {
             popup: {
-                visible: false,
-                props: null,
-                position: {
-                    top: null,
-                    left: null
+                visible: false, props: null, position: {
+                    top: null, left: null
                 }
             }
         };
@@ -128,19 +125,12 @@ class Table extends Component {
         });
     }
 
-    renderActions(item) {
-        if (this.props.edit || this.props.remove) {
-            if (this.props.user.role !== 'manager' ||
-                this.props.user.role === 'manager' &&
-                item.createdBy &&
-                item.createdBy.id === this.props.user.id) {
-                return (
-                    <div className="table__row-button" onClick={ this.openPopup(item.id) }></div>
-                );
-            }
+    renderActions(data) {
+        if (this.props.user.role !== 'manager' || this.props.user.role === 'manager' && this.props.user.id === data.createdBy.id) {
+            return (
+                <div className="table__row-button" onClick={ this.openPopup(data.id) }></div>
+            );
         }
-
-        return null;
     }
 
     renderHeaders() {
@@ -221,13 +211,13 @@ Table.propTypes = {
 };
 
 function mapStateToProps(state, props) {
-    const { name, data, page, ignoreFilter } = props;
+    const { name, data, page } = props;
     const filters = state.filters[name] && state.filters[name].list;
     const { rows, sort } = state.table[name];
     const isFilters = filters && Object.keys(filters).length ? true : false;
 
     let total = data.length;
-    let processedData = (filters && !ignoreFilter) ? filterData(data, filters) : data;
+    let processedData = filters ? filterData(data, filters) : data;
 
     if (total !== processedData.length) {
         total = processedData.length;

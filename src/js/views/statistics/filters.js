@@ -39,23 +39,21 @@ class StatisticsFilters extends Component {
         return (
             <div className={ this.props.visible ? 'filters filters_visible' : 'filters' }>
                 <form className="form filters__form">
-                    <Field name="startDate" type="date" label="Дата от"
-                        component={ Input } _onChange={ this.setFilter } highlight
-                    />
-                    <Field name="endDate" type="date" label="Дата до"
-                        component={ Input } _onChange={ this.setFilter } highlight
+                    <Field name="period" label="Период"
+                        component={ Select } options={ this.props.filtersList.period }
+                        _onChange={ this.setFilter } clearable
                     />
                     <Field name="source" label="Источник"
                         component={ Select } options={ this.props.filtersList.sources }
-                        _onChange={ this.setFilter } clearable highlight
+                        _onChange={ this.setFilter } clearable
                     />
                     <Field name="createdBy" label="Менеджер"
                         component={ Select } options={ this.props.filtersList.managers }
-                        _onChange={ this.setFilter } clearable highlight
+                        _onChange={ this.setFilter } clearable
                     />
                     <Field name="serviceType" label="Вид услуги"
                         component={ Select } options={ this.props.filtersList.serviceTypes }
-                        _onChange={ this.setFilter } clearable highlight
+                        _onChange={ this.setFilter } clearable
                     />
                     <FormActions position="left">
                         <Button type="button" view="pseudo" icon="close"
@@ -74,23 +72,11 @@ StatisticsFilters = reduxForm({
     enableReinitialize: true
 })(StatisticsFilters);
 
-function mapStateToprops(state) {
-    const filters = state.filters[SOURCE].list;
-    const startDate = filters.startDate && DateUtil.fromTS(filters.startDate).getDate();
-    const endDate = filters.endDate && DateUtil.fromTS(filters.endDate).getDate();
-
-    return {
-        initialValues: {
-            ...filters,
-            startDate,
-            endDate
-        },
-        disabledReset: Object.keys(filters).length ? false : true,
-        filtersList: getFilters(state)
-    };
-}
-
 export default connect(
-    mapStateToprops,
+    (state) => ({
+        initialValues: state.filters[SOURCE].list,
+        disabledReset: Object.keys(state.filters[SOURCE].list).length ? false : true,
+        filtersList: getFilters(state)
+    }),
     { setFilter, removeFilter, removeAllFilters }
 )(StatisticsFilters);
