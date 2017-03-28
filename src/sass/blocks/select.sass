@@ -59,10 +59,13 @@
         width: 100%
         touch-action: manipulation
 
-        &_active,
         &:focus
             border-color: $color-blue
             background-color: #fff
+            color: $color-base
+
+        &_active
+            color: $color-blue
 
     &__control:focus + &__error
         background-image: none
