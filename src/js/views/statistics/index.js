@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Line, defaults as chartSettings } from 'react-chartjs-2';
 
-import { defaultSettings, chartOptions } from 'constants/chart';
-import { getChartPoints } from 'selectors/statistics';
+import { getStatistics } from 'selectors/statistics';
 import { Content, Loader } from 'components/blocks';
-import { Button } from 'components/ui';
+import { Table, TableColumn, Button } from 'components/ui';
 import { toggleVisibleFilters } from 'actions/filters';
 import { getTickets } from 'actions/tickets';
 import StatisticsFilters from './filters';
-
-chartSettings.global = {
-    ...chartSettings.global, ...defaultSettings
-};
 
 class StatisticsView extends Component {
     constructor() {
@@ -41,10 +35,28 @@ class StatisticsView extends Component {
                 </div>
                 <StatisticsFilters visible={ this.props.visibleFilters } />
                 <Loader fetching={ this.props.tickets.fetching }>
-                    { Object.keys(this.props.data).length ? (
-                        <div className="paper">
-                            <Line data={ this.props.data } options={ chartOptions } height={ 94 } />
-                        </div>
+                    { this.props.data.length ? (
+                        <Table name="statistics" data={ this.props.data } page={ this.props.page } ignoreFilter>
+                            <TableColumn
+                                name="date" width="25" title="Дата"
+                                sorted
+                            />
+                            <TableColumn
+                                name="new" width="15" title="Новая"
+                            />
+                            <TableColumn
+                                name="pending" width="15" title="В процессе"
+                            />
+                            <TableColumn
+                                name="failure" width="15" title="Отказ"
+                            />
+                            <TableColumn
+                                name="done" width="15" title="Выполнено"
+                            />
+                            <TableColumn
+                                name="canceled" width="15" title="Отменено"
+                            />
+                        </Table>
                     ) : (
                         <div className="content__message">
                             <div className="content__message-icon">
@@ -60,10 +72,11 @@ class StatisticsView extends Component {
 }
 
 export default connect(
-    (state) => ({
+    (state, props) => ({
         visibleFilters: state.filters.statistics.visible,
-        data: getChartPoints(state),
-        tickets: state.tickets
+        data: getStatistics(state),
+        tickets: state.tickets,
+        page: parseInt(props.params.page) || 1
     }),
     { getTickets, toggleVisibleFilters }
 )(StatisticsView);
