@@ -70,8 +70,7 @@ class StatisticsFilters extends Component {
 }
 
 StatisticsFilters = reduxForm({
-    form: 'statisticsFiltersForm',
-    enableReinitialize: true
+    form: 'statisticsFiltersForm'
 })(StatisticsFilters);
 
 function mapStateToprops(state) {

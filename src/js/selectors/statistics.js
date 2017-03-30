@@ -8,7 +8,10 @@ export const getStatistics = createSelector(
     (state) => state.filters.statistics.list,
     (tickets, filters) => {
         if (!filters.startDate && !filters.endDate) {
-            return [];
+            return {
+                list: [],
+                total: {}
+            };
         }
 
         const initialData = { new: 0, pending: 0, failure: 0, done: 0, canceled: 0 };
@@ -16,12 +19,27 @@ export const getStatistics = createSelector(
         const result = filteredData.reduce((acc, { date, status }) => {
             const currentDate = DateUtil.fromTS(date).getDate();
             const data = acc[currentDate] || initialData;
-            acc[currentDate] = { date: currentDate, ...data, [status]: data[status] + 1 };
+            acc[currentDate] = {
+                ...data,
+                date: currentDate,
+                [status]: data[status] + 1
+            };
 
             return acc;
         }, {});
         const normalizedResult = Object.keys(result).map((key) => result[key]);
+        const totalStatistics = normalizedResult.reduce((acc, value) => {
+            Object.keys(initialData).forEach((key) => acc[key] += value[key]);
 
-        return normalizedResult;
+            return acc;
+        }, initialData);
+
+        return {
+            list: normalizedResult,
+            total: {
+                ...totalStatistics,
+                count: filteredData.length
+            }
+        };
     }
 );

@@ -68,28 +68,47 @@ class TicketsView extends Component {
     }
 
     render() {
+        const {
+            visibleFilters,
+            tickets,
+            page
+        } = this.props;
+
         return (
             <Content title="Заявки">
                 <div className="content__header">
                     <div className="content__heading">Заявки</div>
                     <div className="content__actions">
-                        <Button type="button" view="pseudo" icon="filter" active={ this.props.visibleFilters }
+                        <Button
+                            type="button"
+                            view="pseudo"
+                            icon="filter"
+                            active={ visibleFilters }
                             onClick={ this.toggleVisibleFilters }
                         />
-                        <Button type="button" view="action" icon="quick-add" text="Добавить заявку"
+                        <Button
+                            type="button"
+                            view="action"
+                            icon="quick-add"
+                            text="Добавить заявку"
                             onClick={ this.showTicketAddModal }
                         />
                     </div>
                 </div>
-                <TicketsFilters visible={ this.props.visibleFilters } />
-                <Loader fetching={ this.props.tickets.fetching }>
+                <TicketsFilters
+                    visible={ visibleFilters }
+                />
+                <Loader fetching={ tickets.fetching }>
                     <Table
-                        name="tickets" data={ this.props.tickets.list } page={ this.props.page }
-                        edit={ this.showTicketEditModal } remove={ this.removeTicket }
+                        name="tickets"
+                        data={ tickets.list }
+                        page={ page }
+                        edit={ this.showTicketEditModal }
+                        remove={ this.removeTicket }
                     >
                         <TableColumn
                             name="id" width="8" title="ID"
-                            sorted 
+                            sorted
                         />
                         <TableColumn
                             name="status" width="10" title="Статус"
