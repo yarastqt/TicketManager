@@ -20,29 +20,55 @@ class TrackEditModal extends Component {
     }
 
     render() {
+        const {
+            handleSubmit,
+            submitting,
+            pristine,
+            hideModal
+        } = this.props;
+
         return (
             <div className="modal__in">
                 <div className="modal__heading">Редактировать сайт</div>
-                <Form onSubmit={ this.props.handleSubmit(this.updateTrack) } submitting={ this.props.submitting }>
-                    <Field name="name" type="text" label="Название сайта"
+                <Form onSubmit={ handleSubmit(this.updateTrack) } submitting={ submitting }>
+                    <Field
+                        name="name"
+                        type="text"
+                        label="Название сайта"
                         component={ Input }
                     />
-                    <Field name="url" type="text" label="URL сайта"
+                    <Field
+                        name="url"
+                        type="text"
+                        label="URL сайта"
                         component={ Input }
                     />
-                    <Field name="token" type="text" label="API Token"
-                        component={ Input } readonly
+                    <Field
+                        name="token"
+                        type="text"
+                        label="API Token"
+                        component={ Input }
+                        readonly
                     />
-                    <Field name="config" label="PHP конфигурация"
-                        component={ Textarea } readonly autoselect
+                    <Field
+                        name="config"
+                        label="PHP конфигурация"
+                        component={ Textarea }
+                        readonly
+                        autoselect
                     />
                     <FormActions position="right">
-                        <Button type="button" view="pseudo" text="Отмена"
-                            onClick={ this.props.hideModal }
+                        <Button
+                            type="button"
+                            view="pseudo"
+                            text="Отмена"
+                            onClick={ hideModal }
                         />
-                        <Button type="submit" view="action" icon="update"
-                            text={ this.props.submitting ? 'Обновление...' : 'Обновить' }
-                            disabled={ this.props.pristine || this.props.submitting }
+                        <Button
+                            type="submit"
+                            view="action" icon="update"
+                            text={ submitting ? 'Обновление...' : 'Обновить' }
+                            disabled={ pristine || submitting }
                         />
                     </FormActions>
                 </Form>

@@ -22,17 +22,29 @@ class ProfileSecurityView extends Component {
         return (
             <div className="paper__in">
                 <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.updateProfile) }>
-                    <Field name="oldPassword" type="password" label="Старый пароль"
+                    <Field
+                        name="oldPassword"
+                        type="password"
+                        label="Старый пароль"
                         component={ Input }
                     />
-                    <Field name="newPassword" type="password" label="Новый пароль"
+                    <Field
+                        name="newPassword"
+                        type="password"
+                        label="Новый пароль"
                         component={ Input }
                     />
-                    <Field name="confirmPassword" type="password" label="Новый пароль ещё раз"
+                    <Field
+                        name="confirmPassword"
+                        type="password"
+                        label="Новый пароль ещё раз"
                         component={ Input }
                     />
                     <FormActions position="right">
-                        <Button type="submit" view="action" icon="update"
+                        <Button
+                            type="submit"
+                            view="action"
+                            icon="update"
                             text={ this.props.submitting ? 'Обработка...' : 'Изменить пароль' }
                             disabled={ this.props.pristine || this.props.submitting }
                         />

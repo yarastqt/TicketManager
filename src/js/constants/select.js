@@ -36,7 +36,7 @@ export const userSelectOptions = {
     options: {
         statuses: [
             { value: false, label: 'Активен' },
-            { value: true, label: 'Заблокирован' },
+            { value: true, label: 'Заблокирован' }
         ],
         roles: [
             { value: 'manager', label: 'Менеджер' },

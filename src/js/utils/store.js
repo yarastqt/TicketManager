@@ -18,7 +18,9 @@ function saveState(state) {
     try {
         const serializedState = JSON.stringify(state);
         localStorage.setItem('state', serializedState);
-    } catch (error) {}
+    } catch (error) {
+        // not handle errors
+    }
 }
 
 export function persistStore(store, config) {

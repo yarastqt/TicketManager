@@ -4,20 +4,33 @@ import { PROFILE_UPDATE_SUCCESS } from 'actions/profile';
 
 export default createReducer({
     [LOGIN_REQUEST]() {
-        return { authenticated: false, user: null };
+        return {
+            authenticated: false,
+            user: null
+        };
     },
 
     [LOGOUT_SUCCESS]() {
-        return { authenticated: false, user: {} };
+        return {
+            authenticated: false,
+            user: {}
+        };
     },
 
     [LOGIN_SUCCESS](state, { user }) {
-        return { authenticated: true, user };
+        return {
+            authenticated: true,
+            user
+        };
     },
 
     [PROFILE_UPDATE_SUCCESS](state, { user }) {
-        return { authenticated: true, user };
+        return {
+            authenticated: true,
+            user
+        };
     }
 }, {
-    authenticated: false, user: null
+    authenticated: false,
+    user: null
 });

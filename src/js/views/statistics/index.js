@@ -45,35 +45,18 @@ class StatisticsView extends Component {
                         />
                     </div>
                 </div>
-                <StatisticsFilters
-                    visible={ visibleFilters }
-                />
+                <StatisticsFilters visible={ visibleFilters } />
                 <Loader fetching={ fetching }>
                     { statistics.list.length ? (
                         <div className="paper">
-                            <StatisticsTotal
-                                total={ statistics.total }
-                            />
+                            <StatisticsTotal total={ statistics.total } />
                             <Table name="statistics" data={ statistics.list } page={ page } ignoreFilter>
-                                <TableColumn
-                                    name="date" width="25" title="Дата"
-                                    sorted
-                                />
-                                <TableColumn
-                                    name="new" width="15" title="Новая"
-                                />
-                                <TableColumn
-                                    name="pending" width="15" title="В процессе"
-                                />
-                                <TableColumn
-                                    name="failure" width="15" title="Отказ"
-                                />
-                                <TableColumn
-                                    name="done" width="15" title="Выполнено"
-                                />
-                                <TableColumn
-                                    name="canceled" width="15" title="Отменено"
-                                />
+                                <TableColumn name="date" width="25" title="Дата" sorted />
+                                <TableColumn name="new" width="15" title="Новая" />
+                                <TableColumn name="pending" width="15" title="В процессе" />
+                                <TableColumn name="failure" width="15" title="Отказ" />
+                                <TableColumn name="done" width="15" title="Выполнено" />
+                                <TableColumn name="canceled" width="15" title="Отменено" />
                             </Table>
                         </div>
                     ) : (
@@ -95,7 +78,7 @@ export default connect(
         visibleFilters: state.filters.statistics.visible,
         statistics: getStatistics(state),
         fetching: state.tickets.fetching,
-        page: parseInt(props.params.page) || 1
+        page: parseInt(props.params.page, 10) || 1
     }),
     { getTickets, toggleVisibleFilters }
 )(StatisticsView);

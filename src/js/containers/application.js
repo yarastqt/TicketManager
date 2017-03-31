@@ -1,8 +1,8 @@
-import React, { Children, PropTypes } from 'react';
+import { Children, PropTypes } from 'react';
 
-function Application({ children }) {
-    return Children.only(children);
-}
+const Application = ({ children }) => (
+    Children.only(children)
+);
 
 Application.propTypes = {
     children: PropTypes.element.isRequired

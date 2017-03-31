@@ -4,16 +4,23 @@ import { TOGGLE_VISIBLE_FILTERS, SET_FILTER, REMOVE_FILTER, REMOVE_ALL_FILTERS }
 export default createReducer({
     [TOGGLE_VISIBLE_FILTERS](state, { target }) {
         return {
-            ...state, [target]: {
-                ...state[target], visible: !state[target].visible
+            ...state,
+            [target]: {
+                ...state[target],
+                visible: !state[target].visible
             }
         };
     },
 
     [SET_FILTER](state, { filter, target }) {
         return {
-            ...state, [target]: {
-                ...state[target], list: { ...state[target].list, ...filter }
+            ...state,
+            [target]: {
+                ...state[target],
+                list: {
+                    ...state[target].list,
+                    ...filter
+                }
             }
         };
     },
@@ -23,24 +30,32 @@ export default createReducer({
         delete filters[filterName];
 
         return {
-            ...state, [target]: {
-                ...state[target], list: { ...filters }
+            ...state,
+            [target]: {
+                ...state[target],
+                list: {
+                    ...filters
+                }
             }
         };
     },
 
     [REMOVE_ALL_FILTERS](state, { target }) {
         return {
-            ...state, [target]: {
-                ...state[target], list: {}
+            ...state,
+            [target]: {
+                ...state[target],
+                list: {}
             }
         };
     }
 }, {
     tickets: {
-        visible: false, list: {}
+        visible: false,
+        list: {}
     },
     statistics: {
-        visible: false, list: {}
+        visible: false,
+        list: {}
     }
 });

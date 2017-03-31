@@ -1,8 +1,8 @@
 export default {
     roles: {
-        'manager': 'Менеджер',
-        'senior manager': 'Старшый менеджер',
-        'admin': 'Администратор'
+        manager: 'Менеджер',
+        admin: 'Администратор',
+        'senior manager': 'Старшый менеджер'
     },
     statuses: {
         new: 'Новая',

@@ -15,15 +15,6 @@ class TicketAddModal extends Component {
         this.addTicket = this.addTicket.bind(this);
     }
 
-    addTicket(ticket) {
-        ticket = { ...ticket, date: DateUtil.toTS(ticket.date, ticket.time) };
-        delete ticket.time;
-
-        return this.props.addTicket(ticket).then(() => {
-            this.props.hideModal();
-        });
-    }
-
     getTaskSourceSuggests() {
         switch (this.props.taskType) {
             case 'Заявка':
@@ -33,53 +24,53 @@ class TicketAddModal extends Component {
             case 'Почта':
                 return this.props.suggests.taskSource.mail;
         }
+
+        return null;
+    }
+
+    addTicket(ticket) {
+        ticket = {
+            ...ticket,
+            date: DateUtil.toTS(ticket.date, ticket.time)
+        };
+        delete ticket.time;
+
+        return this.props.addTicket(ticket).then(() => {
+            this.props.hideModal();
+        });
     }
 
     render() {
+        const {
+            handleSubmit,
+            submitting,
+            pristine,
+            suggests,
+            options,
+            taskType,
+            hideModal
+        } = this.props;
+
         return (
             <div className="modal__in">
                 <div className="modal__heading">Новая заявка</div>
-                <Form onSubmit={ this.props.handleSubmit(this.addTicket) } submitting={ this.props.submitting }>
-                    <Field name="name" type="text" label="Имя (ФИО / Компания)"
-                        component={ Input } suggests={ this.props.suggests.name }
-                    />
+                <Form onSubmit={ handleSubmit(this.addTicket) } submitting={ submitting }>
+                    <Field name="name" type="text" label="Имя (ФИО / Компания)" component={ Input } suggests={ suggests.name } />
                     <FormGroup>
-                        <Field name="date" type="date" label="Дата"
-                            component={ Input }
-                        />
-                        <Field name="time" type="time" label="Время"
-                            component={ Input }
-                        />
+                        <Field name="date" type="date" label="Дата" component={ Input } />
+                        <Field name="time" type="time" label="Время" component={ Input } />
                     </FormGroup>
-                    <Field name="status" label="Статус"
-                        component={ Select } options={ this.props.options.statuses }
-                    />
-                    <Field name="source" label="Источник"
-                        component={ Select } options={ this.props.options.sources } custom
-                    />
+                    <Field name="status" label="Статус" component={ Select } options={ options.statuses } />
+                    <Field name="source" label="Источник" component={ Select } options={ options.sources } custom />
                     <FormGroup>
-                        <Field name="taskType" label="Тип"
-                            component={ Select } options={ this.props.options.taskTypes } custom
-                        />
-                        <Field name="taskSource" type="text" label="Источник заявки"
-                            component={ Input } suggests={ this.getTaskSourceSuggests() }
-                            disabled={ this.props.taskType ? false : true }
-                        />
+                        <Field name="taskType" label="Тип" component={ Select } options={ options.taskTypes } custom />
+                        <Field name="taskSource" type="text" label="Источник заявки" component={ Input } suggests={ this.getTaskSourceSuggests() } disabled={ taskType } />
                     </FormGroup>
-                    <Field name="serviceType" label="Вид услуги"
-                        component={ Select } options={ this.props.options.serviceTypes } custom
-                    />
-                    <Field name="comment" label="Комментарий"
-                        component={ Textarea }
-                    />
+                    <Field name="serviceType" label="Вид услуги" component={ Select } options={ options.serviceTypes } custom />
+                    <Field name="comment" label="Комментарий" component={ Textarea } />
                     <FormActions position="right">
-                        <Button type="button" view="pseudo" text="Отмена"
-                            onClick={ this.props.hideModal }
-                        />
-                        <Button type="submit" view="action" icon="quick-add"
-                            text={ this.props.submitting ? 'Добавление...' : 'Добавить' }
-                            disabled={ this.props.pristine || this.props.submitting }
-                        />
+                        <Button type="button" view="pseudo" text="Отмена" onClick={ hideModal } />
+                        <Button type="submit" view="action" icon="quick-add" text={ submitting ? 'Добавление...' : 'Добавить' } disabled={ pristine || submitting } />
                     </FormActions>
                 </Form>
             </div>

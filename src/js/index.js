@@ -12,13 +12,17 @@ const persistedState = loadState();
 const store = configureStore(browserHistory, persistedState);
 const history = syncHistoryWithStore(browserHistory, store);
 
+const scrollTopAfterChangePage = () => {
+    window.scrollTo(0, 0);
+};
+
 persistStore(store, {
     whiteList: ['session', 'sidebar']
 });
 
 render((
     <Provider store={ store }>
-        <Router onUpdate={ () => window.scrollTo(0, 0) } history={ history }>
+        <Router onUpdate={ scrollTopAfterChangePage } history={ history }>
             { configureRoutes() }
         </Router>
     </Provider>

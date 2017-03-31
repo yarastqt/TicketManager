@@ -13,8 +13,7 @@ class Textarea extends Component {
 
     render() {
         const { input, label, placeholder, readonly, autoselect, meta: { active } } = this.props;
-        const labelClasses = CN({
-            'label': true,
+        const labelClasses = CN('label', {
             'label_active': active
         });
 

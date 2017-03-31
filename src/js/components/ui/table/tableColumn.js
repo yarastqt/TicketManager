@@ -1,12 +1,10 @@
 import React, { PropTypes } from 'react';
 
-function TableColumn({ value, width }) {
-    return (
-        <div className="table__row-cell" style={{ width: `${width}%` }}>
-            { value }
-        </div>
-    );
-}
+const TableColumn = ({ value, width }) => (
+    <div className="table__row-cell" style={{ width: `${width}%` }}>
+        { value }
+    </div>
+);
 
 TableColumn.propTypes = {
     /**

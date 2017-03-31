@@ -262,20 +262,21 @@ class Input extends Component {
     render() {
         const { suggests, suggestsVisible, type } = this.state;
         const { input, label, placeholder, readonly, disabled, highlight, meta: { active } } = this.props;
+        const formFieldClasses = CN('form__field', {
+            'form__field_disabled': disabled
+        });
         const inputClasses = CN('input', {
             'input_opened': suggestsVisible,
-            'input_disabled': disabled
         });
         const labelClasses = CN('label', {
             'label_active': active,
-            'label_disabled': disabled
         });
         const inputControlClasses = CN('input__control', {
             'input__control_active': highlight && input.value
         });
 
         return (
-            <div className="form__field">
+            <div className={ formFieldClasses }>
                 <label htmlFor={ input.name } className={ labelClasses }>
                     { label }
                 </label>

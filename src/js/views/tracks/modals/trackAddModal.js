@@ -19,23 +19,42 @@ class TrackAddModal extends Component {
     }
 
     render() {
+        const {
+            handleSubmit,
+            submitting,
+            pristine,
+            hideModal
+        } = this.props;
+
         return (
             <div className="modal__in">
                 <div className="modal__heading">Новый сайт</div>
-                <Form onSubmit={ this.props.handleSubmit(this.addTrack) } submitting={ this.props.submitting }>
-                    <Field name="name" type="text" label="Название сайта"
+                <Form onSubmit={ handleSubmit(this.addTrack) } submitting={ submitting }>
+                    <Field
+                        name="name"
+                        type="text"
+                        label="Название сайта"
                         component={ Input }
                     />
-                    <Field name="url" type="text" label="URL сайта"
+                    <Field
+                        name="url"
+                        type="text"
+                        label="URL сайта"
                         component={ Input }
                     />
                     <FormActions position="right">
-                        <Button type="button" view="pseudo" text="Отмена"
-                            onClick={ this.props.hideModal }
+                        <Button
+                            type="button"
+                            view="pseudo"
+                            text="Отмена"
+                            onClick={ hideModal }
                         />
-                        <Button type="submit" view="action" icon="quick-add"
-                            text={ this.props.submitting ? 'Добавление...' : 'Добавить' }
-                            disabled={ this.props.pristine || this.props.submitting }
+                        <Button
+                            type="submit"
+                            view="action"
+                            icon="quick-add"
+                            text={ submitting ? 'Добавление...' : 'Добавить' }
+                            disabled={ pristine || submitting }
                         />
                     </FormActions>
                 </Form>

@@ -21,16 +21,28 @@ class ProfileCommonView extends Component {
         return (
             <div className="paper__in">
                 <form className="form" autoComplete="off" onSubmit={ this.props.handleSubmit(this.updateProfile) }>
-                    <Field name="id" type="text" label="ID"
+                    <Field
+                        name="id"
+                        type="text"
+                        label="ID"
                         component={ Input } readonly
                     />
-                    <Field name="role" type="text" label="Группа"
+                    <Field
+                        name="role"
+                        type="text"
+                        label="Группа"
                         component={ Input } readonly
                     />
-                    <Field name="username" type="text" label="Имя"
+                    <Field
+                        name="username"
+                        type="text"
+                        label="Имя"
                         component={ Input }
                     />
-                    <Field name="email" type="text" label="E-Mail"
+                    <Field
+                        name="email"
+                        type="text"
+                        label="E-Mail"
                         component={ Input }
                     />
                     <FormActions position="right">

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
-import { reducer as formReducer } from 'redux-form';
+import { routerReducer as routing } from 'react-router-redux';
+import { reducer as form } from 'redux-form';
 
 import { LOGOUT_SUCCESS } from 'actions/session';
 
@@ -15,13 +15,24 @@ import tracks from './tracks';
 import filters from './filters';
 
 const rootReducer = combineReducers({
-    routing: routerReducer, form: formReducer,
-    sidebar, session, modal, toast, table, tickets, users, tracks, filters
+    routing,
+    form,
+    sidebar,
+    session,
+    modal,
+    toast,
+    table,
+    tickets,
+    users,
+    tracks,
+    filters
 });
 
 export default (state, action) => {
     if (action.type === LOGOUT_SUCCESS) {
-        state = { sidebar: state.sidebar };
+        state = {
+            sidebar: state.sidebar
+        };
     }
 
     return rootReducer(state, action);

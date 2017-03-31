@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import Portal from 'react-portal';
 
 import { filterData, sortData, paginate } from 'selectors/table';
+import { changeSort, changeRows, changePage } from 'actions/table';
 import TableHeader from './tableHeader';
 import TablePagination from './tablePagination';
-import { changeSort, changeRows, changePage } from 'actions/table';
 
 class Table extends Component {
     constructor() {
@@ -48,7 +48,9 @@ class Table extends Component {
 
             this.setState({
                 popup: {
-                    visible: true, props: id, position: {
+                    visible: true,
+                    props: id,
+                    position: {
                         top: targetRect.top - bodyRect.top,
                         left: targetRect.right - 168
                     }
@@ -96,7 +98,7 @@ class Table extends Component {
     }
 
     changeRows(event) {
-        this.props.changeRows(parseInt(event.target.value), this.props.name);
+        this.props.changeRows(parseInt(event.target.value, 10), this.props.name);
     }
 
     renderCells(data) {
@@ -116,16 +118,14 @@ class Table extends Component {
     }
 
     renderRows() {
-        return this.props.data.map((item) => {
-            return (
-                <div className="table__row" key={ item.id }>
-                    { this.renderCells(item) }
-                    <div className="table__row-action">
-                        { this.renderActions(item) }
-                    </div>
+        return this.props.data.map((item) => (
+            <div className="table__row" key={ item.id }>
+                { this.renderCells(item) }
+                <div className="table__row-action">
+                    { this.renderActions(item) }
                 </div>
-            );
-        });
+            </div>
+        ));
     }
 
     renderActions(item) {
@@ -144,16 +144,19 @@ class Table extends Component {
     }
 
     renderHeaders() {
-        return this.props.children.map((item) => {
-            return (
-                <TableHeader { ...item.props } key={ item.props.name } sort={ this.props.sort } changeSort={ this.changeSort } />
-            );
-        });
+        return this.props.children.map((item) => (
+            <TableHeader
+                { ...item.props }
+                key={ item.props.name }
+                sort={ this.props.sort }
+                changeSort={ this.changeSort }
+            />
+        ));
     }
 
     render() {
         const { visible, props, position } = this.state.popup;
-        const { children, isFilters, total, page, rows, data } = this.props;
+        const { isFilters, total, page, rows, data } = this.props;
 
         if (!data.length) {
             return (
@@ -180,11 +183,14 @@ class Table extends Component {
                     </div>
                 </div>
                 <TablePagination
-                    changePage={ this.changePage } changeRows={ this.changeRows }
-                    total={ total } page={ page } rows={ rows }
+                    changePage={ this.changePage }
+                    changeRows={ this.changeRows }
+                    total={ total }
+                    page={ page }
+                    rows={ rows }
                 />
                 <Portal closeOnEsc closeOnOutsideClick isOpened={ visible } onClose={ this.closePopup }>
-                    <div className="popup" style={{ left: position.left, top: position.top }}>
+                    <div className="popup" style={ { left: position.left, top: position.top } }>
                         <div className="popup__button" onClick={ this.handleEdit(props) }>
                             <i className="icon icon_edit"></i>
                             <span className="popup__button-text">Редактировать</span>
@@ -224,7 +230,7 @@ function mapStateToProps(state, props) {
     const { name, data, page, ignoreFilter } = props;
     const filters = state.filters[name] && state.filters[name].list;
     const { rows, sort } = state.table[name];
-    const isFilters = filters && Object.keys(filters).length ? true : false;
+    const isFilters = !!filters && !!Object.keys(filters).length;
 
     let total = data.length;
     let processedData = (filters && !ignoreFilter) ? filterData(data, filters) : data;
@@ -239,7 +245,10 @@ function mapStateToProps(state, props) {
     return {
         data: processedData,
         user: state.session.user,
-        isFilters, total, rows, sort
+        isFilters,
+        total,
+        rows,
+        sort
     };
 }
 

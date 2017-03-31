@@ -15,7 +15,8 @@ export function setFilter(filter, target) {
     return {
         type: SET_FILTER,
         payload: {
-            filter, target
+            filter,
+            target
         }
     };
 }
@@ -26,7 +27,8 @@ export function removeFilter(filterName, target) {
     return {
         type: REMOVE_FILTER,
         payload: {
-            filterName, target
+            filterName,
+            target
         }
     };
 }

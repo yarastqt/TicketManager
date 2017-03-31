@@ -33,29 +33,47 @@ class TracksView extends Component {
     }
 
     render() {
+        const {
+            tracks,
+            page
+        } = this.props;
+
         return (
             <Content title="Отслеживание">
                 <div className="content__header">
                     <div className="content__heading">Отслеживание</div>
                     <div className="content__actions">
-                        <Button type="button" view="action" icon="quick-add" text="Добавить сайт"
+                        <Button
+                            type="button"
+                            view="action"
+                            icon="quick-add"
+                            text="Добавить сайт"
                             onClick={ this.showTrackNewModal }
                         />
                     </div>
                 </div>
-                <Loader fetching={ this.props.tracks.fetching }>
+                <Loader fetching={ tracks.fetching }>
                     <Table
-                        name="tracks" data={ this.props.tracks.list } page={ this.props.page }
-                        edit={ this.showTrackModal } remove={ this.deleteTrack }
+                        name="tracks"
+                        data={ tracks.list }
+                        page={ page }
+                        edit={ this.showTrackModal }
+                        remove={ this.deleteTrack }
                     >
                         <TableColumn
-                            name="id" width="10" title="ID"
+                            name="id"
+                            width="10"
+                            title="ID"
                         />
                         <TableColumn
-                            name="name" width="45" title="Название сайта"
+                            name="name"
+                            width="45"
+                            title="Название сайта"
                         />
                         <TableColumn
-                            name="url" width="45" title="URL сайта"
+                            name="url"
+                            width="45"
+                            title="URL сайта"
                         />
                     </Table>
                 </Loader>
@@ -67,7 +85,7 @@ class TracksView extends Component {
 export default connect(
     (state, route) => ({
         tracks: state.tracks,
-        page: parseInt(route.params.page) || 1
+        page: parseInt(route.params.page, 10) || 1
     }),
     { getTracks, deleteTrack, showModal }
 )(TracksView);

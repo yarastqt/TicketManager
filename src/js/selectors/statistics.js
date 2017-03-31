@@ -21,6 +21,7 @@ export const getStatistics = createSelector(
             const data = acc[currentDate] || initialData;
             acc[currentDate] = {
                 ...data,
+                id: currentDate,
                 date: currentDate,
                 [status]: data[status] + 1
             };
@@ -29,7 +30,9 @@ export const getStatistics = createSelector(
         }, {});
         const normalizedResult = Object.keys(result).map((key) => result[key]);
         const totalStatistics = normalizedResult.reduce((acc, value) => {
-            Object.keys(initialData).forEach((key) => acc[key] += value[key]);
+            Object.keys(initialData).forEach((key) => {
+                acc[key] += value[key];
+            });
 
             return acc;
         }, initialData);

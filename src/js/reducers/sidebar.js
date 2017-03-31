@@ -3,11 +3,15 @@ import { SIDEBAR_TOGGLE, SIDEBAR_HIDE } from 'actions/sidebar';
 
 export default createReducer({
     [SIDEBAR_TOGGLE](state) {
-        return { expanded: !state.expanded };
+        return {
+            expanded: !state.expanded
+        };
     },
 
-    [SIDEBAR_HIDE](state) {
-        return { expanded: false };
+    [SIDEBAR_HIDE]() {
+        return {
+            expanded: false
+        };
     }
 }, {
     expanded: true

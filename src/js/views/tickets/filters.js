@@ -36,36 +36,23 @@ class TicketsFilters extends Component {
     }
 
     render() {
+        const {
+            visible,
+            filtersList,
+            disabledReset
+        } = this.props;
+
         return (
-            <div className={ this.props.visible ? 'filters filters_visible' : 'filters' }>
+            <div className={ visible ? 'filters filters_visible' : 'filters' }>
                 <form className="form filters__form">
-                    <Field name="startDate" type="date" label="Дата от"
-                        component={ Input } _onChange={ this.setFilter } highlight
-                    />
-                    <Field name="endDate" type="date" label="Дата до"
-                        component={ Input } _onChange={ this.setFilter } highlight
-                    />
-                    <Field name="source" label="Источник"
-                        component={ Select } options={ this.props.filtersList.sources }
-                        _onChange={ this.setFilter } clearable highlight
-                    />
-                    <Field name="status" label="Статус"
-                        component={ Select } options={ this.props.filtersList.statuses }
-                        _onChange={ this.setFilter } clearable highlight
-                    />
-                    <Field name="createdBy" label="Менеджер"
-                        component={ Select } options={ this.props.filtersList.managers }
-                        _onChange={ this.setFilter } clearable highlight
-                    />
-                    <Field name="serviceType" label="Вид услуги"
-                        component={ Select } options={ this.props.filtersList.serviceTypes }
-                        _onChange={ this.setFilter } clearable highlight
-                    />
+                    <Field name="startDate" type="date" label="Дата от" component={ Input } _onChange={ this.setFilter } highlight />
+                    <Field name="endDate" type="date" label="Дата до" component={ Input } _onChange={ this.setFilter } highlight />
+                    <Field name="source" label="Источник" component={ Select } options={ filtersList.sources } _onChange={ this.setFilter } clearable highlight />
+                    <Field name="status" label="Статус" component={ Select } options={ filtersList.statuses } _onChange={ this.setFilter } clearable highlight />
+                    <Field name="createdBy" label="Менеджер" component={ Select } options={ filtersList.managers } _onChange={ this.setFilter } clearable highlight />
+                    <Field name="serviceType" label="Вид услуги" component={ Select } options={ filtersList.serviceTypes } _onChange={ this.setFilter } clearable highlight />
                     <FormActions position="left">
-                        <Button type="button" view="pseudo" icon="close"
-                            onClick={ this.removeAllFilters }
-                            disabled={ this.props.disabledReset }
-                        />
+                        <Button type="button" view="pseudo" icon="close" onClick={ this.removeAllFilters } disabled={ disabledReset } />
                     </FormActions>
                 </form>
             </div>
@@ -88,7 +75,7 @@ function mapStateToprops(state) {
             startDate,
             endDate
         },
-        disabledReset: Object.keys(filters).length ? false : true,
+        disabledReset: !!Object.keys(filters).length,
         filtersList: getFilters(state)
     };
 }

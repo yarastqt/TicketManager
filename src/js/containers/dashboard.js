@@ -4,10 +4,9 @@ import CN from 'classnames';
 
 import { Header, Sidebar, Modal, Elevator, SnackBar } from 'components/blocks';
 
-function Dashboard({ user, expandedSidebar, children }) {
-    const contentClasses = CN({
-        'content': true,
-        'content_expanded': expandedSidebar
+const Dashboard = ({ user, expandedSidebar, children }) => {
+    const contentClasses = CN('content', {
+        content_expanded: expandedSidebar
     });
 
     return (
@@ -17,7 +16,9 @@ function Dashboard({ user, expandedSidebar, children }) {
             <div className={ contentClasses }>
                 { children }
                 <div className="footer">
-                    <div className="footer__developer">Разработано и спроектировано в JetMix &copy; { new Date().getFullYear() }</div>
+                    <div className="footer__developer">
+                        Разработано и спроектировано в JetMix &copy; { new Date().getFullYear() }
+                    </div>
                 </div>
             </div>
             <Modal />
@@ -25,7 +26,7 @@ function Dashboard({ user, expandedSidebar, children }) {
             <SnackBar />
         </div>
     );
-}
+};
 
 Dashboard.propTypes = {
     user: PropTypes.object.isRequired,

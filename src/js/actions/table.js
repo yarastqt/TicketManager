@@ -6,7 +6,8 @@ export function changeSort(key, table) {
     return {
         type: CHANGE_TABLE_SORT,
         payload: {
-            key, table
+            key,
+            table
         }
     };
 }
@@ -17,7 +18,8 @@ export function changeRows(rows, table) {
     return {
         type: CHANGE_TABLE_ROWS,
         payload: {
-            rows, table
+            rows,
+            table
         }
     };
 }

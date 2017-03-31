@@ -7,9 +7,9 @@ function parseJSON(response) {
 
 function getHeaders(token) {
     return {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
     };
 }
 
@@ -23,9 +23,9 @@ function request(url, options) {
         fetch(endpoint, advancedOptions)
             .then((response) => {
                 if (response.ok) {
-                    parseJSON(response).then((response) => resolve(response));
+                    parseJSON(response).then((res) => resolve(res));
                 } else {
-                    parseJSON(response).then((response) => reject(response));
+                    parseJSON(response).then((res) => reject(res));
                 }
             })
             .catch((error) => {

@@ -51,33 +51,52 @@ class UsersView extends Component {
     }
 
     render() {
+        const {
+            users,
+            page
+        } = this.props;
+
         return (
             <Content title="Пользователи">
                 <div className="content__header">
                     <div className="content__heading">Пользователи</div>
                 </div>
-                <Loader fetching={ this.props.users.fetching }>
+                <Loader fetching={ users.fetching }>
                     <Table
-                        name="users" data={ this.props.users.list } page={ this.props.page }
-                        edit={ this.showUserModal } remove={ this.removeUser }
+                        name="users"
+                        data={ users.list }
+                        page={ page }
+                        edit={ this.showUserModal }
+                        remove={ this.removeUser }
                     >
                         <TableColumn
-                            name="avatar" width="5"
+                            name="avatar"
+                            width="5"
                             cell={ AvatarCell }
                         />
                         <TableColumn
-                            name="username" width="25" title="Имя"
+                            name="username"
+                            width="25"
+                            title="Имя"
                         />
                         <TableColumn
-                            name="email" width="30" title="E-Mail"
+                            name="email"
+                            width="30"
+                            title="E-Mail"
                         />
                         <TableColumn
-                            name="role" width="20" title="Группа"
-                            cell={ RoleCell } sorted
+                            name="role"
+                            width="20"
+                            title="Группа"
+                            cell={ RoleCell }
+                            sorted
                         />
                         <TableColumn
-                            name="blocked" width="20" title="Состояние"
-                            cell={ StatusCell } sorted
+                            name="blocked"
+                            width="20"
+                            title="Состояние"
+                            cell={ StatusCell }
+                            sorted
                         />
                     </Table>
                 </Loader>
@@ -89,7 +108,7 @@ class UsersView extends Component {
 export default connect(
     (state, route) => ({
         users: state.users,
-        page: parseInt(route.params.page) || 1
+        page: parseInt(route.params.page, 10) || 1
     }),
     { getUsers, removeUser, showModal }
 )(UsersView);

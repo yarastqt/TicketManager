@@ -24,14 +24,22 @@ class LoginView extends Component {
                 <div className="sign-container__in">
                     <div className="sign-container__title">Авторизация</div>
                     <Form onSubmit={ this.props.handleSubmit(this.login) } submitting={ this.props.submitting }>
-                        <Field name="email" type="email" label="E-Mail"
+                        <Field
+                            name="email"
+                            type="email"
+                            label="E-Mail"
                             component={ Input }
                         />
-                        <Field name="password" type="password" label="Пароль"
+                        <Field
+                            name="password"
+                            type="password"
+                            label="Пароль"
                             component={ Input }
                         />
                         <FormActions position="right">
-                            <Button type="submit" view="action"
+                            <Button
+                                type="submit"
+                                view="action"
                                 text={ this.props.submitting ? 'Авторизация...' : 'Войти' }
                                 disabled={ this.props.submitting }
                             />

@@ -51,8 +51,7 @@ class Elevator extends Component {
     }
 
     render() {
-        const elevatorClasses = CN({
-            'elevator': true,
+        const elevatorClasses = CN('elevator', {
             'elevator_visible': this.state.visible,
             'elevator_shifted': this.props.isActiveSnackBar
         });

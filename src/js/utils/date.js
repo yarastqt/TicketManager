@@ -12,7 +12,7 @@ export default {
     },
 
     fromTS(ts) {
-        const date = ts ? new Date(ts) : new Date;
+        const date = ts ? new Date(ts) : new Date();
         const year = date.getFullYear();
         const month = pad(date.getMonth() + 1);
         const day = pad(date.getDate());
@@ -23,7 +23,7 @@ export default {
             getDate(normalize) {
                 return normalize
                     ? `${day}.${month}.${year}`
-                    : `${year}-${month}-${day}`
+                    : `${year}-${month}-${day}`;
             },
 
             getTime() {
